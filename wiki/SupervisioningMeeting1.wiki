@@ -1,6 +1,6 @@
-#MeetingInformation1
+#Meeting Information (2008.10.22)
 
-= Tasks (2008.10.22) =
+= Tasks =
 
    * Milestones
    * Half page - problem statement/goal
