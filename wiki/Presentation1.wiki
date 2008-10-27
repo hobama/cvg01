@@ -1,0 +1,6 @@
+#First presentation info
+
+= Subjects =
+
+* Loading model to OpenGL
+* Linear blend skinning (from skin-example.pdf in email and maya tutorial)
