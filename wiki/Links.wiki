@@ -1,0 +1,4 @@
+#Useful links
+
+* http://www.xbdev.net/
+* http://www.gamedev.net/
