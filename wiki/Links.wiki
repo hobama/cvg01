@@ -1,5 +1,6 @@
 #Useful links
 
-* http://www.xbdev.net/
-* http://www.gamedev.net/
-* http://nehe.gamedev.net/
+  * http://www.xbdev.net/
+  * http://www.gamedev.net/
+  * http://nehe.gamedev.net/
+  * http://sevengeekwonders.guecks.com/?p=115
