@@ -9,12 +9,14 @@
 
 #ifndef _POLYGON_H_
 #define _POLYGON_H_
-#include "systeminclude.h"
 #include <vector>
 #include <iostream>
 #include "vertex.h"
 #include "normal.h"
 #include "texel.h"
+
+#include "systeminclude.h"
+
 using namespace std; 
 class Polygon {
 protected:
