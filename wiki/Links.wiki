@@ -4,3 +4,4 @@
   * http://www.gamedev.net/
   * http://nehe.gamedev.net/
   * http://sevengeekwonders.guecks.com/?p=115
+  * http://gpwiki.org/index.php/OpenGL:Tutorials:Basic_Bones_System
