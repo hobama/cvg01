@@ -1,0 +1,36 @@
+#skeleton description
+j left_wrist 7.185 13.784 -0.053
+j left_elbow 4.405 14.142 -0.284
+j left_shoulder 2.107 14.53 0.0
+j right_wrist -7.185 13.784 -0.053
+j right_elbow -4.405 14.142 -0.284
+j right_shoulder -2.107 14.53 0.0
+j upper_back 0.0 13.872 -0.263
+j neck 0.0 14.967 -0.08
+j back_root 0.0 8.533 -0.003
+j left_hip 1.053 8.388 -0.287
+j left_knee 1.72 4.135 0.078
+j left_ankle 2.429 0.655 -0.646
+j left_ball 2.581 0.563 0.763
+j right_hip -1.053 8.388 -0.287
+j right_knee -1.72 4.135 0.078
+j right_ankle -2.429 0.655 -0.646
+j right_ball -2.585 0.563 0.763
+#
+jc back_root 0 3 left_hip right_hip upper_back
+jc upper_back back_root 3 neck right_shoulder left_shoulder
+jc left_shoulder upper_back 1 left_elbow
+jc left_elbow left_shoulder 1 left_wrist
+jc left_wrist left_elbow 0
+jc right_shoulder upper_back 1 right_elbow
+jc right_elbow right_shoulder 1 right_wrist
+jc right_wrist right_elbow 0
+jc left_hip back_root 1 left_knee
+jc left_knee left_hip 1 left_ankle
+jc left_ankle left_knee 1 left_ball
+jc left_ball left_ankle 0
+jc right_hip back_root 1 right_knee
+jc right_knee right_hip 1 right_ankle
+jc right_ankle right_knee 1 right_ball
+jc right_ball right_ankle 0
+##

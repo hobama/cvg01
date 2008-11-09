@@ -5,8 +5,10 @@
 #include "medmath.h"
 #include "cordsystem.h"
 #include "vertex.h"
+#include "jointreader.h"
 #include "objreader.h"
-#include "model.h";
+#include "model.h"
+
 using namespace std;
 
 std::vector<float> viewDir(3), viewPos(3);
@@ -17,6 +19,7 @@ Model *model;
 char *characterFile;
 void display()
 {
+	return;// MY Debug.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//set camera
 	glMatrixMode(GL_MODELVIEW);
@@ -165,6 +168,7 @@ void mouseMotion(int x, int y)
 	glutPostRedisplay();
 }
 void init(int argc, char *argv[]) {
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);	
 	
@@ -183,16 +187,29 @@ void init(int argc, char *argv[]) {
 	
 	cordSystem = new CordSystem();
 	glPointSize(4.0);
+
+	
+	/**
+	 * Joint reader
+	 */
+	char *jointfilename = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/joint.coord";
+
+	JointReader *jointReader = new JointReader(jointfilename);
+	jointReader->readData();
 	
 	//#############################
 	// test field
 	
 	//for (int i=0;i<argc;i++)
 	//	cout<<i<<": "<<argv[i]<<endl;
-	//char *filename = "/Users/a1gucis/Documents/temp/human.obj";
+
+	/*char *filename = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/human.obj";
+	argv[1]=filename;
+
 	ObjReader *reader = new ObjReader(argv[1]);
 	reader->readData();
-	model = new Model(reader->getPolygons(), reader->getNumOfPolygons());
+	model = new Model(reader->getPolygons(), reader->getNumOfPolygons());*/
+
 	//reader->displayVertexData();
 	//reader->displayTexelData();
 	//#############################
