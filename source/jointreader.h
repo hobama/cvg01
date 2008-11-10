@@ -16,6 +16,7 @@ private:
 	char *filename;
 	vector<Joint *> *joints;
 	int numOfJoints;
+	Joint *rootJoint;
 	void readJointData(ifstream *datafile);
 public:
 	JointReader(char *filename);
@@ -24,6 +25,7 @@ public:
 	Joint *findJointByName(char *name);
 	vector<Joint *> *getJoints();
 	int getNumOfJoints();
+	Joint *getRootJoint();
 	//
 };
 

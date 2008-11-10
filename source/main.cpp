@@ -196,7 +196,7 @@ void init(int argc, char *argv[]) {
 
 	JointReader *jointReader = new JointReader(jointfilename);
 	jointReader->readData();
-	jointBuilder = new JointBuilder(jointReader->getJoints(), jointReader->getNumOfJoints());
+	jointBuilder = new JointBuilder(jointReader->getJoints(), jointReader->getNumOfJoints(), jointReader->getRootJoint());
 	
 	//#############################
 	// test field
