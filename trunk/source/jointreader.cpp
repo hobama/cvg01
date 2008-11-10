@@ -75,6 +75,8 @@ void JointReader::readJointData(ifstream *datafile) {
 					if(strcmp("0", parname) != 0) {
 						Joint *pppjoint = this->findJointByName(parname);
 						curjoint->setParent(pppjoint);
+					} else {
+						this->rootJoint = curjoint;
 					}
 					//cout << "p: " << parname << endl;
 					// Get child count
@@ -142,4 +144,8 @@ vector<Joint *> *JointReader::getJoints() {
 
 int JointReader::getNumOfJoints() {
 	return this->joints->size();
+}
+
+Joint *JointReader::getRootJoint() {
+	return this->rootJoint;
 }

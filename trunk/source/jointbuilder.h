@@ -8,9 +8,10 @@ using namespace std;
 class JointBuilder {
 private: 
 	int numOfJoints;
+	Joint *rootJoint;
 	vector<Joint *> *joints;
 public:
-	JointBuilder(vector<Joint *> *joints, int numOfJoints);
+	JointBuilder(vector<Joint *> *joints, int numOfJoints, Joint *rootJoint);
 	void draw();
 	//
 };
