@@ -14,5 +14,5 @@ JointBuilder::JointBuilder(vector<Joint *> *joints, int numOfJoints, Joint *root
 }
 
 void JointBuilder::draw() {
-	rootJoint->draw();
+	rootJoint->draw(false);
 }

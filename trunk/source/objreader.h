@@ -21,7 +21,6 @@ using namespace std;
 
 class ObjReader {
 private: 
-	char *filename;
 	int numOfVertices, numOfTexels, numOfNormals, numOfPolygons;
 	vector<Vertex *> *vertices;
 	vector<Texel *> *texels;
@@ -33,8 +32,8 @@ private:
 	void readNormalData(ifstream *datafile);
 	void readPolygonData(ifstream *datafile);
 public:
-	ObjReader(char *filename);
-	void readData();
+	ObjReader();
+	void readData(char *filename);
 	vector<Polygon3 *> *getPolygons();
 	int getNumOfPolygons();
 	//

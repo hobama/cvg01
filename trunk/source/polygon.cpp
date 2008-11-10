@@ -25,7 +25,9 @@ int Polygon::getSize() {
 	return size;
 }
 void Polygon::draw() {
-	//glPushMatrix();
+	glPushMatrix();
+	float color[] = {1.0f, 1.0f, 0.0f};
+	glMaterialfv(GL_FRONT, GL_AMBIENT, color);
 	glBegin(GL_POLYGON);
 	for (int i=0;i<size;i++) {
 		Vertex *vertex = (*vertices)[i];
@@ -39,7 +41,7 @@ void Polygon::draw() {
 		glNormal3f(normal->getX(), normal->getY(), normal->getZ());
 	}
 	glEnd();		
-	//glPopMatrix();
+	glPopMatrix();
 }
 
 vector<float> *Polygon::getCenter() {

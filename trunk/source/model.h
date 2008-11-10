@@ -10,14 +10,14 @@
 #define _MODEL_H_
 #include <vector>
 #include "Polygon3.h"
-#include "jointbuilder.h"
+#include "jointreader.h"
+#include "objreader.h"
+#include "Joint.h"
 class Model{
 private:
-	int numOfPolygons;
-	vector<Polygon3 *> *polygons;
-	JointBuilder *jointBuilder;
+	Joint *rootJoint;
 public:
-	Model(vector<Polygon3 *> *polygons, int numOfPolygons, JointBuilder *jointBuilder);
+	Model(char *jointFileName, char *meshDirectory); //for example /Users/a1gucis/Documents/meshes/
 	void draw();
 };
 

@@ -9,21 +9,31 @@
 
 #include "model.h"
 
-Model::Model(vector<Polygon3 *> *polygons, int numOfPolygons, JointBuilder *jointBuilder) {
-	this->polygons = polygons;
-	this->numOfPolygons = numOfPolygons;
-	this->jointBuilder = jointBuilder;
-	cout <<"numOfpolygons: "<<numOfPolygons<<endl;
+Model::Model(char *jointFileName, char *meshDirectory) {
+	JointReader *jntReader = new JointReader(jointFileName);
+	jntReader->readData();
+	rootJoint = jntReader->getRootJoint();
+	
+	vector<Joint *> *joints = jntReader->getJoints();
+	int numOfJoints = jntReader->getNumOfJoints();
+	ObjReader *objreader = new ObjReader();
+	char meshFileName[128];
+	for (int i=0;i<numOfJoints;i++) {
+		strcpy(meshFileName, meshDirectory);
+		Joint *joint = (*joints)[i];
+		char *jointName = joint->getName();
+		strcat(meshFileName, jointName);
+		strcat(meshFileName, ".obj");
+		objreader->readData(meshFileName);
+		
+		vector<Polygon3 *> *polygons = objreader->getPolygons();
+		int numOfPolygons = objreader->getNumOfPolygons();
+		Mesh *mesh = new Mesh(polygons, numOfPolygons);
+		joint->setMesh(mesh);
+	}
+	
 }
 
 void Model::draw() {
-	Polygon3 *polygon;
-	for (int i=0;i<numOfPolygons;i++) {
-		polygon = (*polygons)[i];
-		polygon->draw();
-	}
-	
-	// Draw joints
-	jointBuilder->draw();
-	
+	rootJoint->draw(true);	
 }

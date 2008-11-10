@@ -14,6 +14,8 @@ Joint::Joint(char *name, float x, float y, float z) {
 	// Parent
 	this->parent = NULL;
 	
+	// Mesh
+	this->mesh = NULL;
 	// Children
 	this->children = new vector<Joint *>;
 	this->childrenNumber = 0;
@@ -56,23 +58,34 @@ vector<float> Joint::getCoords() {
 	return n;
 }
 
-void Joint::draw() {
+void Joint::setMesh(Mesh *mesh) {
+	this->mesh = mesh;
+}
+
+Mesh* Joint::getMesh() {
+	return this->mesh;
+}
+void Joint::draw(bool drawMesh) {
 	glPushMatrix();
 	
 	glTranslatef(x, y, z);
 	const float color[]= {0.1, 0.5, 1.6, 1.0 };
 	glMaterialfv(GL_FRONT, GL_AMBIENT, color);
 	glutSolidSphere(0.1,10,10);
-	
+	if (strcmp(this->name,"left_knee") == 0)
+		glRotatef(90, 1, 0, 0);
 	glTranslatef(-1 * x, -1 * y, -1 * z);
+	if ((drawMesh) && (this->mesh != NULL))
+		this->mesh->draw();
 	for (int i=0;i<childrenNumber;i++) {
 		Joint *child = (*children)[i];
 		vector<float> coords = child->getCoords();
+		glMaterialfv(GL_FRONT, GL_AMBIENT, color);
 		glBegin(GL_LINES);
 		glVertex3f(x, y, z);
 		glVertex3f((coords)[0], (coords)[1], (coords)[2]);
 		glEnd();
-		child->draw();
+		child->draw(drawMesh);
 	}
 	
 	glPopMatrix();
