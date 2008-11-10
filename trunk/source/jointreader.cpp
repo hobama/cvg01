@@ -37,6 +37,11 @@ void JointReader::readData() {
 			}
 		}
 		datafile->close();
+
+		/*Debug - print full tree
+		for (int i=0;i<numOfJoints;i++) {
+			(*joints)[i]->debugJoint();
+		}*/
 	}else 
 		cout << "Unable to open file";
 }
@@ -47,31 +52,51 @@ void JointReader::readData() {
 void JointReader::readJointData(ifstream *datafile) {
 	char controlSymbol; 
 	float x, y, z;
-	char name[20];
+	char *name=NULL;
 
 	controlSymbol = datafile->peek();
 
 	switch (controlSymbol) {
 		case 'c': //If it's a joint hierarchy list
-			/*{
-			*datafile >> controlSymbol;
-			*datafile >> x;
-			*datafile >> y;
-			Texel *texel = new Texel(x, y);
-			if (numOfTexels == texels->size()) {
-				int newsize = floor(texels->size() + texels->size() * VECTOR_GROWTH);
-				texels->resize(newsize);
-			}
-			(*texels)[numOfTexels++] = texel;
-			}*/
 			{
-			char* name2 = "Asdasd";
-			this->findJointByName(name2);
+				*datafile >> controlSymbol;
+
+				// Get joint
+				Joint *curjoint = NULL;
+				name = new char[JOINT_NAME_SIZE];
+				*datafile >> name;
+				curjoint = this->findJointByName(name);
+				//cout << "========" << endl;
+				//cout << "n: " << name << endl;
+				if(curjoint) {
+					// Set parent joint
+					char *parname = new char[JOINT_NAME_SIZE];
+					*datafile >> parname;
+					if(strcmp("0", parname) != 0) {
+						Joint *pppjoint = this->findJointByName(parname);
+						curjoint->setParent(pppjoint);
+					}
+					//cout << "p: " << parname << endl;
+					// Get child count
+					int childcount;
+					*datafile >> childcount;
+
+					// Set childs
+					for (int i=0;i<childcount;i++) {
+						char *childname = new char[JOINT_NAME_SIZE];
+						*datafile >> childname;
+						cout << name << " -> " << childname << endl;
+						curjoint->addChild(this->findJointByName(childname));
+						
+					}
+				}
+				//cout << "========" << endl;
 			}
 			break;
 		default: //If it's a new joint
 			{
 			// Joint name
+			name = new char[JOINT_NAME_SIZE];
 			*datafile >> name;
 			// Joint positions
 			*datafile >> x;
@@ -92,11 +117,19 @@ void JointReader::readJointData(ifstream *datafile) {
  */
 Joint *JointReader::findJointByName(char *name) {
 
-	for (int i=0;i<numOfJoints;i++) {
+	string n1, n2;
+	n1 = name;
 
-		cout << name <<" - "<<(*joints)[i]->getName() <<endl;
+	for (int i=0;i<numOfJoints;i++) {
+		n2 = (*joints)[i]->getName();
+		if (n1 == n2) 
+		{
+			Joint *joint = (*joints)[i];
+			return joint;
+		}
+
 	}
-	return (*joints)[1];
+	return NULL;
 }
 
 /**

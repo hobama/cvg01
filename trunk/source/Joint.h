@@ -14,8 +14,11 @@ public:
 	Joint(char *name, float x, float y, float z);
 	void setParent(Joint *parent);
 	void addChild (Joint *child);
-	char* getName();
+	
+	char *getName();
 	vector<float> getCoords();
+	
 	void draw();
+	void debugJoint();
 };
 #endif
