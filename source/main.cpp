@@ -168,7 +168,7 @@ void mouseMotion(int x, int y)
 	glutPostRedisplay();
 }
 void init(int argc, char *argv[]) {
-
+	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);	
 	
@@ -187,13 +187,13 @@ void init(int argc, char *argv[]) {
 	
 	cordSystem = new CordSystem();
 	glPointSize(4.0);
-
+	
 	
 	/**
 	 * Joints
 	 */
-	char *jointfilename = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/joint.coord";
-
+	char *jointfilename = "/Users/a1gucis/Documents/temp/joint.coord";
+	
 	JointReader *jointReader = new JointReader(jointfilename);
 	jointReader->readData();
 	jointBuilder = new JointBuilder(jointReader->getJoints(), jointReader->getNumOfJoints(), jointReader->getRootJoint());
@@ -203,14 +203,14 @@ void init(int argc, char *argv[]) {
 	
 	//for (int i=0;i<argc;i++)
 	//	cout<<i<<": "<<argv[i]<<endl;
-
-	char *filename = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/human.obj";
-	argv[1]=filename;
-
+	
+	//char *filename = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/human.obj";
+	//argv[1]=filename;
+	
 	ObjReader *reader = new ObjReader(argv[1]);
 	reader->readData();
 	model = new Model(reader->getPolygons(), reader->getNumOfPolygons(), jointBuilder);
-
+	
 	//reader->displayVertexData();
 	//reader->displayTexelData();
 	//#############################
@@ -221,7 +221,7 @@ int main (int argc, char *argv[]) {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	//glutInitWindowSize(640,480);	
 	glutInitWindowSize(800,600);
-
+	
 	glutCreateWindow("openGL/glut example");
 	
 	

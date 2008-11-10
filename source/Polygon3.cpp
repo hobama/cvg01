@@ -13,4 +13,27 @@ Polygon3::Polygon3(vector<Vertex *> *vertices, vector<Texel *> *texels, vector<N
 	this->vertices = vertices;
 	this->texels = texels;
 	this->normals = normals;
+	
+	float centerX, centerY, centerZ;
+	Vertex *vertex = (*vertices)[0];
+	centerX = vertex->getX();
+	centerY = vertex->getY();
+	centerZ = vertex->getZ();
+	for (int i=1;i<vertices->size();i++) {
+		vertex = (*vertices)[i];
+		centerX += vertex->getX();
+		centerX /= 2.0;
+		
+		centerY += vertex->getY();
+		centerY /= 2.0;
+		
+		centerZ += vertex->getZ();
+		centerZ /= 2.0;
+	}
+	
+	vector<float> *cntr = new vector<float>(3);
+	(*cntr)[0] = centerX;
+	(*cntr)[1] = centerY;
+	(*cntr)[2] = centerZ;
+	this->center = cntr;
 }
