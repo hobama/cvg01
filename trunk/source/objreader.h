@@ -7,7 +7,7 @@
  *
  */
 #ifndef _OBJREADER_H_
-#define _OBJReADER_H_
+#define _OBJREADER_H_
 #include <vector>
 #include <iostream>
 #include <fstream>

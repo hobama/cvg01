@@ -14,6 +14,11 @@ Polygon::Polygon(int size) {
 	vertices = new vector<Vertex *>(size);
 	texels = new vector<Texel *>(size);
 	normals = new vector<Normal *>(size);
+	
+	center = new vector<float>(3); // x y z;
+	(*center)[0] = 0.0;
+	(*center)[1] = 0.0;
+	(*center)[2] = 0.0;
 }
 
 int Polygon::getSize() {
@@ -37,6 +42,9 @@ void Polygon::draw() {
 	//glPopMatrix();
 }
 
+vector<float> *Polygon::getCenter() {
+	return this->center;
+}
 vector<Vertex *> *Polygon::getVertices() {
 	return vertices;
 }

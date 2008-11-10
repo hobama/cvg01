@@ -22,7 +22,7 @@ void Model::draw() {
 		polygon = (*polygons)[i];
 		polygon->draw();
 	}
-
+	
 	// Draw joints
 	jointBuilder->draw();
 	

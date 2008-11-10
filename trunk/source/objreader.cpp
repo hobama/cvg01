@@ -31,7 +31,6 @@ void ObjReader::readData() {
 	{
 		char controlSymbol;
 		char buffer[1024];
-		int line = 0;
 		while (!datafile->eof()) {
 			*datafile >> controlSymbol;
 			switch (controlSymbol) {
@@ -48,7 +47,7 @@ void ObjReader::readData() {
 		}
 		datafile->close();
 	}else 
-		cout << "Unable to open file";
+		cout << "Unable to open " << filename << endl;
 }
 
 void ObjReader::readVertexData(ifstream *datafile) {
