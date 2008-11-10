@@ -16,7 +16,7 @@ float fovG=40;
 int oldMouseX, oldMouseY;
 CordSystem *cordSystem;
 Model *model;
-JointBuilder *jointBuilder;
+//JointBuilder *jointBuilder;
 char *characterFile;
 void display()
 {
@@ -193,10 +193,10 @@ void init(int argc, char *argv[]) {
 	 * Joints
 	 */
 	char *jointfilename = "/Users/a1gucis/Documents/temp/joint.coord";
-	
-	JointReader *jointReader = new JointReader(jointfilename);
-	jointReader->readData();
-	jointBuilder = new JointBuilder(jointReader->getJoints(), jointReader->getNumOfJoints(), jointReader->getRootJoint());
+	char *meshDirectory = "/Users/a1gucis/Documents/temp/objs/"; //meshDirectory name has to end with either / or \ depending on the OS :)
+	//JointReader *jointReader = new JointReader(jointfilename);
+//	jointReader->readData();
+//	jointBuilder = new JointBuilder(jointReader->getJoints(), jointReader->getNumOfJoints(), jointReader->getRootJoint());
 	
 	//#############################
 	// test field
@@ -206,10 +206,12 @@ void init(int argc, char *argv[]) {
 	
 	//char *filename = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/human.obj";
 	//argv[1]=filename;
-	
-	ObjReader *reader = new ObjReader(argv[1]);
-	reader->readData();
-	model = new Model(reader->getPolygons(), reader->getNumOfPolygons(), jointBuilder);
+//		ObjReader *reader = new ObjReader();
+//	reader->readData(filename);
+	//model = new Model(reader->getPolygons(), reader->getNumOfPolygons(), jointBuilder);
+	model = new Model(jointfilename, meshDirectory);
+//	ObjReader *reader2 = new ObjReader("/Users/a1gucis/Documents/temp/objs/left_ankle.obj");
+//	reader2->readData();
 	
 	//reader->displayVertexData();
 	//reader->displayTexelData();

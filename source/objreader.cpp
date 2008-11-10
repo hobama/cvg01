@@ -12,7 +12,10 @@ const int INITIAL_VECTOR_SIZE = 200;
 const float VECTOR_GROWTH = 0.5;
 const int POLYGON_SIZE = 3;
 
-ObjReader::ObjReader(char *filename) {
+ObjReader::ObjReader() {
+}
+
+void ObjReader::readData(char *filename) {
 	numOfTexels = 0;
 	numOfVertices = 0;
 	numOfNormals = 0;
@@ -21,10 +24,7 @@ ObjReader::ObjReader(char *filename) {
 	texels = new vector<Texel *>(INITIAL_VECTOR_SIZE);
 	normals = new vector<Normal *>(INITIAL_VECTOR_SIZE);
 	polygons = new vector<Polygon3 *>(INITIAL_VECTOR_SIZE);
-	this->filename	= filename;
-}
-
-void ObjReader::readData() {
+	
 	ifstream *datafile = new ifstream(filename);
 	
 	if (datafile->is_open())
@@ -33,16 +33,18 @@ void ObjReader::readData() {
 		char buffer[1024];
 		while (!datafile->eof()) {
 			*datafile >> controlSymbol;
-			switch (controlSymbol) {
-				case 'v': //vertex data
-					readVertexData(datafile);
-					break;
-				case 'f': //polygon data
-					readPolygonData(datafile);
-					break;
-				default:
-					datafile->getline(buffer, 1024);
-					break;
+			if (!datafile->eof()) {
+				switch (controlSymbol) {
+					case 'v': //vertex data
+						readVertexData(datafile);
+						break;
+					case 'f': //polygon data
+						readPolygonData(datafile);
+						break;
+					default:
+						datafile->getline(buffer, 1024);
+						break;
+				}
 			}
 		}
 		datafile->close();
