@@ -16,10 +16,10 @@ float fovG=40;
 int oldMouseX, oldMouseY;
 CordSystem *cordSystem;
 Model *model;
+JointBuilder *jointBuilder;
 char *characterFile;
 void display()
 {
-	return;// MY Debug.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//set camera
 	glMatrixMode(GL_MODELVIEW);
@@ -190,12 +190,13 @@ void init(int argc, char *argv[]) {
 
 	
 	/**
-	 * Joint reader
+	 * Joints
 	 */
 	char *jointfilename = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/joint.coord";
 
 	JointReader *jointReader = new JointReader(jointfilename);
 	jointReader->readData();
+	jointBuilder = new JointBuilder(jointReader->getJoints(), jointReader->getNumOfJoints());
 	
 	//#############################
 	// test field
@@ -203,12 +204,12 @@ void init(int argc, char *argv[]) {
 	//for (int i=0;i<argc;i++)
 	//	cout<<i<<": "<<argv[i]<<endl;
 
-	/*char *filename = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/human.obj";
+	char *filename = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/human.obj";
 	argv[1]=filename;
 
 	ObjReader *reader = new ObjReader(argv[1]);
 	reader->readData();
-	model = new Model(reader->getPolygons(), reader->getNumOfPolygons());*/
+	model = new Model(reader->getPolygons(), reader->getNumOfPolygons(), jointBuilder);
 
 	//reader->displayVertexData();
 	//reader->displayTexelData();

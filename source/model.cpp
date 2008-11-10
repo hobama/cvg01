@@ -9,9 +9,10 @@
 
 #include "model.h"
 
-Model::Model(vector<Polygon3 *> *polygons, int numOfPolygons) {
+Model::Model(vector<Polygon3 *> *polygons, int numOfPolygons, JointBuilder *jointBuilder) {
 	this->polygons = polygons;
 	this->numOfPolygons = numOfPolygons;
+	this->jointBuilder = jointBuilder;
 	cout <<"numOfpolygons: "<<numOfPolygons<<endl;
 }
 
@@ -21,5 +22,8 @@ void Model::draw() {
 		polygon = (*polygons)[i];
 		polygon->draw();
 	}
+
+	// Draw joints
+	jointBuilder->draw();
 	
 }

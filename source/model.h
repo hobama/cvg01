@@ -10,12 +10,14 @@
 #define _MODEL_H_
 #include <vector>
 #include "Polygon3.h"
+#include "jointbuilder.h"
 class Model{
 private:
 	int numOfPolygons;
 	vector<Polygon3 *> *polygons;
+	JointBuilder *jointBuilder;
 public:
-	Model(vector<Polygon3 *> *polygons, int numOfPolygons);
+	Model(vector<Polygon3 *> *polygons, int numOfPolygons, JointBuilder *jointBuilder);
 	void draw();
 };
 

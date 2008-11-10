@@ -33,4 +33,5 @@ jc right_hip back_root 1 right_knee
 jc right_knee right_hip 1 right_ankle
 jc right_ankle right_knee 1 right_ball
 jc right_ball right_ankle 0
+jc neck upper_back 0
 ##

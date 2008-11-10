@@ -9,6 +9,8 @@
 #include "Polygon3.h"
 using namespace std;
 
+const int JOINT_NAME_SIZE = 20;
+
 class JointReader {
 private: 
 	char *filename;
