@@ -58,6 +58,7 @@ void ObjReader::readVertexData(ifstream *datafile) {
 	controlSymbol = datafile->peek();
 	switch (controlSymbol) {
 		case 't': //it is a texel
+			{
 			*datafile >> controlSymbol;
 			*datafile >> x;
 			*datafile >> y;
@@ -67,8 +68,10 @@ void ObjReader::readVertexData(ifstream *datafile) {
 				texels->resize(newsize);
 			}
 			(*texels)[numOfTexels++] = texel;
+			}
 			break;
 		case 'n':// it is normal
+			{
 			*datafile >> controlSymbol;
 			
 			*datafile >> x;
@@ -80,11 +83,13 @@ void ObjReader::readVertexData(ifstream *datafile) {
 				normals->resize(newsize);
 			}
 			(*normals)[numOfNormals++] = normal;
+			}
 			break;
 		case 'p':
 			
 			break;
 		default: //it is a vertex
+			{
 			*datafile >> x;
 			*datafile >> y;
 			*datafile >> z;
@@ -94,7 +99,7 @@ void ObjReader::readVertexData(ifstream *datafile) {
 				vertices->resize(newsize);
 			}
  			(*vertices)[numOfVertices++] = vertex;
-			
+			}
 			break;
 	}
 }
