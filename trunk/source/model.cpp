@@ -24,14 +24,19 @@ Model::Model(char *jointFileName, char *meshDirectory) {
 		char *jointName = joint->getName();
 		strcat(meshFileName, jointName);
 		strcat(meshFileName, ".obj");
-		objreader->readData(meshFileName);
-		
-		vector<Polygon3 *> *polygons = objreader->getPolygons();
-		int numOfPolygons = objreader->getNumOfPolygons();
-		Mesh *mesh = new Mesh(polygons, numOfPolygons);
-		joint->setMesh(mesh);
+		if (objreader->readData(meshFileName)) {
+			vector<Polygon3 *> *polygons = objreader->getPolygons();
+			int numOfPolygons = objreader->getNumOfPolygons();
+			Mesh *mesh = new Mesh(polygons, numOfPolygons);
+			mesh->setVertices(objreader->getVertices(), objreader->getNumOfVertices());
+			joint->setMesh(mesh);
+		}
 	}
 	
+	for (int i=0;i<numOfJoints;i++) {
+		Joint *joint = (*joints)[i];
+		joint->createMeshConnection();
+	}
 }
 
 void Model::draw() {

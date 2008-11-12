@@ -16,6 +16,9 @@ Joint::Joint(char *name, float x, float y, float z) {
 	
 	// Mesh
 	this->mesh = NULL;
+	
+	//Mesh connection
+	this->meshConnection = NULL;
 	// Children
 	this->children = new vector<Joint *>;
 	this->childrenNumber = 0;
@@ -62,9 +65,18 @@ void Joint::setMesh(Mesh *mesh) {
 	this->mesh = mesh;
 }
 
+void Joint::createMeshConnection() {
+	if ((this->mesh != NULL) && (parent->getMesh() != NULL)) {
+		this->meshConnection = new MeshConnection(this->mesh, parent->getMesh(), 0.2);
+		cout<<name<<" in connectVertices()"<<endl;
+		this->meshConnection->connectVertices();
+	}
+
+}
 Mesh* Joint::getMesh() {
 	return this->mesh;
 }
+
 void Joint::draw(bool drawMesh) {
 	glPushMatrix();
 	
@@ -77,6 +89,9 @@ void Joint::draw(bool drawMesh) {
 	glTranslatef(-1 * x, -1 * y, -1 * z);
 	if ((drawMesh) && (this->mesh != NULL))
 		this->mesh->draw();
+	if (meshConnection != NULL)
+		meshConnection->draw();
+	
 	for (int i=0;i<childrenNumber;i++) {
 		Joint *child = (*children)[i];
 		vector<float> coords = child->getCoords();

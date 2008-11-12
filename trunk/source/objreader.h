@@ -33,9 +33,10 @@ private:
 	void readPolygonData(ifstream *datafile);
 public:
 	ObjReader();
-	void readData(char *filename);
+	bool readData(char *filename);
 	vector<Polygon3 *> *getPolygons();
 	int getNumOfPolygons();
+	int getNumOfVertices();
 	//
 	void displayVertexData();
 	void displayNormalData();

@@ -1,8 +1,11 @@
 #ifndef _JOINT_H_
 #define _JOINT_H_
 #include <string>
+#include <vector>
 #include "mesh.h"
 #include "Polygon3.h"
+#include "vertex.h"
+#include "meshconnection.h"
 class Joint {
 private:
 	char *name;
@@ -11,6 +14,7 @@ private:
 	int childrenNumber;
 	vector<Joint *> *children;
 	Mesh *mesh;
+	MeshConnection *meshConnection;
 	
 public:
 	Joint(char *name, float x, float y, float z);
@@ -22,6 +26,7 @@ public:
 	void setMesh(Mesh *mesh);
 	Mesh *getMesh();
 	
+	void createMeshConnection();
 	void draw(bool drawMesh);
 	void debugJoint();
 };

@@ -10,7 +10,13 @@
 #define _VERTEX_H_
 #include "vect.h"
 class Vertex : public Vect {
+private:
+	bool connected;
 public:
 	Vertex(float x, float y, float z);
+	
+	void setConnected();
+	bool isConnected();
+	
 };
 #endif
