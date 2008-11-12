@@ -10,4 +10,13 @@
 #include "vertex.h"
 
 Vertex::Vertex(float x, float y, float z) : Vect(x, y, z) {
+	this->connected = false;
+}
+
+void Vertex::setConnected() {
+	this->connected = true;
+}
+
+bool Vertex::isConnected(){
+	return this->connected;
 }

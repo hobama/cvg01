@@ -22,3 +22,15 @@ void Mesh::draw() {
 
 	}
 }
+void Mesh::setVertices(vector<Vertex *> *vertices, int numOfVertices) {
+	this->vertices = vertices;
+	this->numOfVertices = numOfVertices;
+}
+
+vector<Vertex *>* Mesh::getVertices() {
+	return this->vertices;
+}
+
+int Mesh::getNumOfVertices() {
+	return this->numOfVertices;
+}

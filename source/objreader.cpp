@@ -15,7 +15,7 @@ const int POLYGON_SIZE = 3;
 ObjReader::ObjReader() {
 }
 
-void ObjReader::readData(char *filename) {
+bool ObjReader::readData(char *filename) {
 	numOfTexels = 0;
 	numOfVertices = 0;
 	numOfNormals = 0;
@@ -48,8 +48,11 @@ void ObjReader::readData(char *filename) {
 			}
 		}
 		datafile->close();
-	}else 
+		return true;
+	}else  {
 		cout << "Unable to open " << filename << endl;
+		return false;
+	}
 }
 
 void ObjReader::readVertexData(ifstream *datafile) {
@@ -146,6 +149,10 @@ vector<Polygon3 *> *ObjReader::getPolygons() {
 
 int ObjReader::getNumOfPolygons() {
 	return numOfPolygons;
+}
+
+int ObjReader::getNumOfVertices() {
+	return numOfVertices;
 }
 //#####################
 vector<Vertex *> *ObjReader::getVertices() {

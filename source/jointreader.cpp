@@ -87,7 +87,7 @@ void JointReader::readJointData(ifstream *datafile) {
 				for (int i=0;i<childcount;i++) {
 					char *childname = new char[JOINT_NAME_SIZE];
 					*datafile >> childname;
-					cout << name << " -> " << childname << endl;
+					//cout << name << " -> " << childname << endl;
 					curjoint->addChild(this->findJointByName(childname));
 					
 				}

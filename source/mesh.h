@@ -13,13 +13,17 @@
 #include <iostream>
 #include "systeminclude.h"
 #include "Polygon3.h"
-
+#include "vertex.h"
 class Mesh{
 private:
 	vector<Polygon3 *> *polygons;
-	int numOfPolygons;
+	vector<Vertex *> *vertices;
+	int numOfPolygons, numOfVertices;
 public:
 	Mesh(vector<Polygon3 *> *polygons, int numOfPolygons);
+	void setVertices(vector<Vertex *> *vertices, int numOfVertices);
+	vector<Vertex *> *getVertices();
+	int getNumOfVertices();
 	void draw();
 	
 };
