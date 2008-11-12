@@ -11,13 +11,16 @@
 #include <vector>
 #include <iostream>
 #include <math.h>
-#include "mesh.h"
-#include "vertex.h"
 #include "systeminclude.h"
+#include "mesh.h"
+#include "meshconnectionvertices.h"
+#include "vertex.h"
+
+
 class MeshConnection {
 private:
 	Mesh *mesh, *parentMesh;
-	vector<vector<Vertex *> *> *connectingVertices; 
+	vector<MeshConnectionVertices *> *connectingVertices; 
 	int numOfConnectingVertices;
 	float distanceDev;
 	float mainShortestDistance;

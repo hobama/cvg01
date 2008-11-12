@@ -13,7 +13,7 @@ const float VECTOR_GROWTH = 0.5;
 MeshConnection::MeshConnection(Mesh *mesh, Mesh *parentMesh, float distanceDev) {
 	this->mesh = mesh;
 	this->parentMesh = parentMesh;
-	this->connectingVertices = new vector<vector<Vertex *> *>(INITIAL_VECTOR_SIZE);
+	this->connectingVertices = new vector<MeshConnectionVertices *>(INITIAL_VECTOR_SIZE);
 	this->numOfConnectingVertices = 0;
 	this->distanceDev = distanceDev;
 }
@@ -21,7 +21,10 @@ MeshConnection::MeshConnection(Mesh *mesh, Mesh *parentMesh, float distanceDev) 
 void MeshConnection::connectVertices() {
 	vector<Vertex *> *verticesToConnect = new vector<Vertex *>(2);
 	this->mainShortestDistance = shortestDistance(verticesToConnect);
-	(*connectingVertices)[numOfConnectingVertices++] = verticesToConnect;
+
+	MeshConnectionVertices *meshConnectionVertices = new MeshConnectionVertices();
+	meshConnectionVertices->setVertices(verticesToConnect);
+	(*connectingVertices)[numOfConnectingVertices++] = meshConnectionVertices;
 	cout<<"shortestDistance: "<<mainShortestDistance<<endl;
 	verticesToConnect = new vector<Vertex *>(2);
 	while (mainShortestDistance + mainShortestDistance * distanceDev > shortestDistance(verticesToConnect)) {
@@ -29,7 +32,9 @@ void MeshConnection::connectVertices() {
 			int newSize = floor(numOfConnectingVertices + numOfConnectingVertices * VECTOR_GROWTH);
 			connectingVertices->resize(newSize);
 		}
-		(*connectingVertices)[numOfConnectingVertices++] = verticesToConnect;
+		MeshConnectionVertices *meshConnectionVertices = new MeshConnectionVertices();
+		meshConnectionVertices->setVertices(verticesToConnect);
+		(*connectingVertices)[numOfConnectingVertices++] = meshConnectionVertices;
 		verticesToConnect = new vector<Vertex *>(2);
 	}
 		
@@ -82,17 +87,9 @@ void MeshConnection::draw() {
 	glPushMatrix();
 	const float color[]= {1.0, 0.0, 0.0, 1.0 };
 	glMaterialfv(GL_FRONT, GL_AMBIENT, color);
-	vector<Vertex *> *verticesToConnect;
-	Vertex *vertex1, *vertex2;
+	
 	for (int i=0;i<numOfConnectingVertices;i++) {
-		verticesToConnect = (*connectingVertices)[i];
-		vertex1 = (*verticesToConnect)[0];
-		vertex2 = (*verticesToConnect)[1];
-		
-		glBegin(GL_LINES);
-		glVertex3f(vertex1->getX(), vertex1->getY(), vertex1->getZ());
-		glVertex3f(vertex2->getX(), vertex2->getY(), vertex2->getZ());
-		glEnd();
+		(*connectingVertices)[i]->draw();
 	}
 	
 	glPopMatrix();
