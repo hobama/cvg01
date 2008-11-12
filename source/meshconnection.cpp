@@ -36,17 +36,21 @@ void MeshConnection::connectVertices() {
 }
 
 float MeshConnection::shortestDistance(vector<Vertex *> *verticesToConnect) {
-	float shortestDistance = MAXFLOAT;
+	float shortestDistance = 0;
 	vector<Vertex *> *parentVertices = parentMesh->getVertices();
 	vector<Vertex *> *vertices = mesh->getVertices();
+	
+	Vertex *vertex = (*vertices)[0];
+	Vertex *parentVertex = (*parentVertices)[0];
+	shortestDistance = calcDistance(parentVertex, vertex);
 	for (int i=0;i<parentMesh->getNumOfVertices();i++) {
-		Vertex *parentVertex = (*parentVertices)[i];
+		parentVertex = (*parentVertices)[i];
 		if (!parentVertex->isConnected()) {
 			for (int j=0;j<mesh->getNumOfVertices();j++) {
-				Vertex *vertex = (*vertices)[j];
+				vertex = (*vertices)[j];
 				if (!vertex->isConnected()) {
 					float dist = calcDistance(parentVertex, vertex);
-					if (dist < shortestDistance) {
+					if (dist <= shortestDistance) {
 						shortestDistance = dist;
 						(*verticesToConnect)[0] = parentVertex;
 						(*verticesToConnect)[1] = vertex;
@@ -56,7 +60,7 @@ float MeshConnection::shortestDistance(vector<Vertex *> *verticesToConnect) {
 			
 		}
 	}
-	Vertex *vertex = (*verticesToConnect)[0];
+	vertex = (*verticesToConnect)[0];
 	vertex->setConnected();
 	vertex = (*verticesToConnect)[1];
 	vertex->setConnected();

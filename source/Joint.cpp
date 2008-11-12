@@ -84,8 +84,8 @@ void Joint::draw(bool drawMesh) {
 	const float color[]= {0.1, 0.5, 1.6, 1.0 };
 	glMaterialfv(GL_FRONT, GL_AMBIENT, color);
 	glutSolidSphere(0.1,10,10);
-	if (strcmp(this->name,"left_knee") == 0)
-		glRotatef(90, 1, 0, 0);
+	//if (strcmp(this->name,"left_knee") == 0)
+	//	glRotatef(90, 1, 0, 0);
 	glTranslatef(-1 * x, -1 * y, -1 * z);
 	if ((drawMesh) && (this->mesh != NULL))
 		this->mesh->draw();
