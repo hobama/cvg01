@@ -83,12 +83,18 @@ Mesh* Joint::getMesh() {
 void Joint::setRotation(float rotationAngle, vector<float> *rotationVector) {
 	this->rotationAngle = rotationAngle;
 	this->rotationVector = rotationVector;
+
+	// update pos
+	if (meshConnection != NULL)
+		meshConnection->updatePos(rotationAngle, rotationVector);
+	
+
 }
 void Joint::draw(bool drawMesh) {
 	glPushMatrix();
 	
 	if (meshConnection != NULL)
-		meshConnection->draw(rotationAngle, rotationVector);
+		meshConnection->draw();
 	glTranslatef(x, y, z);
 	const float color[]= {0.1, 0.5, 1.6, 1.0 };
 	glMaterialfv(GL_FRONT, GL_AMBIENT, color);

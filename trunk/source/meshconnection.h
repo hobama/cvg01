@@ -31,8 +31,8 @@ private:
 public:
 	MeshConnection(Mesh *mesh, Mesh *parentMesh, float distanceDev);
 	void connectVertices(float jointX, float jointY, float jointZ);
-	
-	void draw(float angle, vector<float> *rotationVector);
+	void updatePos(float angle, vector<float> *rotationVector);
+	void draw();
 };
 
 #endif

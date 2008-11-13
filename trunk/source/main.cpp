@@ -98,6 +98,9 @@ void keyPressed(unsigned char key, int x, int y)
 		case 'n':
 			// change fov heere
 			break;
+		case 'm':
+			model->rotatePart("left_knee", 50);
+			break;
 		case 'N':
 			// change fov heere
 			break;
@@ -182,8 +185,8 @@ void init(int argc, char *argv[]) {
 				   /* aspect ratio */ 1.0,
 				   /* Z near */ 0.01, /* Z far */ 80.0);
 	
-	viewPos[0]=-50;  viewPos[1]=0;  viewPos[2]=0; 
-	viewDir[0]=11;  viewDir[1]= -0.5;  viewDir[2]=0.5;  
+	viewPos[0]=20;  viewPos[1]=0;  viewPos[2]=0; 
+	viewDir[0]=-11;  viewDir[1]= -0.5;  viewDir[2]=0.5;  
 	
 	cordSystem = new CordSystem();
 	glPointSize(4.0);
@@ -192,8 +195,8 @@ void init(int argc, char *argv[]) {
 	/**
 	 * Joints
 	 */
-	char *jointfilename = "/Users/a1gucis/Documents/temp/joint.coord";
-	char *meshDirectory = "/Users/a1gucis/Documents/temp/objs/"; //meshDirectory name has to end with either / or \ depending on the OS :)
+	char *jointfilename = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/joint.coord";
+	char *meshDirectory = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/objs/"; //meshDirectory name has to end with either / or \ depending on the OS :)
 	
 	//#############################
 	// test field

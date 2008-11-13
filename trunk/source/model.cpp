@@ -10,7 +10,7 @@
 #include "model.h"
 
 Model::Model(char *jointFileName, char *meshDirectory) {
-	JointReader *jntReader = new JointReader(jointFileName);
+	this->jntReader = new JointReader(jointFileName);
 	jntReader->readData();
 	rootJoint = jntReader->getRootJoint();
 	
@@ -35,6 +35,9 @@ Model::Model(char *jointFileName, char *meshDirectory) {
 	
 	for (int i=0;i<numOfJoints;i++) {
 		Joint *joint = (*joints)[i];
+
+		joint->createMeshConnection();
+
 		if (strcmp(joint->getName(),"left_knee") == 0) {
 			vector<float> *rotationVector = new vector<float>(3);
 			(*rotationVector)[0] = 1.0;
@@ -42,8 +45,20 @@ Model::Model(char *jointFileName, char *meshDirectory) {
 			(*rotationVector)[2] = 0.0;
 			joint->setRotation(90, rotationVector);
 		}
-		joint->createMeshConnection();
+		
 	}
+}
+
+void Model::rotatePart(char* name, int angle) {
+	
+	Joint *joint = this->jntReader->findJointByName(name);
+
+	vector<float> *rotationVector = new vector<float>(3);
+	(*rotationVector)[0] = 1.0;
+	(*rotationVector)[1] = 0.0;
+	(*rotationVector)[2] = 0.0;
+	joint->setRotation(angle, rotationVector);
+
 }
 
 void Model::draw() {

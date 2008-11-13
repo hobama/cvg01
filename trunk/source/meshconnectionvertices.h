@@ -11,7 +11,6 @@ using namespace std;
 class MeshConnectionVertices {
 private:
 	
-	bool rotated;
 	vector<Vertex *> *mainVertices; 
 	vector<Vertex *> *subVertices;
 	int numOfSubVertices;

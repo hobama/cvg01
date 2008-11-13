@@ -86,10 +86,15 @@ float MeshConnection::calcDistance(Vertex *vertex1, Vertex *vertex2) {
 	return distance;
 }
 
-void MeshConnection::draw(float angle, vector<float> *rotationVector) {
-	glPushMatrix();
+void MeshConnection::updatePos(float angle, vector<float> *rotationVector) {
 	for (int i=0;i<numOfConnectingVertices;i++) {
 		(*connectingVertices)[i]->updatePos(angle, rotationVector);
+	}
+}
+
+void MeshConnection::draw() {
+	glPushMatrix();
+	for (int i=0;i<numOfConnectingVertices;i++) {
 		(*connectingVertices)[i]->draw();
 	}
 	const float color[]= {1.0, 0.0, 0.0, 1.0 };
