@@ -16,8 +16,10 @@
 class Model{
 private:
 	Joint *rootJoint;
+	JointReader *jntReader;
 public:
 	Model(char *jointFileName, char *meshDirectory); //for example /Users/a1gucis/Documents/meshes/
+	void rotatePart(char* name, int angle);
 	void draw();
 };
 

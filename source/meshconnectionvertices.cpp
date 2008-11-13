@@ -12,7 +12,6 @@ MeshConnectionVertices::MeshConnectionVertices(float jointX, float jointY, float
 	this->jointX = jointX;
 	this->jointY = jointY;
 	this->jointZ = jointZ;
-	rotated = false;
 }
 
 
@@ -64,7 +63,7 @@ void MeshConnectionVertices::updatePos(float angle, vector<float> *rotationVecto
 	float rotationAngle = 0.0;
 	for(int i=0; i < this->numOfSubVertices; i++) {
 		Vertex *subVertex = (*subVertices)[i];
-		if ((angle != 0) && (rotationVector != NULL) && !rotated) {
+		if ((angle != 0) && (rotationVector != NULL)) {
 			subVertex->setX(subVertex->getX() - jointX);
 			subVertex->setY(subVertex->getY() - jointY);
 			subVertex->setZ(subVertex->getZ() - jointZ);
@@ -82,7 +81,7 @@ void MeshConnectionVertices::updatePos(float angle, vector<float> *rotationVecto
 	
 	vertex = (*this->mainVertices)[1];
 	//update the child position after rotation as well;
-	if ((angle != 0) && (rotationVector != NULL) && !rotated) {
+	if ((angle != 0) && (rotationVector != NULL)) {
 		vertex->setX(vertex->getX() - jointX);
 		vertex->setY(vertex->getY() - jointY);
 		vertex->setZ(vertex->getZ() - jointZ);
@@ -92,7 +91,7 @@ void MeshConnectionVertices::updatePos(float angle, vector<float> *rotationVecto
 		vertex->setY((*position)[1] + jointY);
 		vertex->setZ((*position)[2] + jointZ);
 	}
-	rotated = true;
+
 }
 void MeshConnectionVertices::draw() {
 	/**
