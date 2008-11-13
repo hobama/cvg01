@@ -13,7 +13,6 @@ private:
 	
 	bool rotated;
 	vector<Vertex *> *mainVertices; 
-	
 	vector<Vertex *> *subVertices;
 	int numOfSubVertices;
 	
@@ -24,8 +23,9 @@ public:
 	MeshConnectionVertices(float jointX, float jointY, float jointZ);
 	
 	void setVertices(vector<Vertex *> *mainVertices);
-	
-	void draw(float angle, vector<float> *rotationVector);
+	vector<Vertex *> *getVertices();
+	void draw();
+	void updatePos(float angle, vector<float> *rotationVector);
 };
 
 #endif
