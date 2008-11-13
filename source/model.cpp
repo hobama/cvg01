@@ -35,6 +35,13 @@ Model::Model(char *jointFileName, char *meshDirectory) {
 	
 	for (int i=0;i<numOfJoints;i++) {
 		Joint *joint = (*joints)[i];
+		if (strcmp(joint->getName(),"left_knee") == 0) {
+			vector<float> *rotationVector = new vector<float>(3);
+			(*rotationVector)[0] = 1.0;
+			(*rotationVector)[1] = 0.0;
+			(*rotationVector)[2] = 0.0;
+			joint->setRotation(90, rotationVector);
+		}
 		joint->createMeshConnection();
 	}
 }

@@ -10,20 +10,22 @@ using namespace std;
 
 class MeshConnectionVertices {
 private:
-
+	
+	bool rotated;
 	vector<Vertex *> *mainVertices; 
-
+	
 	vector<Vertex *> *subVertices;
 	int numOfSubVertices;
-
+	
 	void setSubVertices(); // count vertex positions in the line and fill up the vector
-
+	float jointX, jointY, jointZ;
+	
 public:
-	MeshConnectionVertices();
-
+	MeshConnectionVertices(float jointX, float jointY, float jointZ);
+	
 	void setVertices(vector<Vertex *> *mainVertices);
-
-	void draw();
+	
+	void draw(float angle, vector<float> *rotationVector);
 };
 
 #endif

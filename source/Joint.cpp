@@ -22,6 +22,9 @@ Joint::Joint(char *name, float x, float y, float z) {
 	// Children
 	this->children = new vector<Joint *>;
 	this->childrenNumber = 0;
+	
+	this->rotationAngle = 0.0;
+	this->rotationVector = NULL;
 }
 
 /*
@@ -69,7 +72,7 @@ void Joint::createMeshConnection() {
 	if ((this->mesh != NULL) && (parent->getMesh() != NULL)) {
 		this->meshConnection = new MeshConnection(this->mesh, parent->getMesh(), 0.2);
 		cout<<name<<" in connectVertices()"<<endl;
-		this->meshConnection->connectVertices();
+		this->meshConnection->connectVertices(this->x, this->y, this->z);
 	}
 
 }
@@ -77,21 +80,26 @@ Mesh* Joint::getMesh() {
 	return this->mesh;
 }
 
+void Joint::setRotation(float rotationAngle, vector<float> *rotationVector) {
+	this->rotationAngle = rotationAngle;
+	this->rotationVector = rotationVector;
+}
 void Joint::draw(bool drawMesh) {
 	glPushMatrix();
 	
+	if (meshConnection != NULL)
+		meshConnection->draw(rotationAngle, rotationVector);
 	glTranslatef(x, y, z);
 	const float color[]= {0.1, 0.5, 1.6, 1.0 };
 	glMaterialfv(GL_FRONT, GL_AMBIENT, color);
 	glutSolidSphere(0.1,10,10);
-	//if (strcmp(this->name,"left_knee") == 0)
-	//	glRotatef(90, 1, 0, 0);
+	
+	if ((rotationAngle != 0) && (rotationVector != NULL))
+		glRotatef(rotationAngle, (*rotationVector)[0], (*rotationVector)[1], (*rotationVector)[2]);
 	glTranslatef(-1 * x, -1 * y, -1 * z);
+
 	if ((drawMesh) && (this->mesh != NULL))
 		this->mesh->draw();
-	if (meshConnection != NULL)
-		meshConnection->draw();
-	
 	for (int i=0;i<childrenNumber;i++) {
 		Joint *child = (*children)[i];
 		vector<float> coords = child->getCoords();

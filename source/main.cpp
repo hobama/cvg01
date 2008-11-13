@@ -194,27 +194,20 @@ void init(int argc, char *argv[]) {
 	 */
 	char *jointfilename = "/Users/a1gucis/Documents/temp/joint.coord";
 	char *meshDirectory = "/Users/a1gucis/Documents/temp/objs/"; //meshDirectory name has to end with either / or \ depending on the OS :)
-	//JointReader *jointReader = new JointReader(jointfilename);
-//	jointReader->readData();
-//	jointBuilder = new JointBuilder(jointReader->getJoints(), jointReader->getNumOfJoints(), jointReader->getRootJoint());
 	
 	//#############################
 	// test field
 	
-	//for (int i=0;i<argc;i++)
-	//	cout<<i<<": "<<argv[i]<<endl;
-	
-	//char *filename = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/human.obj";
-	//argv[1]=filename;
-//		ObjReader *reader = new ObjReader();
-//	reader->readData(filename);
-	//model = new Model(reader->getPolygons(), reader->getNumOfPolygons(), jointBuilder);
 	model = new Model(jointfilename, meshDirectory);
-//	ObjReader *reader2 = new ObjReader("/Users/a1gucis/Documents/temp/objs/left_ankle.obj");
-//	reader2->readData();
 	
-	//reader->displayVertexData();
-	//reader->displayTexelData();
+	
+	//Vertex *vertex = new Vertex(5.0, 5.0, 0.0);
+//	vector<float> *rotationVector = new vector<float>(3);
+//	(*rotationVector)[0] = 1.0;
+//	(*rotationVector)[1] = 0.0;
+//	(*rotationVector)[2] = 0.0;
+//	vector<float>* newPos = vertex->rotateVertex(90, rotationVector);
+//	cout<<"newPos: "<<(*newPos)[0]<<" "<<(*newPos)[1]<<" "<<(*newPos)[2]<<endl;
 	//#############################
 	
 }
