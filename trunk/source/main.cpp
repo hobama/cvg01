@@ -99,7 +99,7 @@ void keyPressed(unsigned char key, int x, int y)
 			// change fov heere
 			break;
 		case 'm':
-			model->rotatePart("left_knee", 50);
+			model->rotatePart("left_knee", 5);
 			break;
 		case 'N':
 			// change fov heere
@@ -195,8 +195,8 @@ void init(int argc, char *argv[]) {
 	/**
 	 * Joints
 	 */
-	char *jointfilename = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/joint.coord";
-	char *meshDirectory = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/objs/"; //meshDirectory name has to end with either / or \ depending on the OS :)
+	char *jointfilename = "/Users/a1gucis/Documents/temp/joint.coord";
+	char *meshDirectory = "/Users/a1gucis/Documents/temp/objs/"; //meshDirectory name has to end with either / or \ depending on the OS :)
 	
 	//#############################
 	// test field
