@@ -27,6 +27,7 @@ private:
 	float mainShortestDistance;
 	float shortestDistance(vector<Vertex *> *verticesToConnect); // finds the distance between the closest vertices 
 	float calcDistance(Vertex *vertex1, Vertex *vertex2);
+	void drawPolygons(vector<Vertex *> *vertices1, vector<Vertex *> *vertices2);
 public:
 	MeshConnection(Mesh *mesh, Mesh *parentMesh, float distanceDev);
 	void connectVertices(float jointX, float jointY, float jointZ);

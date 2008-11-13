@@ -88,12 +88,37 @@ float MeshConnection::calcDistance(Vertex *vertex1, Vertex *vertex2) {
 
 void MeshConnection::draw(float angle, vector<float> *rotationVector) {
 	glPushMatrix();
+	for (int i=0;i<numOfConnectingVertices;i++) {
+		(*connectingVertices)[i]->updatePos(angle, rotationVector);
+		(*connectingVertices)[i]->draw();
+	}
 	const float color[]= {1.0, 0.0, 0.0, 1.0 };
 	glMaterialfv(GL_FRONT, GL_AMBIENT, color);
-	
-	for (int i=0;i<numOfConnectingVertices;i++) {
-		(*connectingVertices)[i]->draw(angle, rotationVector);
+		
+	for (int i=0;i<numOfConnectingVertices - 1;i++) {
+		vector<Vertex *> *vertices1 = (*connectingVertices)[i]->getVertices();
+		vector<Vertex *> *vertices2 = (*connectingVertices)[i+1]->getVertices();
+		drawPolygons(vertices1, vertices2);
 	}
-	
 	glPopMatrix();
+}
+
+void MeshConnection::drawPolygons(vector<Vertex *> *vertices1, vector<Vertex *> *vertices2) {
+	if (vertices1->size() != vertices2->size()) 
+		cout<<"ERROR in MeshConnection class: vertices vector size don't match"<<endl;
+	else {
+		for (int i=0;i<vertices1->size()-1;i++) {
+			Vertex *vertex1 = (*vertices1)[i];
+			Vertex *vertex2 = (*vertices1)[i+1];
+			Vertex *vertex3 = (*vertices2)[i+1];
+			Vertex *vertex4 = (*vertices2)[i];
+			
+			glBegin(GL_QUADS);
+			glVertex3f(vertex1->getX(), vertex1->getY(), vertex1->getZ());
+			glVertex3f(vertex2->getX(), vertex2->getY(), vertex2->getZ());
+			glVertex3f(vertex3->getX(), vertex3->getY(), vertex3->getZ());
+			glVertex3f(vertex4->getX(), vertex4->getY(), vertex4->getZ());
+			glEnd();
+		}
+	}
 }
