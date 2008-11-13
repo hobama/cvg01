@@ -8,7 +8,9 @@
  */
 #ifndef _VERTEX_H_
 #define _VERTEX_H_
+#include <math.h>
 #include "vect.h"
+#include "cvgMath.h"
 class Vertex : public Vect {
 private:
 	bool connected;
@@ -17,6 +19,8 @@ public:
 	
 	void setConnected();
 	bool isConnected();
+	
+	vector<float> *rotateVertex(float angle, vector<float> *vect); //returns vertex coordinates after rotation
 	
 };
 #endif

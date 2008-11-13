@@ -26,3 +26,15 @@ float Vect::getY() {
 float Vect::getZ() {
 	return z;
 }
+
+void Vect::setX(float x) {
+	this->x = x;
+}	
+
+void Vect::setY(float y) {
+	this->y = y;
+}
+
+void Vect::setZ(float z) {
+	this->z = z;
+}

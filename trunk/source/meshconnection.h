@@ -22,15 +22,16 @@ private:
 	Mesh *mesh, *parentMesh;
 	vector<MeshConnectionVertices *> *connectingVertices; 
 	int numOfConnectingVertices;
+	float jointX, jointY, jointZ;
 	float distanceDev;
 	float mainShortestDistance;
 	float shortestDistance(vector<Vertex *> *verticesToConnect); // finds the distance between the closest vertices 
 	float calcDistance(Vertex *vertex1, Vertex *vertex2);
 public:
 	MeshConnection(Mesh *mesh, Mesh *parentMesh, float distanceDev);
-	void connectVertices();
+	void connectVertices(float jointX, float jointY, float jointZ);
 	
-	void draw();
+	void draw(float angle, vector<float> *rotationVector);
 };
 
 #endif

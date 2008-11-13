@@ -18,11 +18,14 @@ MeshConnection::MeshConnection(Mesh *mesh, Mesh *parentMesh, float distanceDev) 
 	this->distanceDev = distanceDev;
 }
 
-void MeshConnection::connectVertices() {
+void MeshConnection::connectVertices(float jointX, float jointY, float jointZ) {
+	this->jointX = jointX;
+	this->jointY = jointY;
+	this->jointZ = jointZ;
 	vector<Vertex *> *verticesToConnect = new vector<Vertex *>(2);
 	this->mainShortestDistance = shortestDistance(verticesToConnect);
 
-	MeshConnectionVertices *meshConnectionVertices = new MeshConnectionVertices();
+	MeshConnectionVertices *meshConnectionVertices = new MeshConnectionVertices(jointX, jointY, jointZ);
 	meshConnectionVertices->setVertices(verticesToConnect);
 	(*connectingVertices)[numOfConnectingVertices++] = meshConnectionVertices;
 	cout<<"shortestDistance: "<<mainShortestDistance<<endl;
@@ -32,7 +35,7 @@ void MeshConnection::connectVertices() {
 			int newSize = floor(numOfConnectingVertices + numOfConnectingVertices * VECTOR_GROWTH);
 			connectingVertices->resize(newSize);
 		}
-		MeshConnectionVertices *meshConnectionVertices = new MeshConnectionVertices();
+		MeshConnectionVertices *meshConnectionVertices = new MeshConnectionVertices(this->jointX, this->jointY, this->jointZ);
 		meshConnectionVertices->setVertices(verticesToConnect);
 		(*connectingVertices)[numOfConnectingVertices++] = meshConnectionVertices;
 		verticesToConnect = new vector<Vertex *>(2);
@@ -83,13 +86,13 @@ float MeshConnection::calcDistance(Vertex *vertex1, Vertex *vertex2) {
 	return distance;
 }
 
-void MeshConnection::draw() {
+void MeshConnection::draw(float angle, vector<float> *rotationVector) {
 	glPushMatrix();
 	const float color[]= {1.0, 0.0, 0.0, 1.0 };
 	glMaterialfv(GL_FRONT, GL_AMBIENT, color);
 	
 	for (int i=0;i<numOfConnectingVertices;i++) {
-		(*connectingVertices)[i]->draw();
+		(*connectingVertices)[i]->draw(angle, rotationVector);
 	}
 	
 	glPopMatrix();

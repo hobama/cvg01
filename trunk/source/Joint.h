@@ -15,7 +15,8 @@ private:
 	vector<Joint *> *children;
 	Mesh *mesh;
 	MeshConnection *meshConnection;
-	
+	float rotationAngle;
+	vector<float> *rotationVector;
 public:
 	Joint(char *name, float x, float y, float z);
 	void setParent(Joint *parent);
@@ -26,6 +27,7 @@ public:
 	void setMesh(Mesh *mesh);
 	Mesh *getMesh();
 	
+	void setRotation(float rotationAngle, vector<float> *rotationVector);
 	void createMeshConnection();
 	void draw(bool drawMesh);
 	void debugJoint();
