@@ -37,15 +37,6 @@ Model::Model(char *jointFileName, char *meshDirectory) {
 		Joint *joint = (*joints)[i];
 
 		joint->createMeshConnection();
-
-		if (strcmp(joint->getName(),"left_knee") == 0) {
-			vector<float> *rotationVector = new vector<float>(3);
-			(*rotationVector)[0] = 1.0;
-			(*rotationVector)[1] = 0.0;
-			(*rotationVector)[2] = 0.0;
-			joint->setRotation(90, rotationVector);
-		}
-		
 	}
 }
 
@@ -57,7 +48,7 @@ void Model::rotatePart(char* name, int angle) {
 	(*rotationVector)[0] = 1.0;
 	(*rotationVector)[1] = 0.0;
 	(*rotationVector)[2] = 0.0;
-	joint->setRotation(angle, rotationVector);
+	joint->setRotation(joint->getRotationAngle() + angle, rotationVector);
 
 }
 

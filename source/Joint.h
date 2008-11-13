@@ -27,6 +27,7 @@ public:
 	void setMesh(Mesh *mesh);
 	Mesh *getMesh();
 	
+	float getRotationAngle();
 	void setRotation(float rotationAngle, vector<float> *rotationVector);
 	void createMeshConnection();
 	void draw(bool drawMesh);

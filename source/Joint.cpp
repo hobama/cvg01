@@ -81,14 +81,17 @@ Mesh* Joint::getMesh() {
 }
 
 void Joint::setRotation(float rotationAngle, vector<float> *rotationVector) {
-	this->rotationAngle = rotationAngle;
-	this->rotationVector = rotationVector;
+	
 
 	// update pos
 	if (meshConnection != NULL)
-		meshConnection->updatePos(rotationAngle, rotationVector);
+		meshConnection->updatePos(rotationAngle - this->rotationAngle, rotationVector);
 	
-
+	this->rotationAngle = rotationAngle;
+	this->rotationVector = rotationVector;
+}
+float Joint::getRotationAngle() {
+	return this->rotationAngle;
 }
 void Joint::draw(bool drawMesh) {
 	glPushMatrix();
