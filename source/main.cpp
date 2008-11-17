@@ -95,14 +95,20 @@ void keyPressed(unsigned char key, int x, int y)
 			viewPos[1]-= upVector[1]*motionFactor;
 			viewPos[2]-= upVector[2]*motionFactor;
 			break;
-		case 'n':
-			// change fov heere
-			break;
 		case 'm':
 			model->rotatePart("left_knee", 5);
 			break;
+		case 'M':
+			model->rotatePart("left_knee", -5);
+			break;
+		case 'n':
+			// change fov heere
+			model->rotatePart("left_ankle", 5);
+			break;
+			
 		case 'N':
 			// change fov heere
+			model->rotatePart("left_ankle", -5);
 			break;
 		case '.':
 			glDisable(GL_LIGHT0);
