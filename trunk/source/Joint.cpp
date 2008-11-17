@@ -109,6 +109,7 @@ void Joint::draw(bool drawMesh) {
 
 	if ((drawMesh) && (this->mesh != NULL))
 		this->mesh->draw();
+	//glPopMatrix();
 	for (int i=0;i<childrenNumber;i++) {
 		Joint *child = (*children)[i];
 		vector<float> coords = child->getCoords();
