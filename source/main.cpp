@@ -9,6 +9,8 @@
 #include "objreader.h"
 #include "model.h"
 
+#include "bvhreader.h"
+
 using namespace std;
 
 std::vector<float> viewDir(3), viewPos(3);
@@ -201,12 +203,16 @@ void init(int argc, char *argv[]) {
 	/**
 	 * Joints
 	 */
-	char *jointfilename = "/Users/a1gucis/Documents/temp/joint.coord";
-	char *meshDirectory = "/Users/a1gucis/Documents/temp/objs/"; //meshDirectory name has to end with either / or \ depending on the OS :)
-	
+	char *jointfilename = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/joint.coord";
+	char *meshDirectory = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/objs/"; //meshDirectory name has to end with either / or \ depending on the OS :)
+	char *bvhfilename = "C:/Users/dell/Documents/Visual Studio 2008/Projects/CVG01/Source/data.bvh";
+
 	//#############################
 	// test field
-	
+	BVHReader *bvhreader = new BVHReader(bvhfilename);
+	bvhreader->readData();
+
+
 	model = new Model(jointfilename, meshDirectory);
 	
 	
