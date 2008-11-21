@@ -123,6 +123,8 @@ void BVHReader::doHierarchy(ifstream *datafile)
 		{
 			// Do offset function
 			doOffset(bvhobject, datafile, endSite);
+
+			if(endSite) endSite = false;
 		}
 		else if(line.compare("CHANNELS") == 0)
 		{
