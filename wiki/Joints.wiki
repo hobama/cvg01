@@ -1,0 +1,10 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+The model consists of 15 joints: back_root (root joint), chest, neck, left_shoulder, left_elbow, left_wrist, right_shoulder, right_elbow, right_wrist, left_hip, left_knee, left_ankle, right_hip, right_knee, right_ankle. These joints allow our model to be correctly animated in 3D scene, although we don't achieve much detail like the movement of finger or toes. Each joint has a mesh applied to it, which is not affected by the animation data, except being rotated or translated in the scene. 
