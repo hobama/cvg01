@@ -7,4 +7,9 @@ Add your content here.
 
 = Details =
 
-The model consists of 15 joints: back_root (root joint), chest, neck, left_shoulder, left_elbow, left_wrist, right_shoulder, right_elbow, right_wrist, left_hip, left_knee, left_ankle, right_hip, right_knee, right_ankle. These joints allow our model to be correctly animated in 3D scene, although we don't achieve much detail like the movement of finger or toes. Each joint has a mesh applied to it, which is not affected by the animation data, except being rotated or translated in the scene. 
+The model consists of 15 joints: back_root (root joint), chest, neck, left_shoulder, left_elbow, left_wrist, right_shoulder, right_elbow, right_wrist, left_hip, left_knee, left_ankle, right_hip, right_knee, right_ankle. These joints allow our model to be correctly animated in 3D scene, although we don't achieve much detail like the movement of finger or toes. Each joint has a mesh applied to it, which is not affected by the animation data, except being rotated or translated in the scene. The connection between the meshes (the space around the joint itself) is being done automatically by the program. The algorithm for doing that is:
+1. find two vertices belonging to the mesh and the parent mesh, which has the shortest distance of all the vertices, belonging to mesh and its parent.
+2. Determine some threshold value, which can be just user defined. (for example 5%) which determines the longest distance between vertices belonging to mesh and it's parent.
+3. Find all other vertices, needed to connect, by calculating the distance between each of them. (If the distance is between the shortest distance and the distance, calculated from the threshold value), then those two vertices need to be connected.
+
+Each connection between the meshes vertex and parent meshes vertex has its subvertices. This is necessary for joints rotations to look smooth. (The more subvertices we have, the smoother the rotation looks). To find positions of subvertices 
