@@ -18,6 +18,7 @@
 using namespace std; 
 class Polygon {
 protected:
+	float x, y, z;
 	int size;
 	vector<float> *center; // center coordinates
 	vector<Vertex *> *vertices;
@@ -26,6 +27,8 @@ protected:
 public:
 	Polygon(int size);
 	int getSize();
+	void setTranslation(float x, float y, float z);
+	void setRotation(float **rotationMatrix, float x, float y, float z);
 	void draw();
 	vector<float> *getCenter();
 	vector<Vertex *> *getVertices();	

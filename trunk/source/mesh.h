@@ -16,11 +16,14 @@
 #include "vertex.h"
 class Mesh{
 private:
+	float offsetX, offsetY, offsetZ;
 	vector<Polygon3 *> *polygons;
 	vector<Vertex *> *vertices;
 	int numOfPolygons, numOfVertices;
 public:
 	Mesh(vector<Polygon3 *> *polygons, int numOfPolygons);
+	void setTranslation(float x, float y, float z);
+	void setRotation(float **rotationMatrix, float jointX, float jointY, float jointZ);
 	void setVertices(vector<Vertex *> *vertices, int numOfVertices);
 	vector<Vertex *> *getVertices();
 	int getNumOfVertices();

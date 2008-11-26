@@ -8,12 +8,66 @@
  */
 
 #include "vertex.h"
-#include "joint.h"
 const float PI = 3.141592653;
-Vertex::Vertex(float x, float y, float z) : Vect(x, y, z) {
+Vertex::Vertex(float x, float y, float z) : Vect(0.0, 0.0, 0.0) {
 	this->connected = false;
+	this->originalX = x;
+	this->originalY = y;
+	this->originalZ = z;
+}
+float Vertex::getOriginalX() {
+	return this->originalX;
+}
+float Vertex::getOriginalY() {
+	return this->originalY;
+}
+float  Vertex::getOriginalZ() {
+	return this->originalZ;
 }
 
+void Vertex::setRotation(float **rotationMatrix, float x, float y, float z) {
+	this->originalX = this->originalX - x;
+	this->originalY = this->originalY - y;
+	this->originalZ = this->originalZ - z;
+	//rotation
+	
+	float *row;
+	float **vertexCords = new float*[4];
+	row = new float[1];
+	row[0] = originalX;
+	vertexCords[0] = row;
+	
+	row = new float[1];
+	row[0] = originalY;
+	vertexCords[1] = row;
+	
+	row = new float[1];
+	row[0] = originalZ;
+	vertexCords[2] = row;
+	
+	row = new float[1];
+	row[0] = 1.0;
+	vertexCords[3] = row;
+	
+	float **newCords = cvgmath::matrixMult(rotationMatrix, vertexCords, 4, 4, 4, 1);
+	if (newCords != NULL) {
+		this->originalX = newCords[0][0];
+		this->originalY = newCords[1][0];
+		this->originalZ = newCords[2][0];
+		delete[] newCords;
+	}
+	delete[] vertexCords;
+	
+	//rotation end
+	this->originalX = this->originalX + x;
+	this->originalY = this->originalY + y;
+	this->originalZ = this->originalZ + z;
+}
+void Vertex::setTranslation(float x, float y, float z) {
+	this->x = x;
+	this->y = y;
+	this->z = z;
+}
 void Vertex::setConnected() {
 	this->connected = true;
 }
@@ -21,7 +75,8 @@ void Vertex::setConnected() {
 bool Vertex::isConnected(){
 	return this->connected;
 }
-vector<float>* Vertex::rotateVertex(float angle, vector<float> *vect) {
+
+void Vertex::rotateVertex(float angle, vector<float> *vect, float x, float y, float z) {
 	angle = PI/180.0 * angle;
 	//	cout<<"Old: "<<(*position)[0]<<" "<<(*position)[1]<<" "<<(*position)[2]<<endl;
 	float ux = (*vect)[0];
@@ -62,15 +117,15 @@ vector<float>* Vertex::rotateVertex(float angle, vector<float> *vect) {
 	
 	float **vertexCords = new float*[4];
 	row = new float[1];
-	row[0] = x;
+	row[0] = originalX - x;
 	vertexCords[0] = row;
 	
 	row = new float[1];
-	row[0] = y;
+	row[0] = originalY - y;
 	vertexCords[1] = row;
 	
 	row = new float[1];
-	row[0] = z;
+	row[0] = originalZ - z;
 	vertexCords[2] = row;
 	
 	row = new float[1];
@@ -79,11 +134,9 @@ vector<float>* Vertex::rotateVertex(float angle, vector<float> *vect) {
 	
 	float **newCords = cvgmath::matrixMult(rotMatrix, vertexCords, 4, 4, 4, 1);
 	if (newCords != NULL) {
-		vector<float> *newCordsVect = new vector<float>(3);
-		(*newCordsVect)[0] = newCords[0][0];
-		(*newCordsVect)[1] = newCords[1][0];
-		(*newCordsVect)[2] = newCords[2][0];
-		return newCordsVect;
-	}else
-		return NULL;
+		this->originalX = newCords[0][0] + x;
+		this->originalY = newCords[1][0] + y;
+		this->originalZ = newCords[2][0] + z;
+	}
 }
+

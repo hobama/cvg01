@@ -22,7 +22,8 @@ private:
 	Mesh *mesh, *parentMesh;
 	vector<MeshConnectionVertices *> *connectingVertices; 
 	int numOfConnectingVertices;
-	float jointX, jointY, jointZ;
+	float *jointX, *jointY, *jointZ;
+	float offsetX, offsetY, offsetZ;
 	float distanceDev;
 	float mainShortestDistance;
 	float shortestDistance(vector<Vertex *> *verticesToConnect); // finds the distance between the closest vertices 
@@ -30,8 +31,10 @@ private:
 	void drawPolygons(vector<Vertex *> *vertices1, vector<Vertex *> *vertices2);
 public:
 	MeshConnection(Mesh *mesh, Mesh *parentMesh, float distanceDev);
-	void connectVertices(float jointX, float jointY, float jointZ);
-	void updatePos(float angle, vector<float> *rotationVector);
+	void connectVertices(float *jointX, float *jointY, float *jointZ);
+	void rotate(float angle, vector<float> *rotationVector);
+	void setTranslation(float x, float y, float z);
+	void setRotation(float **rotationMatrix, float jointX, float jointY, float jointZ);
 	void draw();
 };
 

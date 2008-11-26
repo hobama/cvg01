@@ -16,15 +16,17 @@ private:
 	int numOfSubVertices;
 	
 	void setSubVertices(); // count vertex positions in the line and fill up the vector
-	float jointX, jointY, jointZ;
+	float *jointX, *jointY, *jointZ;
 	
 public:
-	MeshConnectionVertices(float jointX, float jointY, float jointZ);
+	MeshConnectionVertices(float *jointX, float *jointY, float *jointZ);
 	
+	void setTranslation(float x, float y, float z);
 	void setVertices(vector<Vertex *> *mainVertices);
 	vector<Vertex *> *getVertices();
 	void draw();
-	void updatePos(float angle, vector<float> *rotationVector);
+	void rotate(float angle, vector<float> *rotationVector);
+	void setRotation(float **rotationMatrix, float jointX, float jointY, float jointZ);
 };
 
 #endif

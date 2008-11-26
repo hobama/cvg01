@@ -4,20 +4,20 @@
  * Constructor
  */
 BVHObject::BVHObject(char *name, int objectLevel) {
-
+	
 	//assign
 	this->name = name;
-
+	
 	this->objectLevel = objectLevel;
-
+	
 	//init
 	this->childrenNumber = 0;
-
+	
 	this->channelsOrder = new vector<char *>;
 	this->children = new vector<BVHObject *>;
 	this->offset = new vector<float>(3);
-	this->offsetEndSite = new vector<float>(3);
-
+	this->offsetEndSite = NULL;
+	
 	this->frames = new vector<BVHFrame*>;
 }
 
@@ -53,22 +53,28 @@ char *BVHObject::getName () {
 	return this->name;
 }
 
+vector<float>* BVHObject::getOffset() {
+	return this->offset;
+}
+vector<float>* BVHObject::getOffsetEndSite() {
+	return this->offsetEndSite;
+}
 /**
  * Set offset positions
  */
 void BVHObject::setOffset(float x, float y, float z) {
-
+	
 	//this->offset->resize(3);
-
+	
 	(*this->offset)[0] = x;
 	(*this->offset)[1] = y;
 	(*this->offset)[2] = z;
 }
 
 void BVHObject::setOffsetEndSite(float x, float y, float z) {
-
+	
 	//this->offsetEndSite->resize(3);
-
+	this->offsetEndSite = new vector<float>(3);
 	(*this->offsetEndSite)[0] = x;
 	(*this->offsetEndSite)[1] = y;
 	(*this->offsetEndSite)[2] = z;
@@ -86,13 +92,20 @@ int BVHObject::getChannelsNumber() {
 	return this->channelsNumber;
 }
 
+int BVHObject::getChildrenNumber() {
+	return this->childrenNumber;
+}
+
+vector <BVHObject *>* BVHObject::getChildren() {
+	return this->children;
+}
 /**
  * Set channel names and their sequence
  */
 void BVHObject::addChannel(char* channel) {
 	
 	(*this->channelsOrder).push_back(channel);
-
+	
 }
 
 /**
@@ -107,49 +120,49 @@ void BVHObject::addChannel(char* channel) {
 int BVHObject::getChannel(int i) {
 	int ret = 0;
 	char coord, type;
-
+	
 	coord = (*this->channelsOrder)[i][0];
 	type = (*this->channelsOrder)[i][1];
-
+	
 	switch(type) {
-
+			
 		case 'p':
 		{
 			switch(coord) {
 				case 'X':
 					ret = 11;
-				break;
-
+					break;
+					
 				case 'Y':
 					ret = 12;
-				break;
-
+					break;
+					
 				case 'Z':
 					ret = 13;
-				break;
+					break;
 			}
 		}
-		break;
-
+			break;
+			
 		case 'r':
 		{
 			switch(coord) {
 				case 'X':
 					ret = 21;
-				break;
-
+					break;
+					
 				case 'Y':
 					ret = 22;
-				break;
-
+					break;
+					
 				case 'Z':
 					ret = 23;
-				break;
+					break;
 			}
 		}
-		break;
+			break;
 	}
-
+	
 	return ret;
 }
 
@@ -163,4 +176,11 @@ int BVHObject::getChannel(int i) {
 
 void BVHObject::addFrame(BVHFrame *bvhframe) {
 	this->frames->push_back(bvhframe);
+}
+
+vector<BVHFrame *>* BVHObject::getFrames() {
+	return this->frames;
+}
+void BVHObject::debug() {
+	cout<<this->name<<" "<<(*offset)[0]<<" "<<(*offset)[1]<<" "<<(*offset)[2]<<endl;
 }
