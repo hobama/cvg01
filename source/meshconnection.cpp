@@ -16,9 +16,25 @@ MeshConnection::MeshConnection(Mesh *mesh, Mesh *parentMesh, float distanceDev) 
 	this->connectingVertices = new vector<MeshConnectionVertices *>(INITIAL_VECTOR_SIZE);
 	this->numOfConnectingVertices = 0;
 	this->distanceDev = distanceDev;
+	this->offsetX = 0.0;
+	this->offsetY = 0.0;
+	this->offsetZ = 0.0;
+	this->jointX = NULL;
+	this->jointY = NULL;
+	this->jointZ = NULL;
 }
 
-void MeshConnection::connectVertices(float jointX, float jointY, float jointZ) {
+void MeshConnection::setTranslation(float x, float y, float z) {
+	this->offsetX = x;
+	this->offsetY = y;
+	this->offsetZ = z;
+	
+	for (int i=0;i<numOfConnectingVertices;i++) {
+		MeshConnectionVertices *connection = (*connectingVertices)[i];
+		connection->setTranslation(x, y, z);
+	}
+}
+void MeshConnection::connectVertices(float *jointX, float *jointY, float *jointZ) {
 	this->jointX = jointX;
 	this->jointY = jointY;
 	this->jointZ = jointZ;
@@ -77,21 +93,26 @@ float MeshConnection::shortestDistance(vector<Vertex *> *verticesToConnect) {
 
 float MeshConnection::calcDistance(Vertex *vertex1, Vertex *vertex2) {
 	float distance = 0.0;
-	float x = (vertex1->getX() - vertex2->getX());
-	float y = (vertex1->getY() - vertex2->getY());
-	float z = (vertex1->getZ() - vertex2->getZ());
+	float x = (vertex1->getOriginalX() - vertex2->getOriginalX());
+	float y = (vertex1->getOriginalY() - vertex2->getOriginalY());
+	float z = (vertex1->getOriginalZ() - vertex2->getOriginalZ());
 	
 	distance = sqrt(x*x + y*y + z*z);
 	
 	return distance;
 }
 
-void MeshConnection::updatePos(float angle, vector<float> *rotationVector) {
+void MeshConnection::rotate(float angle, vector<float> *rotationVector) {
 	for (int i=0;i<numOfConnectingVertices;i++) {
-		(*connectingVertices)[i]->updatePos(angle, rotationVector);
+		(*connectingVertices)[i]->rotate(angle, rotationVector);
 	}
 }
 
+void MeshConnection::setRotation(float **rotationMatrix, float jointX, float jointY, float jointZ) {
+	for (int i=0;i<numOfConnectingVertices;i++) {
+		(*connectingVertices)[i]->setRotation(rotationMatrix, jointX, jointY, jointZ);
+	}
+}
 void MeshConnection::draw() {
 	glPushMatrix();
 	for (int i=0;i<numOfConnectingVertices;i++) {
@@ -119,10 +140,10 @@ void MeshConnection::drawPolygons(vector<Vertex *> *vertices1, vector<Vertex *> 
 			Vertex *vertex4 = (*vertices2)[i];
 			
 			glBegin(GL_QUADS);
-			glVertex3f(vertex1->getX(), vertex1->getY(), vertex1->getZ());
-			glVertex3f(vertex2->getX(), vertex2->getY(), vertex2->getZ());
-			glVertex3f(vertex3->getX(), vertex3->getY(), vertex3->getZ());
-			glVertex3f(vertex4->getX(), vertex4->getY(), vertex4->getZ());
+			glVertex3f(vertex1->getOriginalX() + vertex1->getX(), vertex1->getOriginalY() + vertex1->getY(), vertex1->getOriginalZ() + vertex1->getZ());
+			glVertex3f(vertex2->getOriginalX() + vertex2->getX(), vertex2->getOriginalY() + vertex2->getY(), vertex2->getOriginalZ() + vertex2->getZ());
+			glVertex3f(vertex3->getOriginalX() + vertex3->getX(), vertex3->getOriginalY() + vertex3->getY(), vertex3->getOriginalZ() + vertex3->getZ());
+			glVertex3f(vertex4->getOriginalX() + vertex4->getX(), vertex4->getOriginalY() + vertex4->getY(), vertex4->getOriginalZ() + vertex4->getZ());
 			glEnd();
 		}
 	}

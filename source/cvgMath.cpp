@@ -10,6 +10,7 @@
 #include "cvgMath.h"
 
 using namespace std;
+const float PI = 3.141592653;
 namespace cvgmath {
 	float **matrixMult(float **matrix1, float **matrix2, int matrix1Rows, int matrix1Cols, int matrix2Rows, int matrix2Cols) {
 		if (matrix1Cols != matrix2Rows) {
@@ -21,7 +22,6 @@ namespace cvgmath {
 			float *resultMatrixRow = new float[matrix2Cols];
 			(resultMatrix)[i] = resultMatrixRow;
 		}
-		//float **resultMatrix = new float[matrix1Rows][matrix2Cols];
 		for (int z=0;z<matrix2Cols;z++) {
 			for (int i=0;i<matrix1Rows;i++) {
 				float sum = 0;
@@ -33,7 +33,10 @@ namespace cvgmath {
 				resultMatrix[i][z] = sum;
 			}
 		}
-		//return NULL;
 		return resultMatrix;
 	}
+	vector<float> *rotate(float angle, vector<float> *vect) {
+		
+	}
+	
 }

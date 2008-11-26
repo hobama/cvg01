@@ -2,16 +2,17 @@
 #include "bvhreader.h"
 
 
+
 /**
  * Constructor
  */
 BVHReader::BVHReader(char *filename)
 {
 	this->filename	= filename;
-	
 	this->objectsNumber = 0;
-	
 	this->sequence = new vector<BVHObject *>;
+	this->rootObject = NULL;
+	this->frames = 0;
 }
 
 /**
@@ -19,53 +20,63 @@ BVHReader::BVHReader(char *filename)
  */
 void BVHReader::readData()
 {
-
-	ifstream *datafile = new ifstream(this->filename);
 	
+	ifstream *datafile = new ifstream(this->filename);
 	if (datafile->is_open())
 	{
 		string line;
-	
 		while (!datafile->eof())
 		{
-			getline (*datafile, line);
-			
+			getline (*datafile, line, '\n');
 			// Hierarchy
 			if(line.compare("HIERARCHY") == 0) {
 				doHierarchy(datafile);
 			}
-
 			// Animation data
 			else if(line.compare("MOTION") == 0) {
 				doMotion(datafile);
 			}
 		}
-
 		datafile->close();
-
+		//
+		for (int i=0;i<objectsNumber;i++) {
+			BVHObject *bvh = (*sequence)[i];
+			bvh->debug();
+		}
 	} else {
 		cout << "Unable to open file";
 	}
 }
 
+vector<BVHObject *>* BVHReader::getSequence() {
+	return this->sequence;
+}
+
+int BVHReader::getObjectsNumber() {
+	return this->objectsNumber;
+}
+int BVHReader::getFrameNumber() {
+	return this->frames;
+}
+BVHObject* BVHReader::getRootBVHObject() {
+	return this->rootObject;
+}
 /**
  * Hierachy
  */
 void BVHReader::doHierarchy(ifstream *datafile)
 {
-
 	string line;
 	char * cstr;
 	BVHObject *bvhobject, *prevObj, *parent;
-
+	
 	bool wasRoot = false; // To do cycle, as we compare bracket count. If it's false, we don't increase brackets count on root.
 	int brackets = 1; // Set to 1, because we assume that root already has 1, though we don't add on root.
 	bool endSite = false; // If we are in End Site data [needed for end site offset]
-
+	
 	while (brackets != 0)
 	{
 		*datafile >> line;
-
 		// Brackets
 		if(line.compare("{") == 0)
 		{
@@ -79,51 +90,41 @@ void BVHReader::doHierarchy(ifstream *datafile)
 		{
 			brackets--;
 		}
-
 		// End site
 		else if(line.compare("End") == 0)
 		{
 			endSite = true;
 			*datafile >> line; // read unneccessary "Site"
 		}
-
+		
 		// ROOT/JOINT
 		else if(line.compare("ROOT") == 0)
 		{
 			*datafile >> line;
-			
 			cstr = new char [line.size()+1];
 			strcpy (cstr, line.c_str());
-
 			bvhobject = doCreateBVHObject(0, cstr);
-
+			this->rootObject = bvhobject;
 		}
-
 		else if(line.compare("JOINT") == 0)
 		{
-
 			// Assign previouse object
 			prevObj = bvhobject;
-
 			*datafile >> line;
-			
 			cstr = new char [line.size()+1];
 			strcpy (cstr, line.c_str());
-
 			bvhobject = doCreateBVHObject(brackets, cstr);
-
+			
 			// Parent might not be previous node, as it can be brother
 			parent = getParentByLevel((brackets-1), prevObj);
 			parent->addChild(bvhobject);
 			bvhobject->setParent(parent);
 		}
-
 		// Data
 		else if(line.compare("OFFSET") == 0)
 		{
 			// Do offset function
 			doOffset(bvhobject, datafile, endSite);
-
 			if(endSite) endSite = false;
 		}
 		else if(line.compare("CHANNELS") == 0)
@@ -131,7 +132,6 @@ void BVHReader::doHierarchy(ifstream *datafile)
 			// Do channels function
 			doChannels(bvhobject, datafile);
 		}
-		cout << line;
 	}
 }
 
@@ -140,7 +140,7 @@ BVHObject *BVHReader::doCreateBVHObject(int level, char *name)
 {
 	BVHObject *bvhobject = new BVHObject(name, level);
 	(*this->sequence).push_back(bvhobject);
-
+	this->objectsNumber++;
 	return bvhobject;
 }
 
@@ -152,10 +152,10 @@ void BVHReader::doOffset(BVHObject *bvhobject, ifstream *datafile, bool endSite)
 	*datafile >> x;
 	*datafile >> y;
 	*datafile >> z;
-
+	
 	if(!endSite) bvhobject->setOffset(x,y,z);
 	else bvhobject->setOffsetEndSite(x,y,z);
-
+	
 }
 
 // Create channels and their sequence
@@ -163,21 +163,16 @@ void BVHReader::doChannels(BVHObject *bvhobject, ifstream *datafile)
 {
 	int count;
 	*datafile >> count;
-
+	
 	if(count > 0) {
-
 		string chan;
 		char *cstr;
-
 		bvhobject->setChannelsNumber(count);
-
 		for(int i=0; i<count; i++)
 		{
 			*datafile >> chan;
-
 			cstr = new char [chan.size()+1];
 			strcpy (cstr, chan.c_str());
-
 			bvhobject->addChannel(cstr);
 		}
 	}
@@ -188,15 +183,16 @@ void BVHReader::doChannels(BVHObject *bvhobject, ifstream *datafile)
  */
 void BVHReader::doMotion(ifstream *datafile)
 {
-
+	
 	// Frame information
 	int frames;
 	float frameTime;
 	string word;
 	bool readmore = true;
-
+	
 	// Read frames info data
 	while (!datafile->eof() && readmore)
+		
 	{
 		*datafile >> word;
 		if(word.compare("Frames:") == 0) {
@@ -210,20 +206,21 @@ void BVHReader::doMotion(ifstream *datafile)
 	
 	this->frames = frames;
 	this->frameTime = frameTime;
-
+	
 	// Coordinates info
 	float xPos, yPos, zPos, xRot, yRot, zRot;
 	int type;
 	bool rot = false, pos = false;
 	BVHFrame *bvhframe;
-
+	
 	// Read coordinates data
 	while (!datafile->eof())
+		
 	{
 		for(int i=0; i<(this->sequence->size()); i++)
 		{
 			rot = false; pos = false;
-
+			
 			for (int j=0; j<(*this->sequence)[i]->getChannelsNumber(); j++)
 			{
 				/**
@@ -240,36 +237,30 @@ void BVHReader::doMotion(ifstream *datafile)
 					case 11:
 						*datafile >> xPos;
 						pos = true;
-					break;
-
+						break;
 					case 12:
 						*datafile >> yPos;
-					break;
-
+						break;
 					case 13:
 						*datafile >> zPos;
-					break;
-
+						break;
 					case 21:
 						*datafile >> xRot;
 						rot = true;
-					break;
-
+						break;
 					case 22:
 						*datafile >> yRot;
-					break;
-
+						break;
 					case 23:
 						*datafile >> zRot;
-					break;
-
+						break;
 				}
 			}
-
+			
 			// insert to frame
 			bvhframe = new BVHFrame();
 			if(rot) {
-				bvhframe->setPos(xRot, yRot, zRot);
+				bvhframe->setRot(xRot, yRot, zRot);
 			}
 			if(pos) {
 				bvhframe->setPos(xPos, yPos, zPos);
