@@ -1,3 +1,15 @@
 This is BibTeX, Version 0.99cThe top-level auxiliary file: latex8.aux
 The style file: latex8.bst
 Database file #1: latex8.bib
+You're missing a field name---line 21 of file latex8.bib
+ : 
+ : %   month = "January",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 32 of file latex8.bib
+ : 
+ : %   month = "January",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--empty year in ex2
+(There were 2 error messages)
