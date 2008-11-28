@@ -22,8 +22,11 @@
 
 \title{Animating human model in OpenGL using data from Vicon system}
 
-\author{Gediminas Mazrimas (g.mazrimas@gmail.com),\\Algirdas Beinaravicius (algirdux@gmail.com)\\\\
-Aalborg University Copenhagen\\ Computer Vision and Graphics\\ 
+\author{Gediminas Mazrimas\\
+Aalborg University Copenhagen\\ Computer Vision and Graphics\\g.mazrimas@gmail.com
+\and
+Algirdas Beinaravicius\\
+Aalborg University Copenhagen\\ Computer Vision and Graphics\\algirdux@gmail.com
 }
 
 \maketitle
@@ -35,7 +38,7 @@ Aalborg University Copenhagen\\ Computer Vision and Graphics\\
    various human body rigid parts transformations.
    The animation is associated with real person movements,
    while using data from Vicon motion capture system.
-   Animating is made in lowest programming C++ OpenGL level, without using any 3rd part already made applications.
+   Animating is made in lowest programming C++ OpenGL level.
    \\\\
    \textbf{Keywords:} Human animation, Vicon system, OpenGL, C++, Linear Blend Skinning
 \end{abstract}
@@ -45,171 +48,128 @@ Aalborg University Copenhagen\\ Computer Vision and Graphics\\
 %-------------------------------------------------------------------------
 \Section{Introduction}
 
-Please follow the steps outlined below when submitting your
-manuscript to the IEEE Computer Society Press. Note there have
-been some changes to the measurements from previous instructions.
+Our animation focuses on the most common and partly simple human
+body animation technique, that uses joints to animate human model. The joint structure,
+given their position and orientation, can be thought as being human body skeleton.
+The skin shape is associated to the joints, where as it's a 3D polygon mesh
+and it's the only thing that is displayed for the end-user.
+Due to very fast computation speeds, this technique is the most popular
+in animation production. On the other hand, using simple shape blending technique
+to deal with complex human body rigid parts transformations, there are
+various skin deformation problems. Typical ones are collapsing elbow, candy-wrapper joint
+when the arm turns 180 degrees, intersection between two adjacent bones (links) around a joint.
+Also such a technique don't consider many very complicated and detail human body deformations,
+for example dealing with muscles (stretch or bulge).
 
 %-------------------------------------------------------------------------
-\Section{Instructions}
+\SubSection{Previous works}
 
-Please read the following carefully.
-
-%-------------------------------------------------------------------------
-\SubSection{Language}
-
-All manuscripts must be in English.
+What we've read and what was written there. References.
+[Linear blend skinning, for deformation problems, data format (? C3D/BVH)]
 
 %-------------------------------------------------------------------------
-\SubSection{Printing your paper}
+\SubSection{Overview}
 
-Print your properly formatted text on high-quality, $8.5 \times 11$-inch
-white printer paper. A4 paper is also acceptable, but please leave the
-extra 0.5 inch (1.27 cm) at the BOTTOM of the page.
+What is represented in further sections?
 
 %-------------------------------------------------------------------------
-\SubSection{Margins and page numbering}
+\Section{Linear blend skinning}
 
-All printed material, including text, illustrations, and charts, must be
-kept within a print area 6-7/8 inches (17.5 cm) wide by 8-7/8 inches
-(22.54 cm) high. Do not write or print anything outside the print area.
-Number your pages lightly, in pencil, on the upper right-hand corners of
-the BACKS of the pages (for example, 1/10, 2/10, or 1 of 10, 2 of 10, and
-so forth). Please do not write on the fronts of the pages, nor on the
-lower halves of the backs of the pages.
-
-
-%------------------------------------------------------------------------
-\SubSection{Formatting your paper}
-
-All text must be in a two-column format. The total allowable width of
-the text area is 6-7/8 inches (17.5 cm) wide by 8-7/8 inches (22.54 cm)
-high. Columns are to be 3-1/4 inches (8.25 cm) wide, with a 5/16 inch
-(0.8 cm) space between them. The main title (on the first page) should
-begin 1.0 inch (2.54 cm) from the top edge of the page. The second and
-following pages should begin 1.0 inch (2.54 cm) from the top edge. On
-all pages, the bottom margin should be 1-1/8 inches (2.86 cm) from the
-bottom edge of the page for $8.5 \times 11$-inch paper; for A4 paper,
-approximately 1-5/8 inches (4.13 cm) from the bottom edge of the page.
+Theory of linear blend skinning, that helps avoiding skin deformations.
 
 %-------------------------------------------------------------------------
-\SubSection{Type-style and fonts}
+\Section{Vicon motion capture system}
 
-Wherever Times is specified, Times Roman may also be used. If neither is
-available on your word processor, please use the font closest in
-appearance to Times that you have access to.
-
-MAIN TITLE. Center the title 1-3/8 inches (3.49 cm) from the top edge of
-the first page. The title should be in Times 14-point, boldface type.
-Capitalize the first letter of nouns, pronouns, verbs, adjectives, and
-adverbs; do not capitalize articles, coordinate conjunctions, or
-prepositions (unless the title begins with such a word). Leave two blank
-lines after the title.
-
-AUTHOR NAME(s) and AFFILIATION(s) are to be centered beneath the title
-and printed in Times 12-point, non-boldface type. This information is to
-be followed by two blank lines.
-
-The ABSTRACT and MAIN TEXT are to be in a two-column format.
-
-MAIN TEXT. Type main text in 10-point Times, single-spaced. Do NOT use
-double-spacing. All paragraphs should be indented 1 pica (approx. 1/6
-inch or 0.422 cm). Make sure your text is fully justified---that is,
-flush left and flush right. Please do not place any additional blank
-lines between paragraphs. Figure and table captions should be 10-point
-Helvetica boldface type as in
-\begin{figure}[h]
-   \caption{Example of caption.}
-\end{figure}
-
-\noindent Long captions should be set as in
-\begin{figure}[h]
-   \caption{Example of long caption requiring more than one line. It is
-     not typed centered but aligned on both sides and indented with an
-     additional margin on both sides of 1~pica.}
-\end{figure}
-
-\noindent Callouts should be 9-point Helvetica, non-boldface type.
-Initially capitalize only the first word of section titles and first-,
-second-, and third-order headings.
-
-FIRST-ORDER HEADINGS. (For example, {\large \bf 1. Introduction})
-should be Times 12-point boldface, initially capitalized, flush left,
-with one blank line before, and one blank line after.
-
-SECOND-ORDER HEADINGS. (For example, {\elvbf 1.1. Database elements})
-should be Times 11-point boldface, initially capitalized, flush left,
-with one blank line before, and one after. If you require a third-order
-heading (we discourage it), use 10-point Times, boldface, initially
-capitalized, flush left, preceded by one blank line, followed by a period
-and your text on the same line.
+What's Vicon motion capture system. How it works, what from it consists?
 
 %-------------------------------------------------------------------------
-\SubSection{Footnotes}
+\SubSection{Setting up system}
 
-Please use footnotes sparingly%
-\footnote
-   {%
-     Or, better still, try to avoid footnotes altogether.  To help your
-     readers, avoid using footnotes altogether and include necessary
-     peripheral observations in the text (within parentheses, if you
-     prefer, as in this sentence).
-   }
-and place them at the bottom of the column on the page on which they are
-referenced. Use Times 8-point type, single-spaced.
+How we set up this system to be able to work with it.
+How we prepare working space, how cameras are calibrated and similar.
+
+%-------------------------------------------------------------------------
+\SubSection{Capturing data}
+
+How we capture our motion data (with costume). How we assign (label)
+captured data to a Vicon model. How Vicon model looks like
+(available joints, their connections, connections to costume sensors).
+
+%-------------------------------------------------------------------------
+\Section{Motion data}
+
+What Motion data formats are we using? How do they look like?
+
+%-------------------------------------------------------------------------
+\SubSection{Description of Vicon C3D format}
+
+Short information about C3D data.
+
+%-------------------------------------------------------------------------
+\SubSection{Description of Biovision BVH format}
+
+The BVH format is an upgraded version of BioVision’s BVA data format, with the addition of a 
+hierarchical data structure representing the bones of the skeleton.
+The BVH file consists of two parts: first section is for storing hierarchy and initial pose of the skeleton,
+including the length of the bones, joints position in the world. 
+While as second section describes the channel motion data for each frame.
+
+%-------------------------------------------------------------------------
+\SubSection{Processing captured data}
+
+While C3D gives us our marker coordinates from motion capture system,
+by labeling these markers at first in Vicon system and then importing them
+in Motion builder, in BVH then we get rotations and translations not for those 
+markers, but for human body model joints.
+
+Why do we need to convert C3D data to BVH?
+What's good and bad about them? (C3d would be faster,
+but it's binary, so not a human readable,
+also BVH gives us rotations and have good structure,
+that is much easier to implement in our C++ program).
+How do we do it using Motion builder?
+
+%-------------------------------------------------------------------------
+\Section{Human body mesh model}
+
+What do we use for our animation?
+
+%-------------------------------------------------------------------------
+\SubSection{Mesh model preparations in Maya}
+
+What Mesh model in Maya do we use?
+How do we prepare it, that it would be suitable for out program?
+How we cut mesh to different body parts, export to .obj format files.
+
+%-------------------------------------------------------------------------
+\SubSection{Mesh model file format used in animation}
+
+Why do we use .obj file format? How does it look like?
 
 
 %-------------------------------------------------------------------------
-\SubSection{References}
+\Section{Animating human body}
 
-List and number all bibliographical references in 9-point Times,
-single-spaced, at the end of your paper. When referenced in the text,
-enclose the citation number in square brackets, for example~\cite{ex1}.
-Where appropriate, include the name(s) of editors of referenced books.
+Explain how we load human model, exported from Maya to .obj file.
+How we create natural primary human pose, assign meshes to joints and so on.
 
 %-------------------------------------------------------------------------
-\SubSection{Illustrations, graphs, and photographs}
+\SubSection{Loading human body model in OpenGL}
 
-All graphics should be centered. Your artwork must be in place in the
-article (preferably printed as part of the text rather than pasted up).
-If you are using photographs and are able to have halftones made at a
-print shop, use a 100- or 110-line screen. If you must use plain photos,
-they must be pasted onto your manuscript. Use rubber cement to affix the
-images in place. Black and white, clear, glossy-finish photos are
-preferable to color. Supply the best quality photographs and
-illustrations possible. Penciled lines and very fine lines do not
-reproduce well. Remember, the quality of the book cannot be better than
-the originals provided. Do NOT use tape on your pages!
+How we load human body to OpenGL. How we import mesh from obj files.
+Joint creation. Joint connection with meshes.
 
 %-------------------------------------------------------------------------
-\SubSection{Color}
+\SubSection{Linear blend skinning relations}
 
-The use of color on interior pages (that is, pages other
-than the cover) is prohibitively expensive. We publish interior pages in
-color only when it is specifically requested and budgeted for by the
-conference organizers. DO NOT SUBMIT COLOR IMAGES IN YOUR
-PAPERS UNLESS SPECIFICALLY INSTRUCTED TO DO SO.
+How we adapted linear blend skinning to our animations.
+Explain how our method using meshes assigned with joint rotations
+is similar to linear blend skinning. How we automated all the things.
 
-%-------------------------------------------------------------------------
-\SubSection{Symbols}
-
-If your word processor or typewriter cannot produce Greek letters,
-mathematical symbols, or other graphical elements, please use
-pressure-sensitive (self-adhesive) rub-on symbols or letters (available
-in most stationery stores, art stores, or graphics shops).
-
-%------------------------------------------------------------------------
-\SubSection{Copyright forms}
-
-You must include your signed IEEE copyright release form when you submit
-your finished paper. We MUST have this form before your paper can be
-published in the proceedings.
 
 %-------------------------------------------------------------------------
-\SubSection{Conclusions}
-
-Please direct any questions to the production editor in charge of these
-proceedings at the IEEE Computer Society Press: Phone (714) 821-8380, or
-Fax (714) 761-1784.
+\Section{Conclusion}
+Conclusion
 
 %-------------------------------------------------------------------------
 \nocite{ex1,ex2}
