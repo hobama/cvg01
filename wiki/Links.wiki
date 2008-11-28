@@ -11,3 +11,7 @@
 
 #Other
   * http://home.gna.org/cal3d/ - library for skeleton animation
+
+#BVH
+  * http://www.softhelp.ru/fileformat/bvh/bvh.htm
+  * http://www.cs.wisc.edu/graphics/Courses/cs-838-1999/Jeff/BVH.html - iš čia imti interpreting data spėju :)
