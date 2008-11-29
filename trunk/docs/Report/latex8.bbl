@@ -1,13 +1,22 @@
 \begin{thebibliography}{1}\setlength{\itemsep}{-1ex}\small
 
-\bibitem{ex2}
-M.~G. Alex~Mohr.
-\newblock Building efficient, accurate character skins from example.
-\newblock {\em SIGGRAPH 2003}.
-
 \bibitem{ex1}
-S.~M.~K. F.S.~HILL, JR.
+F.~S. Hill and S.~M.Kelley.
 \newblock {\em Computer Graphics Using OpenGL}.
-\newblock Prentice Hall, 2007.
+
+\bibitem{ex4}
+M.~Meredith and S.Maddock.
+\newblock Motion capture file formats explained.
+\newblock 2003.
+
+\bibitem{ex2}
+A.~Mohr and M.~Gleicher.
+\newblock Building efficient, accurate character skins from example.
+\newblock {\em SIGGRAPH}, 2003.
+
+\bibitem{ex3}
+A.~Mohr, L.~Tokheim, and M.~Gleicher.
+\newblock Direct manpulation of interactive character skins.
+\newblock 2003.
 
 \end{thebibliography}

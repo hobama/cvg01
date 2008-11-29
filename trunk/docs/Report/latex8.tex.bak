@@ -2,7 +2,7 @@
 %
 %  $Description: Author guidelines and sample document in LaTeX 2.09$
 %
-%  $Author: ienne $
+%  $Author: Gediminas Mazrimas $
 %  $Date: 1995/09/15 15:20:59 $
 %  $Revision: 1.4 $
 %
@@ -65,7 +65,7 @@ for example dealing with muscles (stretch or bulge).
 \SubSection{Previous works}
 
 What we've read and what was written there. References.
-[Linear blend skinning, for deformation problems, data format (? C3D/BVH)]
+[Linear blend skinning, for deformation problems, data formats]
 
 %-------------------------------------------------------------------------
 \SubSection{Overview}
@@ -75,7 +75,53 @@ What is represented in further sections?
 %-------------------------------------------------------------------------
 \Section{Linear blend skinning}
 
-Theory of linear blend skinning, that helps avoiding skin deformations.
+Linear blend skinning technique is widely used for interactive applications.
+It goes by many different names, such as Skeleton Subspace Deformation or SSD or smooth skinning" in Maya.
+
+The linear blend skinning algorithm works by first placing a hierarchical
+skeleton inside a static model mesh of a character in
+some neutral pose (usually in the da Vinci posture or so called "dress pose").
+Then, each vertex is assigned a set of influencing joints and a
+blending weight for each influence. Computing the deformation in
+some pose involves rigidly transforming each dress pose vertex by
+all of its influencing joints. Then the blending weights are used to
+combine these rigidly transformed positions.
+
+The deformed vertex position, $ \overline{v} $ is
+
+
+$ \overline{v} = \emph{w}_{i}M_{i}D_{i}^{-1}\textbf{v}_{d} $
+
+
+%$ \overline{v} = \emph{w_{i}M_{i}D_{i}^{-1}}\textbf{v_{d}} $
+
+%where w_{i} are the influence weights, v_{d} is the dress-pose location of a
+%particular vertex \textbf{v}, \emph{M_{i}} is the transformation matrix associated with
+%the \emph{i}th influence, and D_{i}^{-1} is the inverse of the dress-pose matrix
+%associated with the \emph{i}th influence. Taken together, D_{i}^{-1}v_{d} represents
+%the location of \textbf{v_{d}} in the local coordinate frame of the \emph{i}th influence.
+%
+%\begin{figure}
+%  % Requires \usepackage{graphicx}
+%  \includegraphics[width=250]{}\\
+%  \caption{}\label{}
+%\end{figure}
+
+[pictures]
+
+Linear blend skinning though has two primary failings.
+First, the method is incapable of expressing complex deformations.
+Artifacts such as the "candy-wrapper", collapse effect on wrists and
+collapsing around bending joints as shown appear. They
+occur because vertices are transformed by linearly interpolated matrices.
+If the interpolated matrices are dissimilar as in a rotation of
+nearly 180 degrees, the interpolated transformation is degenerate,
+so the geometry must collapse.
+Second, authoring linear blend skins is difficult and frustrating for users.
+
+Despite its failings, this skinning algorithm is very fast and
+widely supported by commercial applications so it remains popular
+especially in games and virtual environments.
 
 %-------------------------------------------------------------------------
 \Section{Vicon motion capture system}
@@ -108,26 +154,47 @@ Short information about C3D data.
 %-------------------------------------------------------------------------
 \SubSection{Description of Biovision BVH format}
 
-The BVH format is an upgraded version of BioVision’s BVA data format, with the addition of a 
+The BVH format is an updated version of BioVision’s BVA data format, with the addition of a
 hierarchical data structure representing the bones of the skeleton.
-The BVH file consists of two parts: first section is for storing hierarchy and initial pose of the skeleton,
-including the length of the bones, joints position in the world. 
-While as second section describes the channel motion data for each frame.
+The BVH file is an ASCII file and consists of two parts.
+
+First section (HIERARCHY) is for storing hierarchy and initial pose of the skeleton,
+basically joint-to-joint connections and offsets.
+While as second section (MOTION) describes the channel motion data for each frame,
+that is describes the movement of individual joints.
+
+The HIERARCHY section starts with ROOT joint and contains OFFSET, CHANNELS and children JOINTS data.
+Here OFFSET is followed by X, Y and Z coordinates, to determine current joint position.
+CHANNELS information contains the existence of corresponding XYZ data streams (i.e. rotation and translation)
+in the MOTION section which follows.
+Finally it includes other JOINTS in hierarchical order with OFFSET and CHANNEL
+and possible END SITE attribute, to determine body segment end.
+
+In the MOTION section, each row contains data values for all CHANNELS which were specified in the HIERARCHY.
+The listing order of CHANNELS values in each row in is assumed to match their listed order from the HIERARCHY section (top down).
+
+There are only few drawbacks of this format, for example - the lack of a full definition of the basis pose
+(it has only translational offsets of children segments from their parent, no rotational offset is defined)
+and also it lacks explicit information for how to draw the segments,
+but that has no bearing on the definition of the motion.
 
 %-------------------------------------------------------------------------
 \SubSection{Processing captured data}
-
-While C3D gives us our marker coordinates from motion capture system,
-by labeling these markers at first in Vicon system and then importing them
-in Motion builder, in BVH then we get rotations and translations not for those 
-markers, but for human body model joints.
-
 Why do we need to convert C3D data to BVH?
 What's good and bad about them? (C3d would be faster,
 but it's binary, so not a human readable,
 also BVH gives us rotations and have good structure,
 that is much easier to implement in our C++ program).
 How do we do it using Motion builder?
+
+
+While C3D gives us our marker coordinates from motion capture system,
+by labeling these markers at first in Vicon system and then importing them
+in Motion builder, in BVH then we get rotations and translations not for those
+markers, but for human body model joints.
+
+[Here goes how we interpret BVH data]
+
 
 %-------------------------------------------------------------------------
 \Section{Human body mesh model}
