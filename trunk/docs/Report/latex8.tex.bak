@@ -11,6 +11,10 @@
 \usepackage{latex8}
 \usepackage{times}
 
+% Images includes
+\usepackage{graphicx}
+\usepackage{float}
+
 %\documentstyle[times,art10,twocolumn,latex8]{article}
 
 %-------------------------------------------------------------------------
@@ -87,27 +91,20 @@ some pose involves rigidly transforming each dress pose vertex by
 all of its influencing joints. Then the blending weights are used to
 combine these rigidly transformed positions.
 
-The deformed vertex position, $ \overline{v} $ is
+The deformed vertex position, $ \overline{\textbf{v}} $ is
+\begin{center}
+$ \overline{\textbf{v}} = \displaystyle\sum_{i=1}^n\emph{w}_{i}M_{i}D_{i}^{-1}\textbf{v}_{d} $
+\end{center}
+where $w_{i}$ are the influence weights, $v_{d}$ is the dress-pose location of a
+particular vertex \textbf{v}, $\emph{M}_{i}$ is the transformation matrix associated with
+the $\emph{i}$th influence, and $D_{i}^{-1}$ is the inverse of the dress-pose matrix
+associated with the $\emph{i}$th influence. Taken together, $D_{i}^{-1}\textbf{v}_{d}$ represents
+the location of \textbf{v$_{d}$} in the local coordinate frame of the $\emph{i}$th influence.
 
-
-$ \overline{v} = \emph{w}_{i}M_{i}D_{i}^{-1}\textbf{v}_{d} $
-
-
-%$ \overline{v} = \emph{w_{i}M_{i}D_{i}^{-1}}\textbf{v_{d}} $
-
-%where w_{i} are the influence weights, v_{d} is the dress-pose location of a
-%particular vertex \textbf{v}, \emph{M_{i}} is the transformation matrix associated with
-%the \emph{i}th influence, and D_{i}^{-1} is the inverse of the dress-pose matrix
-%associated with the \emph{i}th influence. Taken together, D_{i}^{-1}v_{d} represents
-%the location of \textbf{v_{d}} in the local coordinate frame of the \emph{i}th influence.
-%
-%\begin{figure}
-%  % Requires \usepackage{graphicx}
-%  \includegraphics[width=250]{}\\
-%  \caption{}\label{}
-%\end{figure}
-
-[pictures]
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=93mm]{images/hand.jpg}
+\end{figure}
 
 Linear blend skinning though has two primary failings.
 First, the method is incapable of expressing complex deformations.
@@ -149,7 +146,20 @@ What Motion data formats are we using? How do they look like?
 %-------------------------------------------------------------------------
 \SubSection{Description of Vicon C3D format}
 
-Short information about C3D data.
+This section is meant to give just a brief introduction to the C3D file format, describing it in an abstract way. A reference to a detailed manual, describing the format, is given in the reference part of this document.
+
+The C3D (Coordinate 3D) file format is a binary data file format originally developed for the AMASS photogrammetry software system, capable of storing 3D data as well as analog data together with all associated parameters for a single measurement trial. Since only the 3D data is of importance, we will not consider analog data in this document. The main advantage of C3D format over other motion capture data formats is that it is able to encapsulate the motion data as well as parameters, describing the  motion data, in a single file. Apart from that, C3D is freely licensed and well documented.
+
+Being a binary file, the C3D file consists of a number of 512-byte blocks. Logically C3D format can be divided into 3 basic sections, each having one or more 512-byte blocks:
+
+    Header section is the first section of a file. The main purpose of this section is holding a pointer to the start of parameters section. Other parts of this section, is of no particular importance, as usually it consists data, copied from parameters section.
+
+    The parameters section usually starts at block number 2, although this is not fixed and should not be assumed to be the case for every C3D file. This section contains information about the 3D data stored in the file. The section is extensible, meaning that user can define it's own parameters without  violating the format specification.
+
+    Data section containing the 3D point coordinates is usually located after the parameters section. This section simply contains sequential frames data. In the case of 3D points (the data is X, Y and Z coordinates).
+
+During the workflow of our project, the animation data, produced by the Vicon motion capturing system, was encoded in C3D file format. The data, provided by the C3D file, contains only the positions of skeleton joints at each frame, what is not sufficient to correctly animate the character. So the C3D animation data file was imported to Motion Builder, where the inverse kinematics technique was applied to provide us with BVH format file.  The BVH format file is another motion capturing data format, where the rotation data of each joint is being already calculated.
+
 
 %-------------------------------------------------------------------------
 \SubSection{Description of Biovision BVH format}
@@ -163,7 +173,8 @@ basically joint-to-joint connections and offsets.
 While as second section (MOTION) describes the channel motion data for each frame,
 that is describes the movement of individual joints.
 
-The HIERARCHY section starts with ROOT joint and contains OFFSET, CHANNELS and children JOINTS data.
+The HIERARCHY section starts with ROOT joint and contains the definition of a joint hierarchy within nested braces like source code written in
+the C programming language. Each joint in a hierarchy has an offset field and a channels field.
 Here OFFSET is followed by X, Y and Z coordinates, to determine current joint position.
 CHANNELS information contains the existence of corresponding XYZ data streams (i.e. rotation and translation)
 in the MOTION section which follows.
@@ -173,10 +184,13 @@ and possible END SITE attribute, to determine body segment end.
 In the MOTION section, each row contains data values for all CHANNELS which were specified in the HIERARCHY.
 The listing order of CHANNELS values in each row in is assumed to match their listed order from the HIERARCHY section (top down).
 
-There are only few drawbacks of this format, for example - the lack of a full definition of the basis pose
-(it has only translational offsets of children segments from their parent, no rotational offset is defined)
-and also it lacks explicit information for how to draw the segments,
-but that has no bearing on the definition of the motion.
+There are few drawbacks of the BVH format. One is that it lacks a full definition of the initial pose. Another
+drawback is that the format has only translational offsets of children segments from their parents. No
+rotational offset can be defined. Moreover, the BVH format is often implemented differently in different
+applications, that is, one BVH format that works well in one application may not be interpreted
+in another. All the same the format is very flexible and it is relatively easy to edit BVH files.
+
+[Give more details later about exact structure of our model (like example)]
 
 %-------------------------------------------------------------------------
 \SubSection{Processing captured data}
@@ -239,7 +253,7 @@ is similar to linear blend skinning. How we automated all the things.
 Conclusion
 
 %-------------------------------------------------------------------------
-\nocite{ex1,ex2}
+\nocite{ex1,ex5,ex2,ex3,ex4}
 \bibliographystyle{latex8}
 \bibliography{latex8}
 

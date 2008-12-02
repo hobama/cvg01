@@ -121,9 +121,21 @@ widely supported by commercial applications so it remains popular
 especially in games and virtual environments.
 
 %-------------------------------------------------------------------------
-\Section{Vicon motion capture system}
+\Section{Motion capture system}
 
-What's Vicon motion capture system. How it works, what from it consists?
+Motion capture (\emph{mocap}) is sampling and recording motion of humans, animals, and inanimate
+objects as 3D data. The data can be used to study motion or to animate 3D computer models.
+During the motion capture process not only the capturing stage using \emph{mocap} equipment
+is very important, as equally important are the preparation and post processing processes.
+The whole system must be well calibrated and set up and after capturing,
+data needs to be cleaned, edited, and applied to a 3D model.
+
+%-------------------------------------------------------------------------
+\SubSection{Vicon MX motion capture system}
+
+In this project we'll be using Vicon MX 8 cameras motion capture system,
+to capture motion data of human movements and then apply them to our model.
+
 
 %-------------------------------------------------------------------------
 \SubSection{Setting up system}
@@ -168,25 +180,29 @@ The BVH format is an updated version of BioVision’s BVA data format, with the ad
 hierarchical data structure representing the bones of the skeleton.
 The BVH file is an ASCII file and consists of two parts.
 
-First section (HIERARCHY) is for storing hierarchy and initial pose of the skeleton,
+First section (\emph{hierarchy}) is for storing hierarchy and initial pose of the skeleton,
 basically joint-to-joint connections and offsets.
-While as second section (MOTION) describes the channel motion data for each frame,
+While as second section (\emph{motion}) describes the channel motion data for each frame,
 that is describes the movement of individual joints.
 
-The HIERARCHY section starts with ROOT joint and contains OFFSET, CHANNELS and children JOINTS data.
-Here OFFSET is followed by X, Y and Z coordinates, to determine current joint position.
-CHANNELS information contains the existence of corresponding XYZ data streams (i.e. rotation and translation)
-in the MOTION section which follows.
-Finally it includes other JOINTS in hierarchical order with OFFSET and CHANNEL
-and possible END SITE attribute, to determine body segment end.
+The \emph{hierarchy} section starts with \emph{root} joint and contains the definition of a joint hierarchy within nested braces like source code written in the C programming language.
+Each joint in a \emph{hierarchy} has an \emph{offset} field and a \emph{channels} field.
+The \emph{offset} field stores initial \emph{offset} values for each joint with respect to its parent joint.
+\emph{channels} field defines which “channels” of transformation (translation and/or rotation) exist for the joint in
+the \emph{motion} data section of the file. The \emph{channels} field also defines the order of transformation. A
+\emph{channel} is either x-, y-, or z-translation or local x-, y-, or z-rotation. All the segments are assumed
+to be rigid and scaling is not available.
+The \emph{end site} field is also available in order to determine body segment end.
 
-In the MOTION section, each row contains data values for all CHANNELS which were specified in the HIERARCHY.
-The listing order of CHANNELS values in each row in is assumed to match their listed order from the HIERARCHY section (top down).
+In the \emph{motion} section the total number of frames in the animation and the frame
+speed in frames-per-second is defined. Every next row then contains data values for all \emph{channels} which were specified in the \emph{hierarchy} section.
+The listing order of \emph{motion} values in each row in is assumed to match their listed order from the \emph{hierarchy} section (top down).
 
-There are only few drawbacks of this format, for example - the lack of a full definition of the basis pose
-(it has only translational offsets of children segments from their parent, no rotational offset is defined)
-and also it lacks explicit information for how to draw the segments,
-but that has no bearing on the definition of the motion.
+There are few drawbacks of the BVH format. One is that it lacks a full definition of the initial pose. Another
+drawback is that the format has only translational offsets of children segments from their parents. No
+rotational offset can be defined. Moreover, the BVH format is often implemented differently in different
+applications, that is, one BVH format that works well in one application may not be interpreted
+in another. All the same the format is very flexible and it is relatively easy to edit BVH files.
 
 [Give more details later about exact structure of our model (like example)]
 
@@ -227,6 +243,30 @@ Why do we use .obj file format? How does it look like?
 
 
 %-------------------------------------------------------------------------
+\SubSection{Description of OBJ format}
+
+OBJ is a geometry definition file format, first developed by Wavefront technologies. The file format is open and has been adopted by most of 3D graphics application vendors. It can be imported/exported from most of 3D modeling tools such as Autodesk's Maya, 3ds Max, Newtek's Lightwave, Blender, etc.  This section of the document provides a  thorough explanation of the most important parts of an object file, with more details provided in the reference page.
+
+An object file can be stored in ASCII (using the ".obj" file extension) or in binary format (using the .MOD extension). The binary format is proprietary and undocumented, so only the ASCII format is described here.
+
+The OBJ file format supports lines, polygons, and free-form curves and surfaces. Lines and polygons are described in terms of their points, while curves and surfaces are defined with control points and other information depending on the type of curve. Since, in our project, lines and polygons were sufficient to represent the model appropriately, only the parameters, concerning, these entities are described below.
+
+The OBJ file is composed of lines of text, each of them starting with a token, which describes the type of the entity being  recorded in that line. Below are listed various tokens, which were of importance in our project:
+
+\begin{itemize}
+\item "\#" - a comment line. Lines, starting with "\#" token, are simply skipped by OBJ file readers. For example "\# this is a comment".
+\item "g" - a group line. Lines, starting with "g" (group) token, determine the start of a group. "g" token is followed by the group name. For example $"g left_arm"$. In our project each group name corresponded to some body part, described by vertices, textures, normals and polygons.
+\item "v" - a vertex line. Lines, starting with "v" (vertex) token, provide the information, concerning vertices. This token is followed by x, y and z coordinates of the vertex. For example "v -0.756447 0.702621 0.047024" is a vertex with coordinates (-0.756447, 0.702621, 0.047024).
+\item "vt" - a texture line. Lines, starting with "vt" (vertex texture) token, are recorded with information, concerning textures. "vt" token is followed by x, y and z coordinates of the texture, although only the x and y coordinates are of importance (z coordinate is 0.0). For example "vt 0.487840 0.942165 0.000000".
+\item "vn" - a vertex normal line. Lines, starting with "vn" (vertex normal) token, contain information, concerning the normal of a vertex. "vn" token is followed by x, y and z coordinates of the normal. For example "vn 0.149280 -0.186998 -0.240511".
+\item "f" - a line, describing face. Lines, starting with "f" (face) token, provide the information, concerning polygons. "f" token is followed by a number of triplets, which is equal to the number of vertices, the polygon has. Each triplet is of a form "int/int/int", where the first "int" is a vertex position in the file, the second "int" is "texture" position in the file and the third "int" is a normal position in the file. For example "f 6/9/6 2/5/2 1/1/1" is a triangle polygon, with vertices 6, 2 and 1, textures 9, 5 and 1 and normals 6, 2 and 1.
+\end{itemize}
+
+The above described tokens were of importance in our project, but they are not the only ones that OBJ format allows. The OBJ format specification is much broader and covers such abilities as surface encoding, connectivity between free-form surfaces, rendering attributes. The OBJ specification can be found in the document's reference page.
+
+
+
+%-------------------------------------------------------------------------
 \Section{Animating human body}
 
 Explain how we load human model, exported from Maya to .obj file.
@@ -251,7 +291,7 @@ is similar to linear blend skinning. How we automated all the things.
 Conclusion
 
 %-------------------------------------------------------------------------
-\nocite{ex1,ex2,ex3,ex4}
+\nocite{ex1,ex5,ex2,ex3,ex4}
 \bibliographystyle{latex8}
 \bibliography{latex8}
 
