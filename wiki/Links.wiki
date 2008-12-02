@@ -18,3 +18,4 @@
 
 #Vicon
   * http://www.tinkering.net/animation/ - Tutorials
+  * http://www.cacs.louisiana.edu/labs/ecrg/vicon/index.html
