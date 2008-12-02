@@ -5,8 +5,14 @@ I was expecting a `,' or a `}'---line 12 of file latex8.bib
  :    author =   {F. S. Hill and Stephen M.Kelley}
  :                                                ",
 I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 41 of file latex8.bib
+ :    author =   {Midori Kitagawa and Brian Windsor}
+ :                                                  ",
+I'm skipping whatever remains of this entry
 Warning--empty publisher in ex1
 Warning--empty year in ex1
+Warning--empty publisher in ex5
+Warning--empty year in ex5
 Warning--empty journal in ex4
 Warning--empty journal in ex3
-(There was 1 error message)
+(There were 2 error messages)
