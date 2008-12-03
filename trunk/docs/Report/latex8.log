@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  2 DEC 2008 20:26
+This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  4 DEC 2008 00:45
 entering extended mode
 **C:/Mano/Mokslai/Universitetas/5*Semestras/Project/cvg01/docs/Report/latex8.te
 x
@@ -115,6 +115,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 40--49
 
  []
 
+
+Underfull \hbox (badness 2671) in paragraph at lines 40--49
+\OT1/ptm/b/it/10 Keywords: \OT1/ptm/m/it/10 Hu-man an-i-ma-tion, Vi-con mo-tion
+ cap-ture
+ []
+
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 94.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -134,42 +140,54 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [1{C:/ProgramData/MiKTeX/2.7/pdftex/config/pdftex.map}
 
 
-] [2 <images/hand.jpg>]
-Missing character: There is no ’ in font ptmr7t!
-Missing character: There is no “ in font ptmr7t!
-Missing character: There is no ” in font ptmr7t!
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 257.
+]
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 145.
 
 
 ("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\omsptm.fd"
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 257.
- [3] (latex8.bbl)
-[4] (latex8.aux) ) 
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 145.
+
+<images/vicon_mx_basic.jpg, id=17, 955.57pt x 506.89375pt>
+File: images/vicon_mx_basic.jpg Graphic file (type jpg)
+
+<use images/vicon_mx_basic.jpg>
+Overfull \hbox (27.47469pt too wide) in paragraph at lines 163--164
+ [][] 
+ []
+
+[2 <images/hand.jpg> <images/vicon_mx_basic.jpg>]
+Missing character: There is no ’ in font ptmr7t!
+Missing character: There is no “ in font ptmr7t!
+Missing character: There is no ” in font ptmr7t!
+ [3] [4] (latex8.bbl) [5
+
+]
+(latex8.aux) ) 
 Here is how much of TeX's memory you used:
- 1064 strings out of 95304
- 12750 string characters out of 1183069
- 67910 words of memory out of 1500000
- 4286 multiletter control sequences out of 110000
+ 1070 strings out of 95304
+ 12892 string characters out of 1183069
+ 67913 words of memory out of 1500000
+ 4291 multiletter control sequences out of 110000
  22357 words of font info for 44 fonts, out of 1200000 for 2000
  14 hyphenation exceptions out of 8191
  25i,7n,19p,680b,225s stack positions out of 5000i,500n,10000p,200000b,5000s
-{C:/Program Files/MiKTeX 2.7/fonts/enc/dvips/fontname/8r.enc}
-<C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmbx10.pfb><C:/Program File
-s/MiKTeX 2.7/fonts/type1/bluesky/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.7/fon
-ts/type1/bluesky/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky
-/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr10.pfb><C:
-/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr7.pfb><C:/Program Files/MiK
-TeX 2.7/fonts/type1/bluesky/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.7/fonts/ty
-pe1/bluesky/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utm
-b8a.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmbi8a.pfb><C:/Prog
-ram Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 
-2.7/fonts/type1/urw/times/utmri8a.pfb>
-Output written on latex8.pdf (4 pages, 142903 bytes).
+{C:/Program Files/MiKTeX 2.7/fonts/enc/dvips/fontname/8r.enc}<C:/
+Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmbx10.pfb><C:/Program Files/Mi
+KTeX 2.7/fonts/type1/bluesky/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.7/fonts/t
+ype1/bluesky/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/
+cmmi7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr10.pfb><C:/Pro
+gram Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr7.pfb><C:/Program Files/MiKTeX 
+2.7/fonts/type1/bluesky/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/
+bluesky/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmb8a.
+pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmbi8a.pfb><C:/Program 
+Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.7/
+fonts/type1/urw/times/utmri8a.pfb>
+Output written on latex8.pdf (5 pages, 272719 bytes).
 PDF statistics:
- 65 PDF objects out of 1000 (max. 8388607)
+ 69 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,5 +1,9 @@
 \begin{thebibliography}{1}\setlength{\itemsep}{-1ex}\small
 
+\bibitem{ex6}
+{\em Vicon system reference}.
+\newblock Vicon Motion Systems Ltd.
+
 \bibitem{ex1}
 F.~S. Hill and S.~M.Kelley.
 \newblock {\em Computer Graphics Using OpenGL}.
