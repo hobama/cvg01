@@ -44,7 +44,7 @@ Aalborg University Copenhagen\\ Computer Vision and Graphics\\algirdux@gmail.com
    while using data from Vicon motion capture system.
    Animating is made in lowest programming C++ OpenGL level.
    \\\\
-   \textbf{Keywords:} Human animation, Vicon system, OpenGL, C++, Linear Blend Skinning
+   \textbf{Keywords:} Human animation, Vicon motion capture system, OpenGL, C++, Linear Blend Skinning
 \end{abstract}
 
 
@@ -121,27 +121,56 @@ widely supported by commercial applications so it remains popular
 especially in games and virtual environments.
 
 %-------------------------------------------------------------------------
-\Section{Motion capture system}
+\Section{Motion capture}
 
 Motion capture (\emph{mocap}) is sampling and recording motion of humans, animals, and inanimate
 objects as 3D data. The data can be used to study motion or to animate 3D computer models.
 During the motion capture process not only the capturing stage using \emph{mocap} equipment
 is very important, as equally important are the preparation and post processing processes.
-The whole system must be well calibrated and set up and after capturing,
+The whole system must be well calibrated, adjusted and set up, furthermore, after capturing
 data needs to be cleaned, edited, and applied to a 3D model.
 
 %-------------------------------------------------------------------------
 \SubSection{Vicon MX motion capture system}
 
-In this project we'll be using Vicon MX 8 cameras motion capture system,
-to capture motion data of human movements and then apply them to our model.
+Vicon MX motion capture system is a passive optical system that uses markers
+coated with a retroreflective material to reflect light back that is generated near the cameras lens.
+The camera's threshold can be adjusted so only the bright reflective markers will be sampled, ignoring skin and fabric.
 
+An object with markers attached at known positions is used to calibrate the cameras and obtain their positions and the lens distortion of each camera is measured. Providing two calibrated cameras see a marker, a 3 dimensional fix can be obtained.
+
+Our system used for this project mainly consists of:
+
+\begin{itemize}
+\item 8 MX+ [OUR CAMERA MODEL, PROBABLY 3] Megapixels cameras, fitted with sensitive solid-state
+sensors, with stringent checks for linearity, sensitivity, and absence of jitter.
+Each MX camera is programmed with firmware to control its operation
+and enable it to perform its own onboard grayscale processing.
+Cameras and their relevant characteristics are recognized immediately when they are plugged in to Vicon MX system.
+
+\item MX Ultranet, that supplies power, synchronization, and
+communications for all eight connected MX cameras. Only MX Ultranet is connected to the Host PC
+and routes all communication to and from the host PC, and timing/synchronization signals to and from the
+MX cameras connected to it.
+
+\item Host PC, with seperate Ethernet port (preferably Gigabit ethernet card) to enable communications between
+the Vicon software installed on this host PC (in our case Vicon IQ 2.5) and MX Ultranet.
+No other special requirements for Host PC, but processor and memory are vital for being able to achieve better results.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=93mm]{images/vicon_mx_basic.jpg}
+\end{figure}
 
 %-------------------------------------------------------------------------
 \SubSection{Setting up system}
 
 How we set up this system to be able to work with it.
 How we prepare working space, how cameras are calibrated and similar.
+
+
+The centroid of the marker is estimated as a position within the 2 dimensional image that is captured. The grayscale value of each pixel can be used to provide sub-pixel accuracy by finding the centroid of the Gaussian.
 
 %-------------------------------------------------------------------------
 \SubSection{Capturing data}
@@ -153,7 +182,13 @@ captured data to a Vicon model. How Vicon model looks like
 %-------------------------------------------------------------------------
 \Section{Motion data}
 
-What Motion data formats are we using? How do they look like?
+There are various \emph{motion data} storing formats, that mostly depend on what kind of program they
+are being used on. Our aim on this project, considering motion data, was to select
+the most appropriate data format. After reviewing some examples, the decision was made,
+that the best choice for our model animation would be using \emph{BVH} motion data format.
+But because our motion capture is being done using Vicon IQ software,
+that's not able to directly export data to BVH file format, at first we had to work with Vicons' C3D
+and then convert it to BVH.
 
 %-------------------------------------------------------------------------
 \SubSection{Description of Vicon C3D format}
@@ -291,7 +326,7 @@ is similar to linear blend skinning. How we automated all the things.
 Conclusion
 
 %-------------------------------------------------------------------------
-\nocite{ex1,ex5,ex2,ex3,ex4}
+\nocite{ex1,ex5,ex2,ex3,ex4,ex6}
 \bibliographystyle{latex8}
 \bibliography{latex8}
 
