@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0057)http://accad.osu.edu/~midori/Materials/3pnt_lighting.html -->
+<HTML><HEAD><TITLE>mocap_pinpeline</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="MSHTML 6.00.2800.1458" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffff>
+<FONT face="Arial, Helvetica, sans-serif"> 
+<P><FONT color=#404040><STRONG>Motion Capture Animation Production Pipeline<br>
+  </STRONG>Last
+      updated 8/24/2006</FONT></P>
+</FONT>
+<table  border="1" cellpadding="5" cellspacing="5">
+  <tr>
+    <td  colspan="3" bgcolor="#ffffffff"><font color="#404040" face="Arial, Helvetica, sans-serif"><strong>Path
+          1: Setup and Calibration: </strong>Process
+        that you go through once per capture session, performer, or character.</font></td>
+  </tr>
+  <tr>
+    <td width="121" bgcolor="#ccccff"><font color="#404040" face="Arial, Helvetica, sans-serif"><strong>Vicon
+          iQ:<br>
+      <br>
+      Calibration
+    </strong></font></td>
+    <td width="648" bgcolor="#ccccff"><font color="#404040" face="Arial, Helvetica, sans-serif">Calibrate
+          the system.<br>
+          Construct
+          or select a <strong>Subject Template</strong> (.vst).<br>
+        Capture a ROM (Range of Motion) trial.<br>
+    Reconstruct 3D trajectories.<br>
+    Label markers.<br>
+    Calibrate 
+    the subject (.vsk) using a T-pose frame in the ROM trial.<br>
+    Export a .c3d file and a .fbx file</font><font color="#404040" face="Arial, Helvetica, sans-serif"> (ROM
+    marker data).<br>
+    </font>    </td>
+    <td bgcolor="#ccccff"><p><font color="#404040" face="Arial, Helvetica, sans-serif"><a href="../Handouts/mocap_calibration.htm">Setup &amp; calibrate</a></font><font color="#404040" face="Arial, Helvetica, sans-serif"><br>
+      <br>
+      Marker sets:</font></p>
+      <ul>
+        <li><a href="mocap_marker_set_1.htm"><font face="Arial, Helvetica, sans-serif">John's</font></a></li>
+        <li><font color="#404040" face="Arial, Helvetica, sans-serif"><a href="mocap_marker_set_2.htm">UTD
+              Standard</a></font></li>
+    </ul></td>
+  </tr>
+  <tr>
+    <td bgcolor="#ffcccc"><font color="#404040" face="Arial, Helvetica, sans-serif"><strong>Maya:<br>
+      <br>
+      Character setup
+    </strong></font></td>
+    <td bgcolor="#ffcccc"><p><font color="#404040" face="Arial, Helvetica, sans-serif">Import
+          the .fbx file (a  <a href="motionBuilder_character_files/Maya_joints.fbx">sample
+        skeleton</a> with joined named with MotionBuilder's
+        <a href="motionBuilder_character_files/joint_names.jpg">Naming conventions</a>).<br>
+        Import the .fbx file (ROM marker data).        <br>
+        Create a skeleton for a 3D character in a T-pose using the marker
+        date to estimate the proportion of the performer and  using the MotionBuilder's
+        joint names. <br>
+        Model, texture, and bind
+        a skin to the skeleton.<br>
+        </font><font color="#404040" face="Arial, Helvetica, sans-serif">Save
+        a .mb file (a skin-bound textured character).-&gt; Go to <strong>Maya: Rendering</strong><br>
+          <font color="#404040" face="Arial, Helvetica, sans-serif">Export a
+          .fbx file (a skeleton - joints only). -&gt; Go to <strong>MB: Character
+          setup</strong></font></font></p>
+      <p><font color="#404040" face="Arial, Helvetica, sans-serif"><font size="-1">Note: If your 3D character resembles your performer,
+            the above method is strongly recommended. </font><br>
+          </font></p></td>
+    <td valign="top" bgcolor="#ffcccc"><p><font color="#404040" face="Arial, Helvetica, sans-serif"><a href="motionBuilder_character_files/joint_names.jpg">Naming
+            conventions<br>
+    </a><a href="motionBuilder_character_files/Maya_joints.fbx">Sample skeleton</a><a href="motionBuilder_character_files/joint_names.jpg">    </a><br>
+    </font></p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#ccffcc"><font color="#404040" face="Arial, Helvetica, sans-serif"><strong>MotionBuilder: <br>
+      <br>
+      Actor setup</strong></font></td>
+    <td bgcolor="#ccffcc"><font color="#404040" face="Arial, Helvetica, sans-serif">Import
+        the .c3d file (ROM marker data).<br>
+        Map
+        markers to <strong>Actor</strong>, an intermediate skeleton.<br>
+    Export a .hik (a marker set) file which can be used later to apply an actor
+    to other motions</font><font color="#404040" face="Arial, Helvetica, sans-serif">.<br>
+    </font>    </td>
+    <td bgcolor="#ccffcc"><p><font color="#404040" face="Arial, Helvetica, sans-serif"><a href="motionBuilder_actor.htm">Actor</a><br>
+            </font><font face="Arial, Helvetica, sans-serif"></font>
+      
+    </td>
+  </tr>
+   <tr>
+    <td  colspan="3" bgcolor="#ffffffff"><font color="#404040" face="Arial, Helvetica, sans-serif"><strong>Path
+          2: Capturing and Processing Data:</strong> Process that you
+          go through for each shot.</font></td>
+  </tr> <tr bgcolor="#8080FF"">
+    <td bgcolor="#9999FF"><font color="#404040" face="Arial, Helvetica, sans-serif"><strong>Vicon
+    iQ:<br>
+    <br>
+    Capture</strong></font></td>
+    <td bgcolor="#9999FF"><font color="#404040" face="Arial, Helvetica, sans-serif">Capture shots.<br>
+Reconstruct 3D trajectories using the <strong>Calibrated Subject </strong>(.vsk).<br>
+Clean data (e.g., re-label markers) and apply kinematic fit.</font><font color="#404040" face="Arial, Helvetica, sans-serif"><br>
+Export .c3d files (marker data).</font></td>
+    <td bgcolor="#9999FF"><font color="#404040" face="Arial, Helvetica, sans-serif"><a href="../Handouts/mocap_sessions.htm">Capture &amp; clean</a></font></td>
+  </tr>
+  <tr>
+    <td   bgcolor="#66CC66"><font color="#404040" face="Arial, Helvetica, sans-serif"><strong>MotionBuilder:<br>
+      <br>
+      Character setup
+    </strong></font></td>
+    <td bgcolor="#66CC66"><font color="#404040" face="Arial, Helvetica, sans-serif">Import
+        a .c3d file (marker data).<br>
+    Import the .hik file (a marker set).<br>
+    Merge the .fbx file (a skeleton exported out of Maya). The skeleton is called
+    a <strong>Character</strong>.<br>
+    Make correlations between <strong>Actor</strong>'s nodes to the <strong>Character</strong>'s
+    joints. <br>
+    Edit motion using rigid bodies, IK, retargeting, etc. Blend motions.<br>
+    Export a .fbx file (motion data baked to the joints).</font> </td>
+    <td bgcolor="#66CC66"><p><font color="#404040" face="Arial, Helvetica, sans-serif"><br>
+                  <a href="motionBuilder_character.htm">Character</a></font><font face="Arial, Helvetica, sans-serif"> <br>
+                  <a href="motionBuilder_edit.htm"> Edit &amp; blend</a><font color="#404040"><br>
+    </font></font> </td>
+  </tr>
+  <tr>
+    <td  bgcolor="#FF6666"><p><font color="#404040" face="Arial, Helvetica, sans-serif"><strong>Maya:<br>
+        <br>
+        Rendering</strong></font><font color="#404040" face="Arial, Helvetica, sans-serif"><strong><br>
+        </strong></font></p>
+    </td>
+    <td bgcolor="#FF6666"><p>  <font color="#404040" face="Arial, Helvetica, sans-serif">Open
+          the .mb file (a skin-bound textured character).<br>
+        Import (by merging) a .fbx file (motion data baked to the joints).<br>
+        Blend mocap animation &amp; IK animation and retarget if needed.    </font><font color="#404040" face="Arial, Helvetica, sans-serif"><br>
+        <a href="trax.htm">Trax Editor</a> if
+            needed<br>
+        Render animation</font><font color="#404040" face="Arial, Helvetica, sans-serif">.</font></p>
+    </td>
+    <td bgcolor="#FF6666"><p><a href="IKFKblend.htm"><font face="Arial, Helvetica, sans-serif">IK/FK blend</font><br>
+    </a><font face="Arial, Helvetica, sans-serif"><font color="#404040" face="Arial, Helvetica, sans-serif"><a href=trax.htm">Trax
+                Editor</a></font><font color="#404040"><br>
+                </font></font> </p>
+    </td>
+  </tr>
+</table>
+<br>
+See the production pipeline &amp; data flow in <a href="mocap_flow.ppt">flow
+chart</a>.
+</BODY></HTML>
