@@ -142,31 +142,81 @@ An object with markers attached at known positions is used to calibrate the came
 Our system used for this project mainly consists of:
 
 \begin{itemize}
-\item 8 MX+ cameras
-\item MX Ultranet
-\item Host pc
+\item 8 Vicon MX3+ cameras, fitted with sensitive solid-state
+sensors, with stringent checks for linearity, sensitivity, and absence of jitter.
+Each MX camera is programmed with firmware to control its operation
+and enable it to perform its own onboard grayscale processing.
+Cameras and their relevant characteristics are recognized immediately when they are plugged in to Vicon MX system.
+
+\item MX Ultranet, that supplies power, synchronization, and
+communications for all eight connected MX cameras. Only MX Ultranet is connected to the Host PC
+and routes all communication to and from the host PC, and timing/synchronization signals to and from the
+MX cameras connected to it.
+
+\item Host PC, with seperate Ethernet port (preferably Gigabit ethernet card) to enable communications between
+the Vicon software installed on this \emph{host pc} (in our case \emph{Vicon IQ 2.5}) and \emph{MX Ultranet}.
+No other special requirements for Host PC, but processor and memory are vital for being able to achieve better results. Our \emph{host pc} had 2.49GB of RAM and 1.60GHz Intel Xeon 8 core processor.
+\emph{Vicon IQ} software on a \emph{host pc} is used to collect
+and process the raw video data. It takes the two-dimensional data from each
+camera, combining it with calibration data to reconstruct the equivalent digital
+motion in three dimensions. This can be viewed as a virtual
+three-dimensional motion. After this reconstruction the data may be passed to
+other applications.
 \end{itemize}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=93mm]{images/vicon_mx_basic.jpg}
+  \includegraphics[width=98mm]{images/vicon_mx_basic.jpg}
 \end{figure}
 
 %-------------------------------------------------------------------------
-\SubSection{Setting up system}
+\SubSection{System preparations}
 
-How we set up this system to be able to work with it.
-How we prepare working space, how cameras are calibrated and similar.
+Vicon motion capture system high-resolution cameras are situated in a circle,
+above the maximum height of any marker that would be captured,
+that forms a motion capture space. Then the capture volume is created.
+The capture volume is three-dimensional, but in practice is more readily viewed
+by its boundaries marked out on the floor. This gives you a guide for the
+positioning of the cameras, and your subjects a guide as to where they
+can move. The area should be as central to your capture space as possible
+to maximize the volume you are able to capture.
+Initially you are looking to see whether the camera is positioned and oriented
+for the maximum view. Then every single camera can be adjusted separately
+by changing software settings, to achieve best result.
 
+After setting up cameras, the vital thing is system calibration.
+It allows the software to calculate the relative location and
+orientation of all the cameras. When your movements have been recorded the
+reconstruction process uses these measurements to calculate the accurate
+movements of the markers through space.
 
-The centroid of the marker is estimated as a position within the 2 dimensional image that is captured. The grayscale value of each pixel can be used to provide sub-pixel accuracy by finding the centroid of the Gaussian.
+This is done by static and dynamic calibrations:
+
+\begin{itemize}
+\item Static calibration - calculates the origin or centre of the capture volume and determines the
+orientation of the 3D Workspace.
+\item Dynamic calibration - involves movement/waving of a calibration wand throughout the whole volume and
+allows the system to calculate the relative positions and orientations of the
+cameras. It also linearizes the cameras.
+\end{itemize}
 
 %-------------------------------------------------------------------------
 \SubSection{Capturing data}
 
-How we capture our motion data (with costume). How we assign (label)
-captured data to a Vicon model. How Vicon model looks like
+First step in capturing phase is placing all the reflective markers on special suit.
+To correctly place them, the skeleton template must be selected that will be used for animation,
+as it describes the bone structures, how many markers to use, and how those markers relate to the bone structure.
+
+\textbf{[Here could be skeleton template screenshot]}
+
+How we assign (label) captured data to a Vicon model. How Vicon model looks like
 (available joints, their connections, connections to costume sensors).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=60mm]{images/vicon_me.jpg}
+\end{figure}
+
 
 %-------------------------------------------------------------------------
 \Section{Motion data}
@@ -228,7 +278,7 @@ rotational offset can be defined. Moreover, the BVH format is often implemented 
 applications, that is, one BVH format that works well in one application may not be interpreted
 in another. All the same the format is very flexible and it is relatively easy to edit BVH files.
 
-[Give more details later about exact structure of our model (like example)]
+\textbf{[Give more details later about exact structure of our model (like example)]}
 
 %-------------------------------------------------------------------------
 \SubSection{Processing captured data}
