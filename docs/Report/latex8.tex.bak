@@ -207,15 +207,27 @@ First step in capturing phase is placing all the reflective markers on special s
 To correctly place them, the skeleton template must be selected that will be used for animation,
 as it describes the bone structures, how many markers to use, and how those markers relate to the bone structure.
 
-\textbf{[Here could be skeleton template screenshot]}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=70mm]{images/vicon_me.jpg}
+\end{figure}
 
-How we assign (label) captured data to a Vicon model. How Vicon model looks like
-(available joints, their connections, connections to costume sensors).
+To start capturing, motion capture subject should stand in the middle of the circle in the capture are,
+with his back straight, arms straight out with palms facing down, and feet forwards.
+This is called a T-pose, and every capture session should begin and end every in it.
+
+After capturing motion data, in order to proceed further, post-processing must be done.
+It involves labeling/matching each marker from motion data to our used skeleton template.
+Then special pipelines to automate many processes, for example match labeled markers in all the frames.
+After all of that, manual calibration is also required, as there often occur some mismatches.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=60mm]{images/vicon_me.jpg}
+  \includegraphics[width=80mm]{images/vicon.jpg}
 \end{figure}
+
+How we assign (label) captured data to a Vicon model. How Vicon model looks like
+(available joints, their connections, connections to costume sensors).
 
 
 %-------------------------------------------------------------------------
@@ -363,6 +375,13 @@ is similar to linear blend skinning. How we automated all the things.
 %-------------------------------------------------------------------------
 \Section{Conclusion}
 Conclusion
+
+%-------------------------------------------------------------------------
+\SubSection{Future work}
+What could be implemented to improve this project?
+Live streaming to our animating program (straight from cameras to animation in OpenGL);
+other skin deformations
+
 
 %-------------------------------------------------------------------------
 \nocite{ex1,ex5,ex2,ex3,ex4,ex6}
