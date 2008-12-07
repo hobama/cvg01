@@ -209,7 +209,7 @@ as it describes the bone structures, how many markers to use, and how those mark
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=60mm]{images/vicon_me.jpg}
+  \includegraphics[width=70mm]{images/vicon_me.jpg}
 \end{figure}
 
 To start capturing, motion capture subject should stand in the middle of the circle in the capture are,
@@ -221,7 +221,10 @@ It involves labeling/matching each marker from motion data to our used skeleton 
 Then special pipelines to automate many processes, for example match labeled markers in all the frames.
 After all of that, manual calibration is also required, as there often occur some mismatches.
 
-\textbf{[Here could be skeleton template screenshot + labeling]}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=90mm]{images/vicon.jpg}
+\end{figure}
 
 How we assign (label) captured data to a Vicon model. How Vicon model looks like
 (available joints, their connections, connections to costume sensors).
@@ -304,6 +307,11 @@ by labeling these markers at first in Vicon system and then importing them
 in Motion builder, in BVH then we get rotations and translations not for those
 markers, but for human body model joints.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=90mm]{images/mb.jpg}
+\end{figure}
+
 [Here goes how we interpret BVH data]
 
 
@@ -372,6 +380,13 @@ is similar to linear blend skinning. How we automated all the things.
 %-------------------------------------------------------------------------
 \Section{Conclusion}
 Conclusion
+
+%-------------------------------------------------------------------------
+\SubSection{Future work}
+What could be implemented to improve this project?
+Live streaming to our animating program (straight from cameras to animation in OpenGL);
+other skin deformations
+
 
 %-------------------------------------------------------------------------
 \nocite{ex1,ex5,ex2,ex3,ex4,ex6}

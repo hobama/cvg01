@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  4 DEC 2008 22:13
+This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  7 DEC 2008 22:22
 entering extended mode
 **C:/Mano/Mokslai/Universitetas/5*Semestras/Project/cvg01/docs/Report/latex8.te
 x
@@ -162,33 +162,50 @@ Overfull \hbox (41.70107pt too wide) in paragraph at lines 169--170
 <images/vicon_me.jpg, id=22, 602.25pt x 636.3775pt>
 File: images/vicon_me.jpg Graphic file (type jpg)
  <use images/vicon_me.jpg>
-[3 <images/vicon_me.jpg>]
+<images/vicon.jpg, id=23, 752.8125pt x 453.19313pt>
+File: images/vicon.jpg Graphic file (type jpg)
+ <use images/vicon.jpg>
+Overfull \hbox (18.93886pt too wide) in paragraph at lines 226--227
+ [][] 
+ []
+
+[3 <images/vicon_me.jpg> <images/vicon.jpg>]
 Missing character: There is no ’ in font ptmr7t!
 Missing character: There is no “ in font ptmr7t!
 Missing character: There is no ” in font ptmr7t!
- [4] (latex8.bbl) [5] (latex8.aux) ) 
+
+<images/mb.jpg, id=27, 966.61125pt x 709.14937pt>
+File: images/mb.jpg Graphic file (type jpg)
+ <use images/mb.jpg>
+Overfull \hbox (18.93886pt too wide) in paragraph at lines 312--313
+ [][] 
+ []
+
+[4 <images/mb.jpg>] [5] (latex8.bbl) [6
+
+] (latex8.aux) ) 
 Here is how much of TeX's memory you used:
- 1075 strings out of 95304
- 12999 string characters out of 1183069
- 68913 words of memory out of 1500000
- 4295 multiletter control sequences out of 110000
+ 1085 strings out of 95304
+ 13168 string characters out of 1183069
+ 67913 words of memory out of 1500000
+ 4303 multiletter control sequences out of 110000
  22357 words of font info for 44 fonts, out of 1200000 for 2000
  14 hyphenation exceptions out of 8191
  25i,7n,19p,680b,225s stack positions out of 5000i,500n,10000p,200000b,5000s
-{C:/Program Files/MiKTeX 2.7/fonts/enc/dvip
-s/fontname/8r.enc}<C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmbx10.pf
-b><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmex10.pfb><C:/Program Fi
-les/MiKTeX 2.7/fonts/type1/bluesky/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.7/f
-onts/type1/bluesky/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesk
-y/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr7.pfb><C:
-/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmsy10.pfb><C:/Program Files/M
-iKTeX 2.7/fonts/type1/bluesky/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.7/fonts/t
-ype1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/ut
-mbi8a.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><C:/Pro
-gram Files/MiKTeX 2.7/fonts/type1/urw/times/utmri8a.pfb>
-Output written on latex8.pdf (5 pages, 495164 bytes).
+{C:/Program Files/MiKTeX 2.7/fonts/enc/dvips/fontname/8r.enc}<C
+:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmbx10.pfb><C:/Program Files/
+MiKTeX 2.7/fonts/type1/bluesky/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.7/fonts
+/type1/bluesky/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/c
+m/cmmi7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr10.pfb><C:/P
+rogram Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr7.pfb><C:/Program Files/MiKTe
+X 2.7/fonts/type1/bluesky/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type
+1/bluesky/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmb8
+a.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmbi8a.pfb><C:/Progra
+m Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.
+7/fonts/type1/urw/times/utmri8a.pfb>
+Output written on latex8.pdf (6 pages, 1018601 bytes).
 PDF statistics:
- 70 PDF objects out of 1000 (max. 8388607)
+ 75 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
