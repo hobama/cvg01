@@ -80,7 +80,7 @@ What is represented in further sections?
 \Section{Linear blend skinning}
 
 Linear blend skinning technique is widely used for interactive applications.
-It goes by many different names, such as Skeleton Subspace Deformation or SSD or smooth skinning" in Maya.
+It goes by many different names, such as Skeleton Subspace Deformation or SSD or "smooth skinning" in Maya.
 
 The linear blend skinning algorithm works by first placing a hierarchical
 skeleton inside a static model mesh of a character in
@@ -170,7 +170,7 @@ other applications.
 \end{figure}
 
 %-------------------------------------------------------------------------
-\SubSection{System preparations}
+\SubSection{Motion system preparations}
 
 Vicon motion capture system high-resolution cameras are situated in a circle,
 above the maximum height of any marker that would be captured,
@@ -193,7 +193,7 @@ movements of the markers through space.
 This is done by static and dynamic calibrations:
 
 \begin{itemize}
-\item Static calibration - calculates the origin or centre of the capture volume and determines the
+\item Static calibration - calculates the origin or center of the capture volume and determines the
 orientation of the 3D Workspace.
 \item Dynamic calibration - involves movement/waving of a calibration wand throughout the whole volume and
 allows the system to calculate the relative positions and orientations of the
@@ -201,34 +201,35 @@ cameras. It also linearizes the cameras.
 \end{itemize}
 
 %-------------------------------------------------------------------------
-\SubSection{Capturing data}
+\SubSection{Capturing motion data}
 
-First step in capturing phase is placing all the reflective markers on special suit.
-To correctly place them, the skeleton template must be selected that will be used for animation,
-as it describes the bone structures, how many markers to use, and how those markers relate to the bone structure.
+Having the whole motion system ready for use, the next first step is placing all the retroreflective markers on special suit.
+The special suit is used to achieve the most accurate results in motion, that motion system gets by tracking those reflective markers and it should be as as tight as possible. Though the suit is not always used while capturing motion data, as for example capturing face motion data, special reflective markers are used, that are put directly on subjects face. Placing markers is vital that the animating template is already selected. In this case, skeleton template, that will be assigned with motion data points. These templates describes the bone structure, joint positions and markers positions, how these markers relate to the bone structure and joints.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=70mm]{images/vicon_me.jpg}
 \end{figure}
 
-To start capturing, motion capture subject should stand in the middle of the circle in the capture are,
-with his back straight, arms straight out with palms facing down, and feet forwards.
-This is called a T-pose, and every capture session should begin and end every in it.
+When markers are ready, it's time to start capturing data. Motion capture subject should stand in the middle of the circle in the capture area, with his back straight, arms straight out with palms facing down, and feet forwards.
+This is called a T-pose, and every capture session should begin and end every in it. This pose is common in animating human bodies, as it allows meshes of the skin to be connected correctly. Also it usually allows the motion capture system to determine all the markers positions right from the frame 1, as all of them are in its visibility area.
+While capturing, you should be aware, that during whole capture process, you should be in cameras capture area.
+
+%-------------------------------------------------------------------------
+\SubSection{Captured data post-processing}
 
 After capturing motion data, in order to proceed further, post-processing must be done.
-It involves labeling/matching each marker from motion data to our used skeleton template.
-Then special pipelines to automate many processes, for example match labeled markers in all the frames.
-After all of that, manual calibration is also required, as there often occur some mismatches.
+Firstly it involves labeling/matching each marker from captured data to our used animation template (skeleton template) at the first frame.
+Only by labeling these markers, we are getting logical motion data in further frames, and not some meaningless points in the 3D world. This is the stage, when it's necessary that those reflective markers were situated correctly on the motion capture subject.
+
+Though labeling does really big part in getting correct motion data, it's very important to do some manual tweaking of the labeled points and track unlabeled ones. They can be unlabeled either of some motion capture failure at some point or there can be a "ghost" points that needs to be deleted. Ghost points are quite common while using passive optical motion capture system with retroreflective markers.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=80mm]{images/vicon.jpg}
+  \includegraphics[width=90mm]{images/vicon.jpg}
 \end{figure}
 
-How we assign (label) captured data to a Vicon model. How Vicon model looks like
-(available joints, their connections, connections to costume sensors).
-
+Without manual fixing, special pipelines are used to automate various processes, for example using kinematic fitting to match our animation template to our labeled markers. Various pipelines can be used to significantly shorten the post-processing.
 
 %-------------------------------------------------------------------------
 \Section{Motion data}
@@ -249,15 +250,13 @@ This section is meant to give just a brief introduction to the C3D file format, 
 The C3D (Coordinate 3D) file format is a binary data file format originally developed for the AMASS photogrammetry software system, capable of storing 3D data as well as analog data together with all associated parameters for a single measurement trial. Since only the 3D data is of importance, we will not consider analog data in this document. The main advantage of C3D format over other motion capture data formats is that it is able to encapsulate the motion data as well as parameters, describing the  motion data, in a single file. Apart from that, C3D is freely licensed and well documented.
 
 Being a binary file, the C3D file consists of a number of 512-byte blocks. Logically C3D format can be divided into 3 basic sections, each having one or more 512-byte blocks:
+\begin{itemize}
+\item Header section is the first section of a file. The main purpose of this section is holding a pointer to the start of parameters section. Other parts of this section, is of no particular importance, as usually it consists data, copied from parameters section.
 
-    Header section is the first section of a file. The main purpose of this section is holding a pointer to the start of parameters section. Other parts of this section, is of no particular importance, as usually it consists data, copied from parameters section.
+\item The parameters section usually starts at block number 2, although this is not fixed and should not be assumed to be the case for every C3D file. This section contains information about the 3D data stored in the file. The section is extensible, meaning that user can define it's own parameters without  violating the format specification.
 
-    The parameters section usually starts at block number 2, although this is not fixed and should not be assumed to be the case for every C3D file. This section contains information about the 3D data stored in the file. The section is extensible, meaning that user can define it's own parameters without  violating the format specification.
-
-    Data section containing the 3D point coordinates is usually located after the parameters section. This section simply contains sequential frames data. In the case of 3D points (the data is X, Y and Z coordinates).
-
-During the workflow of our project, the animation data, produced by the Vicon motion capturing system, was encoded in C3D file format. The data, provided by the C3D file, contains only the positions of skeleton joints at each frame, what is not sufficient to correctly animate the character. So the C3D animation data file was imported to Motion Builder, where the inverse kinematics technique was applied to provide us with BVH format file.  The BVH format file is another motion capturing data format, where the rotation data of each joint is being already calculated.
-
+\item Data section containing the 3D point coordinates is usually located after the parameters section. This section simply contains sequential frames data. In the case of 3D points (the data is X, Y and Z coordinates).
+\end{itemize}
 
 %-------------------------------------------------------------------------
 \SubSection{Description of Biovision BVH format}
@@ -293,22 +292,16 @@ in another. All the same the format is very flexible and it is relatively easy t
 \textbf{[Give more details later about exact structure of our model (like example)]}
 
 %-------------------------------------------------------------------------
-\SubSection{Processing captured data}
-Why do we need to convert C3D data to BVH?
-What's good and bad about them? (C3d would be faster,
-but it's binary, so not a human readable,
-also BVH gives us rotations and have good structure,
-that is much easier to implement in our C++ program).
-How do we do it using Motion builder?
+\SubSection{Processing motion data}
 
+During the workflow of our project, the motion capture data, produced by the Vicon motion capturing system using Vicon IQ software, was encoded in C3D file format. This data in C3D file contains only the positions of the reflective markers at each frame (the same positions that were used in Vicon IQ, animating labeled skeleton). As it is not sufficient for us to correctly animate character, we have to do additional data processing.
 
-While C3D gives us our marker coordinates from motion capture system,
-by labeling these markers at first in Vicon system and then importing them
-in Motion builder, in BVH then we get rotations and translations not for those
-markers, but for human body model joints.
+We import C3D animation data file to MotionBuilder software. Then the whole data processing is similar to the one, that must be done after capturing data in post-processing stage, using Vicon IQ software. We assign the C3D motion data to so called actors and characters in MotionBuilder. Basically actor here is a mesh models, and character is skeleton with specified joint structure. As characters have their own skeleton, after assigning C3D data and using the inverse kinematics technique, we can export to BVH format, which contains the rotation and translation data of each joint for each frame.
 
-[Here goes how we interpret BVH data]
-
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=90mm]{images/mb.jpg}
+\end{figure}
 
 %-------------------------------------------------------------------------
 \Section{Human body mesh model}
@@ -384,7 +377,7 @@ other skin deformations
 
 
 %-------------------------------------------------------------------------
-\nocite{ex1,ex5,ex2,ex3,ex4,ex6}
+\nocite{ex1,ex5,ex2,ex3,ex4,ex6,ex7}
 \bibliographystyle{latex8}
 \bibliography{latex8}
 

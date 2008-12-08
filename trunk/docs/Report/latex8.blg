@@ -9,13 +9,11 @@ I was expecting a `,' or a `}'---line 41 of file latex8.bib
  :    author =   {Midori Kitagawa and Brian Windsor}
  :                                                  ",
 I'm skipping whatever remains of this entry
-Warning--to sort, need author, editor, or key in ex6
-Warning--empty author and editor in ex6
-Warning--empty year in ex6
 Warning--empty publisher in ex1
 Warning--empty year in ex1
 Warning--empty publisher in ex5
 Warning--empty year in ex5
 Warning--empty journal in ex4
+Warning--empty booktitle in ex2
 Warning--empty journal in ex3
 (There were 2 error messages)
