@@ -1,9 +1,5 @@
 \begin{thebibliography}{1}\setlength{\itemsep}{-1ex}\small
 
-\bibitem{ex6}
-{\em Vicon system reference}.
-\newblock Vicon Motion Systems Ltd.
-
 \bibitem{ex1}
 F.~S. Hill and S.~M.Kelley.
 \newblock {\em Computer Graphics Using OpenGL}.
@@ -20,11 +16,19 @@ M.~Meredith and S.Maddock.
 \bibitem{ex2}
 A.~Mohr and M.~Gleicher.
 \newblock Building efficient, accurate character skins from example.
-\newblock {\em SIGGRAPH}, 2003.
+\newblock 2003.
 
 \bibitem{ex3}
 A.~Mohr, L.~Tokheim, and M.~Gleicher.
 \newblock Direct manpulation of interactive character skins.
 \newblock 2003.
+
+\bibitem{ex7}
+Motion Lab Systems, http://www.c3d.org/HTML/default.htm.
+\newblock {\em C3D Reference}.
+
+\bibitem{ex6}
+Vicon Motion Systems Ltd.
+\newblock {\em Vicon system reference}.
 
 \end{thebibliography}

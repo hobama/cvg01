@@ -1,49 +1,53 @@
 
 %
-%  $Description: Sample bibliography$ 
-% 
-%  $Author: ienne $ 
+%  $Description: Sample bibliography$
+%
+%  $Author: ienne $
 %  $Date: 1995/09/15 15:19:53 $
 %  $Revision: 1.3 $
 %
 
 @Book{ex1,
-   title =   "Computer Graphics Using OpenGL", 
-   author =   {F. S. Hill and Stephen M.Kelley}", 
+   title =   "Computer Graphics Using OpenGL",
+   author =   {F. S. Hill and Stephen M.Kelley}",
    edition = "Third",
    publisher =   "Prentice Hall",
    year =   "2007"
 }
 
-@Article{ex2,
+@conference{ex2,
    author =   {Alex Mohr and Michael Gleicher},
-   title =   "Building Efficient, Accurate Character Skins from Example", 
+   title =   "Building Efficient, Accurate Character Skins from Example",
    journal =   "SIGGRAPH",
    year =   "2003"
 }
 
 @Article{ex3,
    author =   {Alex Mohr and Luke Tokheim and Michael Gleicher},
-   title =   "Direct Manpulation of Interactive Character Skins", 
+   title =   "Direct Manpulation of Interactive Character Skins",
    publisher =   "University of Wisconsin, Madison",
    year =   "2003"
 }
 
 @Article{ex4,
    author =   {M. Meredith and S.Maddock},
-   title =   "Motion Capture File Formats Explained", 
+   title =   "Motion Capture File Formats Explained",
    publisher =   "Department of Computer Science, University of Sheffield",
    year =   "2003"
 }
 
 @Book{ex5,
-   title =   "MoCap for Artists - Workflow and Techniques for Motion Capture", 
-   author =   {Midori Kitagawa and Brian Windsor}", 
+   title =   "MoCap for Artists - Workflow and Techniques for Motion Capture",
+   author =   {Midori Kitagawa and Brian Windsor}",
    publisher =   "Focal Press"
 }
 
 @Book{ex6,
-   title =   "Vicon system reference", 
-   author =   {Vicon Motion Systems Ltd}", 
-   publisher =   "Vicon"
+   title =   "Vicon system reference",
+   publisher =   "Vicon Motion Systems Ltd."
+}
+
+@manual{ex7,
+   title =   "C3D Reference",
+   publisher =   "http://www.c3d.org/HTML/default.htm"
 }

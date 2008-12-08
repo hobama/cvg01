@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  7 DEC 2008 22:22
+This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  8 DEC 2008 21:44
 entering extended mode
 **C:/Mano/Mokslai/Universitetas/5*Semestras/Project/cvg01/docs/Report/latex8.te
 x
@@ -127,9 +127,9 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 94.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 94.
-<images/hand.jpg, id=1, 548.0475pt x 283.0575pt>
-File: images/hand.jpg Graphic file (type jpg)
- <use images/hand.jpg>
+<images/hand2.jpg, id=1, 548.0475pt x 283.0575pt>
+File: images/hand2.jpg Graphic file (type jpg)
+ <use images/hand2.jpg>
 Overfull \hbox (27.47469pt too wide) in paragraph at lines 106--107
  [][] 
  []
@@ -158,54 +158,75 @@ Overfull \hbox (41.70107pt too wide) in paragraph at lines 169--170
  [][] 
  []
 
-[2 <images/hand.jpg> <images/vicon_mx_basic.jpg>]
+[2 <images/hand2.jpg> <images/vicon_mx_basic.jpg>]
 <images/vicon_me.jpg, id=22, 602.25pt x 636.3775pt>
 File: images/vicon_me.jpg Graphic file (type jpg)
  <use images/vicon_me.jpg>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 <images/vicon.jpg, id=23, 752.8125pt x 453.19313pt>
 File: images/vicon.jpg Graphic file (type jpg)
  <use images/vicon.jpg>
-Overfull \hbox (18.93886pt too wide) in paragraph at lines 226--227
+Overfull \hbox (18.93886pt too wide) in paragraph at lines 229--230
  [][] 
  []
 
-[3 <images/vicon_me.jpg> <images/vicon.jpg>]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3 <images/vicon_me.jpg>]
 Missing character: There is no ’ in font ptmr7t!
 Missing character: There is no “ in font ptmr7t!
 Missing character: There is no ” in font ptmr7t!
-
-<images/mb.jpg, id=27, 966.61125pt x 709.14937pt>
+ [4 <images/vicon.jpg>]
+<images/mb.jpg, id=30, 966.61125pt x 709.14937pt>
 File: images/mb.jpg Graphic file (type jpg)
  <use images/mb.jpg>
-Overfull \hbox (18.93886pt too wide) in paragraph at lines 312--313
+Overfull \hbox (4.71248pt too wide) in paragraph at lines 303--304
  [][] 
  []
 
-[4 <images/mb.jpg>] [5] (latex8.bbl) [6
 
-] (latex8.aux) ) 
+Underfull \vbox (badness 2495) has occurred while \output is active []
+
+
+<images/maya_cut.jpg, id=31, 632.3625pt x 531.9875pt>
+File: images/maya_cut.jpg Graphic file (type jpg)
+
+<use images/maya_cut.jpg>
+Overfull \hbox (4.71248pt too wide) in paragraph at lines 320--321
+ [][] 
+ []
+
+[5 <images/mb.jpg> <images/maya_cut.jpg>] (latex8.bbl
+Overfull \hbox (1.17378pt too wide) in paragraph at lines 27--29
+[]\OT1/ptm/m/n/9 Motion Lab Sys-tems, http://www.c3d.org/HTML/default.htm.
+ []
+
+) [6] (latex8.aux) ) 
 Here is how much of TeX's memory you used:
- 1085 strings out of 95304
- 13168 string characters out of 1183069
- 67913 words of memory out of 1500000
- 4303 multiletter control sequences out of 110000
+ 1091 strings out of 95304
+ 13285 string characters out of 1183069
+ 66916 words of memory out of 1500000
+ 4308 multiletter control sequences out of 110000
  22357 words of font info for 44 fonts, out of 1200000 for 2000
  14 hyphenation exceptions out of 8191
- 25i,7n,19p,680b,225s stack positions out of 5000i,500n,10000p,200000b,5000s
-{C:/Program Files/MiKTeX 2.7/fonts/enc/dvips/fontname/8r.enc}<C
-:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmbx10.pfb><C:/Program Files/
-MiKTeX 2.7/fonts/type1/bluesky/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.7/fonts
-/type1/bluesky/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/c
-m/cmmi7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr10.pfb><C:/P
-rogram Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr7.pfb><C:/Program Files/MiKTe
-X 2.7/fonts/type1/bluesky/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type
-1/bluesky/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmb8
-a.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmbi8a.pfb><C:/Progra
-m Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.
-7/fonts/type1/urw/times/utmri8a.pfb>
-Output written on latex8.pdf (6 pages, 1018601 bytes).
+ 25i,7n,19p,739b,225s stack positions out of 5000i,500n,10000p,200000b,5000s
+{C:/Program Files/MiKTeX 2.7/fonts/enc/dvips/fontname/8r.en
+c}<C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmbx10.pfb><C:/Program Fi
+les/MiKTeX 2.7/fonts/type1/bluesky/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.7/f
+onts/type1/bluesky/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/blues
+ky/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr10.pfb><
+C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr7.pfb><C:/Program Files/M
+iKTeX 2.7/fonts/type1/bluesky/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.7/fonts/
+type1/bluesky/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/u
+tmb8a.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmbi8a.pfb><C:/Pr
+ogram Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTe
+X 2.7/fonts/type1/urw/times/utmri8a.pfb>
+Output written on latex8.pdf (6 pages, 1097600 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
+ 76 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
