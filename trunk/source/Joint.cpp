@@ -255,8 +255,6 @@ void Joint::updateFrame(int frameNumber) {
 			//this->setTranslation((*pos)[0] - this->originalX, (*pos)[1] - this->originalY, (*pos)[2] - this->originalZ);
 		}
 		if (rotation != NULL) {
-			if (strcmp(this->name, "RightCollar") == 0)
-				cout<<"RightWrist: "<<(*rotation)[0]<<" "<<(*rotation)[1]<<" "<<(*rotation)[2]<<endl;
 			vector <float> *rotationVector = new vector<float>(3);
 			//rotate by x axis
 			(*rotationVector)[0] = 1.0;
