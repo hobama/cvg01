@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  8 DEC 2008 21:44
+This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  10 DEC 2008 16:35
 entering extended mode
 **C:/Mano/Mokslai/Universitetas/5*Semestras/Project/cvg01/docs/Report/latex8.te
 x
@@ -69,19 +69,19 @@ LaTeX Warning: Unused global option(s):
     [times].
 
 (latex8.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 25.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 26.
  ("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\ot1ptm.fd"
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
@@ -99,134 +99,153 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 \everyMPtoPDFconversion=\toks18
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 36.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 37.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 36.
+(Font)              <12> on input line 37.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 36.
+(Font)              <8> on input line 37.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 36.
+(Font)              <6> on input line 37.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 39.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 40.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 47.
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 50.
 
-Underfull \hbox (badness 10000) in paragraph at lines 40--49
+Underfull \hbox (badness 1270) in paragraph at lines 41--52
+\OT1/ptm/m/it/10 nions. This helps to avoid some com-mon an-i-ma-tion
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--52
 
  []
 
 
-Underfull \hbox (badness 2671) in paragraph at lines 40--49
+Underfull \hbox (badness 2671) in paragraph at lines 41--52
 \OT1/ptm/b/it/10 Keywords: \OT1/ptm/m/it/10 Hu-man an-i-ma-tion, Vi-con mo-tion
  cap-ture
- []
-
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 94.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 94.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 94.
-<images/hand2.jpg, id=1, 548.0475pt x 283.0575pt>
-File: images/hand2.jpg Graphic file (type jpg)
- <use images/hand2.jpg>
-Overfull \hbox (27.47469pt too wide) in paragraph at lines 106--107
- [][] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [1{C:/ProgramData/MiKTeX/2.7/pdftex/config/pdftex.map}
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 102.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 102.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 102.
+
+<images/hand2.jpg, id=1, 548.0475pt x 283.0575pt>
+File: images/hand2.jpg Graphic file (type jpg)
+ <use images/hand2.jpg>
+Overfull \hbox (27.47469pt too wide) in paragraph at lines 114--115
+ [][] 
+ []
+
+[1{C:/ProgramData/MiKTeX/2.7/pdftex/config/pdftex.map}
 
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 145.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 176.
 
 
 ("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\omsptm.fd"
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 145.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 176.
+ [2 <images/hand2.jpg>]
 
-<images/vicon_mx_basic.jpg, id=17, 955.57pt x 506.89375pt>
-File: images/vicon_mx_basic.jpg Graphic file (type jpg)
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 186.
 
-<use images/vicon_mx_basic.jpg>
-Overfull \hbox (41.70107pt too wide) in paragraph at lines 169--170
- [][] 
+
+Overfull \hbox (14.96538pt too wide) detected at line 191
+\OML/cmm/m/it/10 R \OT1/cmr/m/n/10 = []
  []
 
-[2 <images/hand2.jpg> <images/vicon_mx_basic.jpg>]
-<images/vicon_me.jpg, id=22, 602.25pt x 636.3775pt>
-File: images/vicon_me.jpg Graphic file (type jpg)
- <use images/vicon_me.jpg>
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-<images/vicon.jpg, id=23, 752.8125pt x 453.19313pt>
-File: images/vicon.jpg Graphic file (type jpg)
- <use images/vicon.jpg>
-Overfull \hbox (18.93886pt too wide) in paragraph at lines 229--230
- [][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [3 <images/vicon_me.jpg>]
 Missing character: There is no ’ in font ptmr7t!
 Missing character: There is no “ in font ptmr7t!
 Missing character: There is no ” in font ptmr7t!
- [4 <images/vicon.jpg>]
-<images/mb.jpg, id=30, 966.61125pt x 709.14937pt>
+[3] <images/mb.jpg, id=27, 966.61125pt x 709.14937pt>
 File: images/mb.jpg Graphic file (type jpg)
  <use images/mb.jpg>
-Overfull \hbox (4.71248pt too wide) in paragraph at lines 303--304
+Overfull \hbox (4.71248pt too wide) in paragraph at lines 282--283
  [][] 
  []
 
 
-Underfull \vbox (badness 2495) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-<images/maya_cut.jpg, id=31, 632.3625pt x 531.9875pt>
+<images/maya_cut.jpg, id=28, 632.3625pt x 531.9875pt>
 File: images/maya_cut.jpg Graphic file (type jpg)
 
 <use images/maya_cut.jpg>
-Overfull \hbox (4.71248pt too wide) in paragraph at lines 320--321
+Overfull \hbox (4.71248pt too wide) in paragraph at lines 299--300
  [][] 
  []
 
-[5 <images/mb.jpg> <images/maya_cut.jpg>] (latex8.bbl
+[4 <images/mb.jpg> <images/maya_cut.jpg>] [5] (vicon_appendix.tex
+<images/vicon_mx_basic.jpg, id=35, 955.57pt x 506.89375pt>
+File: images/vicon_mx_basic.jpg Graphic file (type jpg)
+
+<use images/vicon_mx_basic.jpg>
+Overfull \hbox (41.70107pt too wide) in paragraph at lines 38--39
+ [][] 
+ []
+
+[6
+
+ <images/vicon_mx_basic.jpg>]
+<images/vicon.jpg, id=39, 752.8125pt x 453.19313pt>
+File: images/vicon.jpg Graphic file (type jpg)
+ <use images/vicon.jpg>
+Overfull \hbox (18.93886pt too wide) in paragraph at lines 93--94
+ [][] 
+ []
+
+) [7 <images/vicon.jpg>]
+
+LaTeX Warning: Citation `notseen' undefined on input line 375.
+
+(latex8.bbl
 Overfull \hbox (1.17378pt too wide) in paragraph at lines 27--29
 []\OT1/ptm/m/n/9 Motion Lab Sys-tems, http://www.c3d.org/HTML/default.htm.
  []
 
-) [6] (latex8.aux) ) 
+) [8
+
+
+] (latex8.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 1091 strings out of 95304
- 13285 string characters out of 1183069
- 66916 words of memory out of 1500000
+ 1093 strings out of 95304
+ 13273 string characters out of 1183069
+ 69924 words of memory out of 1500000
  4308 multiletter control sequences out of 110000
- 22357 words of font info for 44 fonts, out of 1200000 for 2000
+ 22864 words of font info for 45 fonts, out of 1200000 for 2000
  14 hyphenation exceptions out of 8191
- 25i,7n,19p,739b,225s stack positions out of 5000i,500n,10000p,200000b,5000s
-{C:/Program Files/MiKTeX 2.7/fonts/enc/dvips/fontname/8r.en
-c}<C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmbx10.pfb><C:/Program Fi
-les/MiKTeX 2.7/fonts/type1/bluesky/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.7/f
-onts/type1/bluesky/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/blues
-ky/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr10.pfb><
-C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmr7.pfb><C:/Program Files/M
-iKTeX 2.7/fonts/type1/bluesky/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.7/fonts/
-type1/bluesky/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/u
-tmb8a.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmbi8a.pfb><C:/Pr
-ogram Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTe
-X 2.7/fonts/type1/urw/times/utmri8a.pfb>
-Output written on latex8.pdf (6 pages, 1097600 bytes).
+ 25i,7n,19p,784b,225s stack positions out of 5000i,500n,10000p,200000b,5000s
+{C:/Program Files/MiKTeX 2.7/fonts/enc/dvips/fontname/8r.enc}<C:/Program File
+s/MiKTeX 2.7/fonts/type1/bluesky/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.7/fon
+ts/type1/bluesky/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky
+/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmmi5.pfb><C
+:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmmi7.pfb><C:/Program Files/M
+iKTeX 2.7/fonts/type1/bluesky/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.7/fonts/t
+ype1/bluesky/cm/cmr5.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cm
+r7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmsy10.pfb><C:/Progr
+am Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmsy5.pfb><C:/Program Files/MiKTeX 2
+.7/fonts/type1/bluesky/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/ur
+w/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmbi8a.p
+fb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><C:/Program Fi
+les/MiKTeX 2.7/fonts/type1/urw/times/utmri8a.pfb>
+Output written on latex8.pdf (8 pages, 898036 bytes).
 PDF statistics:
- 76 PDF objects out of 1000 (max. 8388607)
+ 95 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

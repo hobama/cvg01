@@ -38,7 +38,7 @@ Aalborg University Copenhagen\\ Computer Vision and Graphics\\algirdux@gmail.com
 
 \begin{abstract}
    This paper explains how to animate 3D human model in OpenGL,
-   avoiding most common problems, that occurs while dealing with
+   avoiding some common problems, that occurs while dealing with
    various human body rigid parts transformations.
    The animation is associated with real person movements,
    while using data from Vicon motion capture system.
@@ -69,12 +69,17 @@ for example dealing with muscles (stretch or bulge).
 \SubSection{Previous works}
 
 What we've read and what was written there. References.
-[Linear blend skinning, for deformation problems, data formats]
+[Linear blend skinning, for deformation problems, data formats, data format conversion problems (BVH) - this probably to be written somewhere else, maybe overview?]
 
 %-------------------------------------------------------------------------
 \SubSection{Overview}
 
 What is represented in further sections?
+
+TODO: Explain what are the problems,
+kinematic chain,  what went wrong with stuff what we were doing,
+what we could tell to other groups in order to continue with project,
+emphasize that we use our joint model ant only take rotations.
 
 %-------------------------------------------------------------------------
 \Section{Linear blend skinning}
@@ -103,7 +108,7 @@ the location of \textbf{v$_{d}$} in the local coordinate frame of the $\emph{i}$
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=93mm]{images/hand.jpg}
+  \includegraphics[width=93mm]{images/hand2.jpg}
 \end{figure}
 
 Linear blend skinning though has two primary failings.
@@ -229,7 +234,7 @@ Though labeling does really big part in getting correct motion data, it's very i
   \includegraphics[width=90mm]{images/vicon.jpg}
 \end{figure}
 
-Without manual fixing, special pipelines are used to automate various processes, for example using kinematic fitting to match our animation template to our labeled markers. Various pipelines can be used to significantly shorten the post-processing.
+Without manual fixing, special pipelines are used to automate various processes, for example using kinematic fitting to match our animation template to our labeled markers. Various pipelines can be used to significantly shorten the post-processing time.
 
 %-------------------------------------------------------------------------
 \Section{Motion data}
@@ -296,11 +301,11 @@ in another. All the same the format is very flexible and it is relatively easy t
 
 During the workflow of our project, the motion capture data, produced by the Vicon motion capturing system using Vicon IQ software, was encoded in C3D file format. This data in C3D file contains only the positions of the reflective markers at each frame (the same positions that were used in Vicon IQ, animating labeled skeleton). As it is not sufficient for us to correctly animate character, we have to do additional data processing.
 
-We import C3D animation data file to MotionBuilder software. Then the whole data processing is similar to the one, that must be done after capturing data in post-processing stage, using Vicon IQ software. We assign the C3D motion data to so called actors and characters in MotionBuilder. Basically actor here is a mesh models, and character is skeleton with specified joint structure. As characters have their own skeleton, after assigning C3D data and using the inverse kinematics technique, we can export to BVH format, which contains the rotation and translation data of each joint for each frame.
+We import C3D animation data file to MotionBuilder software. Then the whole data processing is similar to the one, that must be done after capturing data in post-processing stage, using Vicon IQ software. We assign the C3D motion data to so called actors and characters in MotionBuilder. Basically actor here is a mesh models, and character is skeleton with specified joint structure. As characters have their own skeleton, after assigning C3D data and using the inverse kinematics technique, we have whole body hierarchy and can export to BVH format, which contains the rotation and translation data of each joint for each frame.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=90mm]{images/mb.jpg}
+  \includegraphics[width=85mm]{images/mb.jpg}
 \end{figure}
 
 %-------------------------------------------------------------------------
@@ -314,6 +319,11 @@ What do we use for our animation?
 What Mesh model in Maya do we use?
 How do we prepare it, that it would be suitable for out program?
 How we cut mesh to different body parts, export to .obj format files.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=85mm]{images/maya_cut.jpg}
+\end{figure}
 
 %-------------------------------------------------------------------------
 \SubSection{Mesh model file format used in animation}
