@@ -131,7 +131,6 @@ void BVHReader::doHierarchy(ifstream *datafile)
 		{
 			// Do channels function
 			doChannels(bvhobject, datafile);
-			bvhobject->setChannelStructure();
 		}
 	}
 }

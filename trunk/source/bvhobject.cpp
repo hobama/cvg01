@@ -121,8 +121,8 @@ int BVHObject::getChannel(int i) {
 	int ret = 0;
 	char coord, type;
 	
-	type = (*this->channelsOrder)[i][1];
 	coord = (*this->channelsOrder)[i][0];
+	type = (*this->channelsOrder)[i][1];
 	
 	switch(type) {
 			
@@ -164,39 +164,6 @@ int BVHObject::getChannel(int i) {
 	}
 	
 	return ret;
-}
-
-/**
- * Set channel structure
- * 
- */
-void BVHObject::setChannelStructure(void) {
-
-	char coord, type;
-
-	this->channelPositionStructure = new vector<char>;
-	this->channelRotationStructure = new vector<char>;
-	
-
-
-	for(int i=0; i<(*this->channelsOrder).size(); i++)
-	{
-		type = (*this->channelsOrder)[i][1];
-		coord = (*this->channelsOrder)[i][0];
-		
-		if(type == 'p') (*this->channelPositionStructure).push_back(coord);
-		else if(type == 'r') (*this->channelRotationStructure).push_back(coord);
-	}
-
-}
-
-/**
- * Get channel structure vector.
- * Type - rotation or translation(position)
- */
-vector<char> *BVHObject::getChannelStructure(char type) {
-	if(type == 'p') return this->channelPositionStructure;
-	else if(type == 'r') return this->channelRotationStructure;
 }
 
 /**
