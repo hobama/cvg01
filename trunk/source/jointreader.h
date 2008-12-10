@@ -1,4 +1,3 @@
-
 #ifndef _JOINTREADER_H_
 #define _JOINTREADER_H_
 #include <vector>

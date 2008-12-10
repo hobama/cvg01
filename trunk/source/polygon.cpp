@@ -19,38 +19,19 @@ Polygon::Polygon(int size) {
 	(*center)[0] = 0.0;
 	(*center)[1] = 0.0;
 	(*center)[2] = 0.0;
-	
-	this->x = 0.0;
-	this->y = 0.0;
-	this->z = 0.0;
 }
 
-void Polygon::setTranslation(float x, float y, float z) {
-	for (int i=0;i<size;i++) {
-		Vertex *vertex = (*vertices)[i];
-		vertex->setX(x);
-		vertex->setY(y);
-		vertex->setZ(z);
-	}
-	
-}
-void Polygon::setRotation(float **rotationMatrix, float x, float y, float z) {
-	for (int i=0;i<size;i++) {
-		Vertex *vertex = (*vertices)[i];
-		vertex->setRotation(rotationMatrix, x, y, z);
-	}
-}
 int Polygon::getSize() {
 	return size;
 }
-void Polygon::draw() {
+void Polygon::draw(float x, float y, float z) {
 	glPushMatrix();
 	float color[] = {1.0f, 1.0f, 0.0f};
 	glMaterialfv(GL_FRONT, GL_AMBIENT, color);
 	glBegin(GL_POLYGON);
 	for (int i=0;i<size;i++) {
 		Vertex *vertex = (*vertices)[i];
-		glVertex3f(vertex->getX() + vertex->getOriginalX(), vertex->getY() + vertex->getOriginalY(), vertex->getZ() + vertex->getOriginalZ());
+		glVertex3f(vertex->getX() + x, vertex->getY() + y, vertex->getZ() + z);
 		
 		Texel *texel = (*texels)[i];
 		if (texel != NULL)

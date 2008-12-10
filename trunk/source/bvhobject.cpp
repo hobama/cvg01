@@ -19,6 +19,8 @@ BVHObject::BVHObject(char *name, int objectLevel) {
 	this->offsetEndSite = NULL;
 	
 	this->frames = new vector<BVHFrame*>;
+	this->channelPositionStructure = NULL;
+	this->channelRotationStructure = NULL;
 }
 
 
@@ -173,7 +175,31 @@ int BVHObject::getChannel(int i) {
 //	this->frames = frames;
 //	this->frameTime = frameTime;
 //}
-
+/**
+ 170	 * Set channel structure
+ 171	 *
+ 172	 */
+void BVHObject::setChannelStructure(void) {
+	char coord, type;
+	this->channelPositionStructure = new vector<char>;
+	this->channelRotationStructure = new vector<char>;
+	
+	for(int i=0; i<(*this->channelsOrder).size(); i++)
+	{
+		type = (*this->channelsOrder)[i][1];
+		coord = (*this->channelsOrder)[i][0];
+		if(type == 'p') (*this->channelPositionStructure).push_back(coord);
+		else if(type == 'r') (*this->channelRotationStructure).push_back(coord);
+	}
+}	
+/**
+ 194	 * Get channel structure vector.
+ 195	 * Type - rotation or translation(position)
+ 196	 */
+vector<char> *BVHObject::getChannelStructure(char type) {
+	if(type == 'p') return this->channelPositionStructure;
+	else if(type == 'r') return this->channelRotationStructure;
+}
 void BVHObject::addFrame(BVHFrame *bvhframe) {
 	this->frames->push_back(bvhframe);
 }

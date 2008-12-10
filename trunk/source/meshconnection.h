@@ -21,21 +21,24 @@ class MeshConnection {
 private:
 	Mesh *mesh, *parentMesh;
 	vector<MeshConnectionVertices *> *connectingVertices; 
+	vector<float> *rotationVector;
 	int numOfConnectingVertices;
-	float *jointX, *jointY, *jointZ;
-	float offsetX, offsetY, offsetZ;
+	float jointX, jointY, jointZ;
+	float x, y ,z;
 	float distanceDev;
 	float mainShortestDistance;
 	float shortestDistance(vector<Vertex *> *verticesToConnect); // finds the distance between the closest vertices 
 	float calcDistance(Vertex *vertex1, Vertex *vertex2);
 	void drawPolygons(vector<Vertex *> *vertices1, vector<Vertex *> *vertices2);
+	void sortConnectingVertices();
 public:
 	MeshConnection(Mesh *mesh, Mesh *parentMesh, float distanceDev);
-	void connectVertices(float *jointX, float *jointY, float *jointZ);
-	void rotate(float angle, vector<float> *rotationVector);
-	void setTranslation(float x, float y, float z);
-	void setRotation(float **rotationMatrix, float jointX, float jointY, float jointZ);
+	void connectVertices(float jointX, float jointY, float jointZ);
+	void addTranslation(float x, float y, float z);
+	void rotate(float angle, float x, float y, float z);
+	void resetRotation();
 	void draw();
+	
 };
 
 #endif
