@@ -26,10 +26,9 @@ private:
 	
 	//Frame list
 	vector <BVHFrame*> *frames;
-	/*int frames;
-	 float frameTime;
-	 void setFrameInfo(int frames, float frameTime);*/
 	
+	vector<char> *channelPositionStructure;
+	vector<char> *channelRotationStructure;
 public:
 	BVHObject(char *name, int objectLevel);
 	
@@ -45,7 +44,9 @@ public:
 	void setOffsetEndSite(float x, float y, float z);
 	
 	void setChannelsNumber(int channelsNumber);
+	void setChannelStructure();
 	int getChannelsNumber(void);
+	vector<char> *getChannelStructure(char type);
 	void addChannel(char* channel);
 	int getChannel(int i);
 	

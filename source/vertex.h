@@ -13,19 +13,19 @@
 #include "cvgMath.h"
 class Vertex : public Vect {
 private:
-	float originalX, originalY, originalZ;
 	bool connected;
+	float drawX, drawY, drawZ;
 public:
 	Vertex(float x, float y, float z);
-	float getOriginalX();
-	float getOriginalY();
-	float getOriginalZ();
-	void setRotation(float **rotationMatrix, float x, float y, float z);
-	void setTranslation(float x, float y, float z);
 	void setConnected();
 	bool isConnected();
+	vector<float> *rotateVertex(float angle, vector<float> *vect); //returns vertex coordinates after rotation
+	void setDrawX(float drawX);
+	void setDrawY(float drawY);
+	void setDrawZ(float drawZ);
 	
-	void rotateVertex(float angle, vector<float> *vect, float x, float y, float z); //returns vertex coordinates after rotation
-
+	float getDrawX();
+	float getDrawY();
+	float getDrawZ();
 };
 #endif

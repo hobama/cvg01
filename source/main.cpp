@@ -1,14 +1,12 @@
 #include <iostream>
 #include <vector>
-
 #include "systeminclude.h"
 #include "medmath.h"
 #include "cordsystem.h"
 #include "vertex.h"
-#include "jointreader.h"
 #include "objreader.h"
 #include "model.h"
-#include "bvhreader.h"
+
 using namespace std;
 
 std::vector<float> viewDir(3), viewPos(3);
@@ -38,13 +36,12 @@ void display()
 	
 	float color[] = {1.0f, 1.0f, 0.0f};
 	glMaterialfv(GL_FRONT, GL_AMBIENT, color);
-	static double oldTime=glutGet(GLUT_ELAPSED_TIME);
-	double time=glutGet(GLUT_ELAPSED_TIME);
-	if ((time - oldTime) > 100.0) {
-		model->nextFrame();
-		oldTime=time;
-	}
-	
+	//static double oldTime=glutGet(GLUT_ELAPSED_TIME);
+//	double time=glutGet(GLUT_ELAPSED_TIME);
+//	if ((time - oldTime) > 100.0) {
+//		model->nextFrame();
+//		oldTime=time;
+//	}
 	model->draw();
 	glPopMatrix();
 	glutSwapBuffers();
@@ -55,7 +52,7 @@ void keyPressed(unsigned char key, int x, int y)
 	std::vector<float> sideDir(3), upVector(3);
 	upVector[0]=0; upVector[1]=1; upVector[2]=0;
 	sideDir = medMath::crossProduct(viewDir, upVector);
-	vector<float> *rotationVector = new vector<float>(3); 
+	
 	switch (key) {
 		case 'x':
 			glShadeModel(GL_FLAT);
@@ -103,46 +100,13 @@ void keyPressed(unsigned char key, int x, int y)
 			viewPos[2]-= upVector[2]*motionFactor;
 			break;
 		case 'm':
-			(*rotationVector)[0] = 1.0;
-			(*rotationVector)[1] = 0.0;
-			(*rotationVector)[2] = 0.0;			
-			model->rotatePart("left_knee", 5, rotationVector);
-			break;
-		case 'M':
-			(*rotationVector)[0] = 1.0;
-			(*rotationVector)[1] = 0.0;
-			(*rotationVector)[2] = 0.0;			
-			model->rotatePart("left_knee", -5, rotationVector);
+			model->nextFrame();
 			break;
 		case 'n':
 			// change fov heere
-			(*rotationVector)[0] = 1.0;
-			(*rotationVector)[1] = 0.0;
-			(*rotationVector)[2] = 0.0;	
-			model->translatePart("back_root", 0, 0, 5);
-			//model->rotatePart("left_ankle", 5, rotationVector);
 			break;
-			
 		case 'N':
 			// change fov heere
-			(*rotationVector)[0] = 1.0;
-			(*rotationVector)[1] = 0.0;
-			(*rotationVector)[2] = 0.0;			
-			model->translatePart("back_root", 0, 0, -0);
-			//model->rotatePart("left_ankle", -5, rotationVector);
-			break;
-		case 'o':
-			(*rotationVector)[0] = 0.0;
-			(*rotationVector)[1] = 1.0;
-			(*rotationVector)[2] = 0.0;			
-			model->rotatePart("left_knee", 5, rotationVector);
-			break;
-		case 'O':
-			(*rotationVector)[0] = 0.0;
-			(*rotationVector)[1] = 1.0;
-			(*rotationVector)[2] = 0.0;			
-			model->rotatePart("left_knee", -5, rotationVector);
-			
 			break;
 		case '.':
 			glDisable(GL_LIGHT0);
@@ -223,10 +187,10 @@ void init(int argc, char *argv[]) {
 	glLoadIdentity();
 	gluPerspective( /* field of view in degree */ fovG,
 				   /* aspect ratio */ 1.0,
-				   /* Z near */ 0.01, /* Z far */ 80.0);
+				   /* Z near */ 0.01, /* Z far */ 180.0);
 	
-	viewPos[0]=20;  viewPos[1]=0;  viewPos[2]=0; 
-	viewDir[0]=-11;  viewDir[1]= -0.5;  viewDir[2]=0.5;  
+	viewPos[0]=-50;  viewPos[1]=0;  viewPos[2]=0; 
+	viewDir[0]=11;  viewDir[1]= -0.5;  viewDir[2]=0.5;  
 	
 	cordSystem = new CordSystem();
 	glPointSize(4.0);
@@ -236,13 +200,17 @@ void init(int argc, char *argv[]) {
 	 * Joints
 	 */
 	char *jointfilename = "/Users/a1gucis/Documents/temp/joint.coord";
+	char *bvhFilename = "/Users/a1gucis/Documents/temp/motion2rot.bvh";
 	char *meshDirectory = "/Users/a1gucis/Documents/temp/objs/"; //meshDirectory name has to end with either / or \ depending on the OS :)
-	char *bvhfilename = "/Users/a1gucis/Documents/temp/drink.bvh";
+	
 	//#############################
 	// test field
 	
-	model = new Model(bvhfilename, meshDirectory);
+	model = new Model(jointfilename, bvhFilename, meshDirectory);
 	model->createJoints();
+//	model->nextFrame();
+	
+	
 	//Vertex *vertex = new Vertex(5.0, 5.0, 0.0);
 //	vector<float> *rotationVector = new vector<float>(3);
 //	(*rotationVector)[0] = 1.0;

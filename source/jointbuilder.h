@@ -1,4 +1,3 @@
-
 #ifndef _JOINTBUILDER_H_
 #define _JOINTBUILDER_H_
 #include <vector>

@@ -9,27 +9,26 @@
 #ifndef _MODEL_H_
 #define _MODEL_H_
 #include <vector>
-#include <string>
 #include "Polygon3.h"
-#include "jointreader.h"
 #include "bvhreader.h"
+#include "bvhobject.h"
+#include "objreader.h"
+#include "jointreader.h"
 #include "Joint.h"
 class Model{
 private:
-	BVHObject *rootBVHObject;
 	vector <BVHObject *> *sequence;
 	int numberOfJoints, numberOfBvhObjects;
 	int numberOfFrames, currentFrame;
 	Joint *rootJoint;
 	vector<Joint *> *joints;
 	BVHReader *bvhReader;
-	
+	JointReader *jntReader;
 	int getJointIndex(char *name);
+	char *meshDirectory;
 public:
-	Model(char *bvhFileName, char *meshDirectory); //for example /Users/a1gucis/Documents/meshes/
+	Model(char *jointFileName, char *bvhFileName, char *meshDirectory); //for example /Users/a1gucis/Documents/meshes/
 	void createJoints();
-	void rotatePart(char* name, float angle, vector<float> *rotationVector);
-	void translatePart(char *name, float x, float y, float z);
 	void nextFrame();
 	void draw();
 };

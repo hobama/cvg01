@@ -41,7 +41,6 @@ void BVHReader::readData()
 		//
 		for (int i=0;i<objectsNumber;i++) {
 			BVHObject *bvh = (*sequence)[i];
-			bvh->debug();
 		}
 	} else {
 		cout << "Unable to open file";
@@ -131,6 +130,7 @@ void BVHReader::doHierarchy(ifstream *datafile)
 		{
 			// Do channels function
 			doChannels(bvhobject, datafile);
+			bvhobject->setChannelStructure();
 		}
 	}
 }
