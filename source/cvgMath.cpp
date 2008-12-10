@@ -36,7 +36,7 @@ namespace cvgmath {
 		return resultMatrix;
 	}
 	vector<float> *rotate(float angle, vector<float> *vect) {
-		return NULL;
+		
 	}
 	
 }
