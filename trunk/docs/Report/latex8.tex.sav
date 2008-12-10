@@ -15,6 +15,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 
+
 %\documentstyle[times,art10,twocolumn,latex8]{article}
 
 %-------------------------------------------------------------------------
@@ -38,12 +39,14 @@ Aalborg University Copenhagen\\ Computer Vision and Graphics\\algirdux@gmail.com
 
 \begin{abstract}
    This paper explains how to animate 3D human model in OpenGL,
-   avoiding most common problems, that occurs while dealing with
+   using skeleton-driven deformation technique, similar to Linear Blend Skinning,
+   that computes deformed weighted vertex position, which is calculated using quaternions.
+   This helps to avoid some common animation problems, that occurs while dealing with
    various human body rigid parts transformations.
-   The animation is associated with real person movements,
-   while using data from Vicon motion capture system.
-   Animating is made in lowest programming C++ OpenGL level.
-   \\\\
+   The motion for this animation was captured using motion capture system
+   and after processing it and converting to appropriate BVH format, was ready to use for
+   animating 3D human model in lowest programming C++/OpenGL level.
+   
    \textbf{Keywords:} Human animation, Vicon motion capture system, OpenGL, C++, Linear Blend Skinning
 \end{abstract}
 
@@ -69,18 +72,23 @@ for example dealing with muscles (stretch or bulge).
 \SubSection{Previous works}
 
 What we've read and what was written there. References.
-[Linear blend skinning, for deformation problems, data formats]
+[Linear blend skinning, for deformation problems, data formats, data format conversion problems (BVH) - this probably to be written somewhere else, maybe overview?]
 
 %-------------------------------------------------------------------------
 \SubSection{Overview}
 
 What is represented in further sections?
 
+TODO: Explain what are the problems,
+kinematic chain,  what went wrong with stuff what we were doing,
+what we could tell to other groups in order to continue with project,
+emphasize that we use our joint model ant only take rotations.
+
 %-------------------------------------------------------------------------
 \Section{Linear blend skinning}
 
 Linear blend skinning technique is widely used for interactive applications.
-It goes by many different names, such as Skeleton Subspace Deformation or SSD or smooth skinning" in Maya.
+It goes by many different names, such as Skeleton Subspace Deformation or SSD or "smooth skinning" in Maya.
 
 The linear blend skinning algorithm works by first placing a hierarchical
 skeleton inside a static model mesh of a character in
@@ -103,7 +111,7 @@ the location of \textbf{v$_{d}$} in the local coordinate frame of the $\emph{i}$
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=93mm]{images/hand.jpg}
+  \includegraphics[width=93mm]{images/hand2.jpg}
 \end{figure}
 
 Linear blend skinning though has two primary failings.
@@ -121,6 +129,81 @@ widely supported by commercial applications so it remains popular
 especially in games and virtual environments.
 
 %-------------------------------------------------------------------------
+\Section{Quaternions}
+
+A quaternion is a mathematical object, consisting of 4 scalars. Quaternions were first discovered in 19th century by Irish mathematician Sir William Rowan Hamilton during his search for a way to represent points in space.  Soon after their introduction, quaternions appeared at most of universities as an advanced mathematics subject. Nowadays quaternions find their applications in signal processing, physics, bioinformatics, orbital mechanics as well as computer graphics.
+	
+In computer graphics Euler angles are known to have the disadvantage of being susceptible to "Gimbal lock" where attempts to rotate an object fail to appear as expected, due to the order in which the rotations are performed. Quaternions are a solution to this problem. Instead of rotating an object through a series of successive rotations, quaternions provide the ability to rotate an object through an arbitrary rotation axis and angle. Though the rotation is still performed by using matrix mathematics, instead of multiplying matrices together, quaternions, representing the axis of rotation, are multiplied together. The final resulting quaternion is then converted to the desired rotation matrix.
+
+As mentioned earlier, a quaternion is four numbers, representing one real dimension and 3 imaginary dimensions. Each of it's imaginary dimensions has a unit value of square root of -1 (a complex number). In addition to that, imaginary dimensions are all perpendicular to each other and can be noted as i, j, k. So a quaternion can be represented as follows:
+\begin{center}
+q = \emph{a} + i$\ast$b + j$\ast$c + k$\ast$d
+\end{center}
+where \emph{a} is a real dimension representation and b,  c,  d are just scalars.
+
+Since quaternions are mathematical objects, they have a certain algebra with all the addition, subtraction,  multiplication and division operations applied to them. In this section of the report we are going to consider just the quaternion multiplication operation, since this operation is necessary to represent a rotation. All other operations can be found in the references page of the report.
+
+In order to perform a quaternion multiplication, a quaternion's imaginary dimension multiplication has to be described first:
+
+\begin{description}
+    \setlength{\itemsep}{0pt}
+
+    \item \emph{i $\ast$ i = j $\ast$ j = k $\ast$ k = -1}
+    \item \emph{i $\ast$ j = k}
+    \item \emph{j $\ast$ i = -k}
+    \item \emph{j $\ast$ k = i}
+    \item \emph{k $\ast$ j = -i}
+    \item \emph{k $\ast$ i =  j}
+    \item \emph{i $\ast$ k = -j}
+\end{description}
+
+The multiplication of two quaternions is :
+
+\begin{center}
+(a + i$\ast$b + j$\ast$c + k$\ast$d) $\ast$ (e + i$\ast$f + j$\ast$g + k$\ast$h)
+
+$\Updownarrow$
+
+a $\ast$ e + i$\ast$a$\ast$f  + j$\ast$a$\ast$g + k$\ast$a$\ast$h + i$\ast$b$\ast$e - b$\ast$f  + k$\ast$b$\ast$g - j$\ast$ b$\ast$h + j$\ast$e$\ast$c - k$\ast$c$\ast$f - c$\ast$g + i$\ast$c$\ast$h + k$\ast$e$\ast$d + j$\ast$d$\ast$f - i$\ast$d$\ast$g - d$\ast$h
+
+$\Updownarrow$
+
+(a$\ast$e - b$\ast$f - c$\ast$g - d$\ast$h)  + i$\ast$(a$\ast$f + b$\ast$e + c$\ast$h - d$\ast$g) + j$\ast$(a$\ast$g - b$\ast$h + e$\ast$c + d$\ast$f) + k$\ast$(a$\ast$h + b$\ast$g - c$\ast$f + e$\ast$d)
+\end{center}
+
+The important thing to notice is that the multiplication of two quaternions is not commutative, so that
+\begin{center}
+q1 $\ast$ q2 $\neq$ q2 $\ast$ q1
+\end{center}
+
+As mentioned above, the multiplication operation,  provides us with the ability to rotate one quaternion by another quaternion. So the rotation of quaternion q1 by quaternion q2 would result in another quaternion q = q2 $\ast$ q1;
+
+Since the representation of a quaternion is quite complex and hard to imagine, it can be interpreted in another way. The x, y, z components of a quaternion can be treated as a representation of rotation axis and a component - as a representation of rotation angle. The relation between actual values and their representations as quarternion's components can be described as:
+
+\begin{itemize}
+\item a = $cos(angle / 2)$
+\item b =  $axis_x$ $\ast$ $sin(angle / 2)$
+\item c = $axis_y$ $\ast$ $sin(angle / 2)$
+\item d = $axis_z$ $\ast$ $sin(angle / 2)$
+\end{itemize}
+where $axis_x$, $axis_y$ and $axis_z$ is a normalized vector, representing the rotation axis.
+
+In order to rotate a 3D point by a quaternion, a rotation matrix $R$ has to be produced:
+
+
+\[ R = \left( \begin{tiny}\begin{array}{cccc}
+a^{2}-b^{2}-c^{2}-d^{2} & 2 \ast b \ast c-2 \ast a \ast d & 2 \ast b \ast d+2 \ast a \ast c & 0 \\
+2 \ast b \ast c+2 \ast a \ast d & a^{2}-b^{2}+c^{2}-d^{2} & 2 \ast c \ast d-2 \ast a \ast b & 0 \\
+2 \ast b \ast d-2 \ast a \ast c & 2 \ast c \ast d-2 \ast a \ast b & a^{2}-b^{2}c^{2}+d^{2} & 0 \\
+0 & 0 & 0 & 1
+\end{array}\end{tiny} \right)\]
+
+
+
+
+
+
+%-------------------------------------------------------------------------
 \Section{Motion capture}
 
 Motion capture (\emph{mocap}) is sampling and recording motion of humans, animals, and inanimate
@@ -130,82 +213,10 @@ is very important, as equally important are the preparation and post processing 
 The whole system must be well calibrated, adjusted and set up, furthermore, after capturing
 data needs to be cleaned, edited, and applied to a 3D model.
 
-%-------------------------------------------------------------------------
-\SubSection{Vicon MX motion capture system}
+During this project, for capturing motion data, we used Vicon Motion System,
+combined with Vicon IQ 2.5 software running on our systems host pc.
+Details on how we managed to capture and process motion data can be found on the appendix \textbf{\ref{Vicon appendix}}.
 
-Vicon MX motion capture system is a passive optical system that uses markers
-coated with a retroreflective material to reflect light back that is generated near the cameras lens.
-The camera's threshold can be adjusted so only the bright reflective markers will be sampled, ignoring skin and fabric.
-
-An object with markers attached at known positions is used to calibrate the cameras and obtain their positions and the lens distortion of each camera is measured. Providing two calibrated cameras see a marker, a 3 dimensional fix can be obtained.
-
-Our system used for this project mainly consists of:
-
-\begin{itemize}
-\item 8 Vicon MX3+ cameras, fitted with sensitive solid-state
-sensors, with stringent checks for linearity, sensitivity, and absence of jitter.
-Each MX camera is programmed with firmware to control its operation
-and enable it to perform its own onboard grayscale processing.
-Cameras and their relevant characteristics are recognized immediately when they are plugged in to Vicon MX system.
-
-\item MX Ultranet, that supplies power, synchronization, and
-communications for all eight connected MX cameras. Only MX Ultranet is connected to the Host PC
-and routes all communication to and from the host PC, and timing/synchronization signals to and from the
-MX cameras connected to it.
-
-\item Host PC, with seperate Ethernet port (preferably Gigabit ethernet card) to enable communications between
-the Vicon software installed on this \emph{host pc} (in our case \emph{Vicon IQ 2.5}) and \emph{MX Ultranet}.
-No other special requirements for Host PC, but processor and memory are vital for being able to achieve better results. Our \emph{host pc} had 2.49GB of RAM and 1.60GHz Intel Xeon 8 core processor.
-\emph{Vicon IQ} software on a \emph{host pc} is used to collect
-and process the raw video data. It takes the two-dimensional data from each
-camera, combining it with calibration data to reconstruct the equivalent digital
-motion in three dimensions. This can be viewed as a virtual
-three-dimensional motion. After this reconstruction the data may be passed to
-other applications.
-\end{itemize}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=98mm]{images/vicon_mx_basic.jpg}
-\end{figure}
-
-%-------------------------------------------------------------------------
-\SubSection{System preparations}
-
-Vicon motion capture system high-resolution cameras are situated in a circle,
-above the maximum height of any marker that would be captured,
-that forms a motion capture space. Then the capture volume is created.
-The capture volume is three-dimensional, but in practice is more readily viewed
-by its boundaries marked out on the floor. This gives you a guide for the
-positioning of the cameras, and your subjects a guide as to where they
-can move. The area should be as central to your capture space as possible
-to maximize the volume you are able to capture. 
-Initially you are looking to see whether the camera is positioned and oriented
-for the maximum view. Then every single camera can be adjusted separately
-by changing software settings, to achieve best result.
-
-After setting up cameras, the vital thing is system calibration.
-It allows the software to calculate the relative location and
-orientation of all the cameras. When your movements have been recorded the
-reconstruction process uses these measurements to calculate the accurate
-movements of the markers through space.
-
-This is done by static and dynamic calibrations:
-
-\begin{itemize}
-\item Static calibration - calculates the origin or centre of the capture volume and determines the
-orientation of the 3D Workspace.
-\item Dynamic calibration - involves movement/waving of a calibration wand throughout the whole volume and
-allows the system to calculate the relative positions and orientations of the
-cameras. It also linearizes the cameras.
-\end{itemize}
-
-%-------------------------------------------------------------------------
-\SubSection{Capturing data}
-
-How we capture our motion data (with costume). How we assign (label)
-captured data to a Vicon model. How Vicon model looks like
-(available joints, their connections, connections to costume sensors).
 
 %-------------------------------------------------------------------------
 \Section{Motion data}
@@ -226,15 +237,13 @@ This section is meant to give just a brief introduction to the C3D file format, 
 The C3D (Coordinate 3D) file format is a binary data file format originally developed for the AMASS photogrammetry software system, capable of storing 3D data as well as analog data together with all associated parameters for a single measurement trial. Since only the 3D data is of importance, we will not consider analog data in this document. The main advantage of C3D format over other motion capture data formats is that it is able to encapsulate the motion data as well as parameters, describing the  motion data, in a single file. Apart from that, C3D is freely licensed and well documented.
 
 Being a binary file, the C3D file consists of a number of 512-byte blocks. Logically C3D format can be divided into 3 basic sections, each having one or more 512-byte blocks:
+\begin{itemize}
+\item Header section is the first section of a file. The main purpose of this section is holding a pointer to the start of parameters section. Other parts of this section, is of no particular importance, as usually it consists data, copied from parameters section.
 
-    Header section is the first section of a file. The main purpose of this section is holding a pointer to the start of parameters section. Other parts of this section, is of no particular importance, as usually it consists data, copied from parameters section.
+\item The parameters section usually starts at block number 2, although this is not fixed and should not be assumed to be the case for every C3D file. This section contains information about the 3D data stored in the file. The section is extensible, meaning that user can define it's own parameters without  violating the format specification.
 
-    The parameters section usually starts at block number 2, although this is not fixed and should not be assumed to be the case for every C3D file. This section contains information about the 3D data stored in the file. The section is extensible, meaning that user can define it's own parameters without  violating the format specification.
-
-    Data section containing the 3D point coordinates is usually located after the parameters section. This section simply contains sequential frames data. In the case of 3D points (the data is X, Y and Z coordinates).
-
-During the workflow of our project, the animation data, produced by the Vicon motion capturing system, was encoded in C3D file format. The data, provided by the C3D file, contains only the positions of skeleton joints at each frame, what is not sufficient to correctly animate the character. So the C3D animation data file was imported to Motion Builder, where the inverse kinematics technique was applied to provide us with BVH format file.  The BVH format file is another motion capturing data format, where the rotation data of each joint is being already calculated.
-
+\item Data section containing the 3D point coordinates is usually located after the parameters section. This section simply contains sequential frames data. In the case of 3D points (the data is X, Y and Z coordinates).
+\end{itemize}
 
 %-------------------------------------------------------------------------
 \SubSection{Description of Biovision BVH format}
@@ -270,22 +279,22 @@ in another. All the same the format is very flexible and it is relatively easy t
 \textbf{[Give more details later about exact structure of our model (like example)]}
 
 %-------------------------------------------------------------------------
-\SubSection{Processing captured data}
-Why do we need to convert C3D data to BVH?
-What's good and bad about them? (C3d would be faster,
-but it's binary, so not a human readable,
-also BVH gives us rotations and have good structure,
-that is much easier to implement in our C++ program).
-How do we do it using Motion builder?
+\SubSection{Processing motion data}
+
+During the workflow of our project, the motion capture data, produced by the Vicon motion capturing system using Vicon IQ software, was encoded in C3D file format. This data in C3D file contains only the positions of the reflective markers at each frame. As it is not sufficient for us to correctly animate character, we have to do additional data processing.
 
 
-While C3D gives us our marker coordinates from motion capture system,
-by labeling these markers at first in Vicon system and then importing them
-in Motion builder, in BVH then we get rotations and translations not for those
-markers, but for human body model joints.
 
-[Here goes how we interpret BVH data]
+%We import C3D animation data file to MotionBuilder software. Then the whole data processing is similar to the one, that must be done after capturing data in post-processing stage, using Vicon IQ software. We assign the C3D motion data to so called actors and characters in MotionBuilder. Basically actor here is a mesh models, and character is skeleton with specified joint structure. As characters have their own skeleton, after assigning C3D data and using the inverse kinematics technique, we have whole body hierarchy and can export to BVH format, which contains the rotation and translation data of each joint for each frame.
 
+
+\textbf{Forward Kinematics - The process of calculating the position and orientation of a specific part of an object based on the position and orientation of the root of the object as well as the position and orientation of the joints higher up in that part's kinematic chain.}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=85mm]{images/mb.jpg}
+\end{figure}
 
 %-------------------------------------------------------------------------
 \Section{Human body mesh model}
@@ -293,17 +302,21 @@ markers, but for human body model joints.
 What do we use for our animation?
 
 %-------------------------------------------------------------------------
-\SubSection{Mesh model preparations in Maya}
+\SubSection{Mesh model preparations}
 
-What Mesh model in Maya do we use?
-How do we prepare it, that it would be suitable for out program?
-How we cut mesh to different body parts, export to .obj format files.
+Mesh model is a vital object in animation, looking from the users (viewers) side.
+After using all the mathematical theories and different approaches, the final result
+highly depends on the mesh being used.
+For our project we decided to use whole human body mesh cut in different body parts,
+with empty space between these rigid parts, that we are later connected to one mesh.
+The main issue using this kind of approach, is that you lose details of your body mesh,
+so the better solution is obviously using the whole uncut body.
 
-%-------------------------------------------------------------------------
-\SubSection{Mesh model file format used in animation}
 
-Why do we use .obj file format? How does it look like?
-
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=85mm]{images/maya_cut.jpg}
+\end{figure}
 
 %-------------------------------------------------------------------------
 \SubSection{Description of OBJ format}
@@ -336,7 +349,13 @@ Explain how we load human model, exported from Maya to .obj file.
 How we create natural primary human pose, assign meshes to joints and so on.
 
 %-------------------------------------------------------------------------
-\SubSection{Loading human body model in OpenGL}
+\SubSection{Creating mesh model}
+Loading rigid parts+Connecting rigid mesh parts
+
+Loaded mesh from OBJ file must correspond with BVH file joint structure hierarchy. Cut mesh model should be connected in T-pose, otherwise program can't find closes vertices.
+
+After we load OBJ file, we get every vertex of each mesh and its polygons connections.
+Using this data we connect each of them to a mesh model.
 
 How we load human body to OpenGL. How we import mesh from obj files.
 Joint creation. Joint connection with meshes.
@@ -354,9 +373,31 @@ is similar to linear blend skinning. How we automated all the things.
 Conclusion
 
 %-------------------------------------------------------------------------
-\nocite{ex1,ex5,ex2,ex3,ex4,ex6}
+\SubSection{Future work}
+What could be implemented to improve this project?
+Live streaming to our animating program (straight from cameras to animation in OpenGL);
+other skin deformations
+
+%-------------------------------------------------------------------------
+\clearpage
+\newpage
+
+\appendix
+
+\section{Details of using Vicon motion system}
+\label{Vicon appendix}
+\input vicon_appendix.tex
+
+\clearpage
+\newpage
+
+\nocite{notseen}
+
+%-------------------------------------------------------------------------
+\nocite{ex1,ex5,ex2,ex3,ex4,ex6,ex7}
 \bibliographystyle{latex8}
 \bibliography{latex8}
 
 \end{document}
+
 

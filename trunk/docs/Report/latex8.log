@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  10 DEC 2008 16:35
+This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  10 DEC 2008 23:19
 entering extended mode
 **C:/Mano/Mokslai/Universitetas/5*Semestras/Project/cvg01/docs/Report/latex8.te
 x
@@ -111,83 +111,57 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 50.
 
-Underfull \hbox (badness 1270) in paragraph at lines 41--52
-\OT1/ptm/m/it/10 nions. This helps to avoid some com-mon an-i-ma-tion
- []
+Underfull \vbox (badness 2726) has occurred while \output is active []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--52
-
- []
-
-
-Underfull \hbox (badness 2671) in paragraph at lines 41--52
-\OT1/ptm/b/it/10 Keywords: \OT1/ptm/m/it/10 Hu-man an-i-ma-tion, Vi-con mo-tion
- cap-ture
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 102.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 102.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 102.
-
-<images/hand2.jpg, id=1, 548.0475pt x 283.0575pt>
-File: images/hand2.jpg Graphic file (type jpg)
- <use images/hand2.jpg>
-Overfull \hbox (27.47469pt too wide) in paragraph at lines 114--115
- [][] 
- []
-
-[1{C:/ProgramData/MiKTeX/2.7/pdftex/config/pdftex.map}
+ [1{C:/ProgramData/MiKTeX/2.7/pdftex/config/pdftex.map}
 
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 176.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 111.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 111.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 111.
 
+<images/hand2.jpg, id=10, 548.0475pt x 283.0575pt>
+File: images/hand2.jpg Graphic file (type jpg)
+ <use images/hand2.jpg>
+Overfull \hbox (27.47469pt too wide) in paragraph at lines 123--124
+ [][] 
+ []
 
-("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\omsptm.fd"
+[2 <images/hand2.jpg>]
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 193.
+
+ ("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\omsptm.fd"
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 176.
- [2 <images/hand2.jpg>]
-
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 186.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 193.
 
 
-Overfull \hbox (14.96538pt too wide) detected at line 191
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 203.
+
+
+Overfull \hbox (14.96538pt too wide) detected at line 208
 \OML/cmm/m/it/10 R \OT1/cmr/m/n/10 = []
  []
 
 Missing character: There is no ’ in font ptmr7t!
+[3]
 Missing character: There is no “ in font ptmr7t!
 Missing character: There is no ” in font ptmr7t!
-[3] <images/mb.jpg, id=27, 966.61125pt x 709.14937pt>
-File: images/mb.jpg Graphic file (type jpg)
- <use images/mb.jpg>
-Overfull \hbox (4.71248pt too wide) in paragraph at lines 282--283
- [][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-<images/maya_cut.jpg, id=28, 632.3625pt x 531.9875pt>
+ <images/maya_cut.jpg, id=27, 632.3625pt x 531.9875pt>
 File: images/maya_cut.jpg Graphic file (type jpg)
 
 <use images/maya_cut.jpg>
-Overfull \hbox (4.71248pt too wide) in paragraph at lines 299--300
+Overfull \hbox (4.71248pt too wide) in paragraph at lines 329--330
  [][] 
  []
 
-[4 <images/mb.jpg> <images/maya_cut.jpg>] [5] (vicon_appendix.tex
-<images/vicon_mx_basic.jpg, id=35, 955.57pt x 506.89375pt>
+[4 <images/maya_cut.jpg>] [5] (vicon_appendix.tex
+<images/vicon_mx_basic.jpg, id=34, 955.57pt x 506.89375pt>
 File: images/vicon_mx_basic.jpg Graphic file (type jpg)
 
 <use images/vicon_mx_basic.jpg>
@@ -198,7 +172,7 @@ Overfull \hbox (41.70107pt too wide) in paragraph at lines 38--39
 [6
 
  <images/vicon_mx_basic.jpg>]
-<images/vicon.jpg, id=39, 752.8125pt x 453.19313pt>
+<images/vicon.jpg, id=38, 752.8125pt x 453.19313pt>
 File: images/vicon.jpg Graphic file (type jpg)
  <use images/vicon.jpg>
 Overfull \hbox (18.93886pt too wide) in paragraph at lines 93--94
@@ -207,7 +181,7 @@ Overfull \hbox (18.93886pt too wide) in paragraph at lines 93--94
 
 ) [7 <images/vicon.jpg>]
 
-LaTeX Warning: Citation `notseen' undefined on input line 375.
+LaTeX Warning: Citation `notseen' undefined on input line 407.
 
 (latex8.bbl
 Overfull \hbox (1.17378pt too wide) in paragraph at lines 27--29
@@ -223,10 +197,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 1093 strings out of 95304
- 13273 string characters out of 1183069
+ 1088 strings out of 95304
+ 13196 string characters out of 1183069
  69924 words of memory out of 1500000
- 4308 multiletter control sequences out of 110000
+ 4304 multiletter control sequences out of 110000
  22864 words of font info for 45 fonts, out of 1200000 for 2000
  14 hyphenation exceptions out of 8191
  25i,7n,19p,784b,225s stack positions out of 5000i,500n,10000p,200000b,5000s
@@ -243,9 +217,9 @@ am Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmsy5.pfb><C:/Program Files/MiKTeX 2
 w/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmbi8a.p
 fb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><C:/Program Fi
 les/MiKTeX 2.7/fonts/type1/urw/times/utmri8a.pfb>
-Output written on latex8.pdf (8 pages, 898036 bytes).
+Output written on latex8.pdf (8 pages, 586420 bytes).
 PDF statistics:
- 95 PDF objects out of 1000 (max. 8388607)
+ 94 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
