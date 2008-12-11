@@ -46,7 +46,7 @@ Aalborg University Copenhagen\\ Computer Vision and Graphics\\algirdux@gmail.com
    The motion for this animation was captured using motion capture system
    and after processing it and converting to appropriate BVH format, was ready to use for
    animating 3D human model in lowest programming C++/OpenGL level.
-   
+
    \textbf{Keywords:} Human animation, Vicon motion capture system, OpenGL, C++, Linear Blend Skinning
 \end{abstract}
 
@@ -56,28 +56,52 @@ Aalborg University Copenhagen\\ Computer Vision and Graphics\\algirdux@gmail.com
 \Section{Introduction}
 
 Our animation focuses on the most common and partly simple human
-body animation technique, that uses joints to animate human model. The joint structure,
+body animation technique, that uses joint based structure to animate human model. Joint structure,
 given their position and orientation, can be thought as being human body skeleton.
-The skin shape is associated to the joints, where as it's a 3D polygon mesh
-and it's the only thing that is displayed for the end-user.
-Due to very fast computation speeds, this technique is the most popular
-in animation production. On the other hand, using simple shape blending technique
-to deal with complex human body rigid parts transformations, there are
+Animation of the skeleton, when talking about its complexity, is pretty simple,
+as it includes only rigid body parts and requires rotations of bones at the joint position.
+But when taking in account underlying layer of the skeleton, what we call skin, it becomes more
+complicated. This is when linear blend skinning technique comes in use, associating joints to vertices and introducing weights them. Due to very fast computation speeds, this technique is the most popular
+in animation production. On the other hand, using this simple shape blending technique
+to deal with complex transformations, there are
 various skin deformation problems. Typical ones are collapsing elbow, candy-wrapper joint
-when the arm turns 180 degrees, intersection between two adjacent bones (links) around a joint.
-Also such a technique don't consider many very complicated and detail human body deformations,
-for example dealing with muscles (stretch or bulge).
-
-%-------------------------------------------------------------------------
-\SubSection{Previous works}
-
-What we've read and what was written there. References.
-[Linear blend skinning, for deformation problems, data formats, data format conversion problems (BVH) - this probably to be written somewhere else, maybe overview?]
+when the arm turns 180 degrees.
+Also such a technique don't consider many other human body deformations, like stretching or bulging muscles.
 
 %-------------------------------------------------------------------------
 \SubSection{Overview}
 
-What is represented in further sections?
+We present a motion data driven technique of animating a human body model in OpenGL.
+We have two main issues in this work: getting motion data and using it
+correctly to animate skeleton and then solving the human model mesh deformation problems.
+Using data captured by motion capture system and correctly defined joint structure,
+we achieve realistic body movements for our model. Any motion data, that was captured
+using same joint structure scheme as ours, can be used for animating that human body model.
+
+After introducing the techniques that we were using in this project (Sections: \emph{\ref{Linear_blend_skinning}} and \emph{\ref{Quaternions}}), explaining about motion data formats and their differences (Section \emph{\ref{Motion_data}}), we give details on how to prepare 3D human body model mesh for our program (Section \emph{\ref{Maya_mesh}}) and how we managed to animate both skeleton and its underlying layer (Section \emph{\ref{Animating_human_body}}).
+
+
+%-------------------------------------------------------------------------
+\SubSection{Previous works}
+
+Linear blend skinning is very wildly used technique, but due to its disability to deal with more complex skin deformations, it has various slightly different approaches and modifications for animating human body model. Furthermore, for animating human body totally different methods are commonly used either.
+
+Basic principles of linear blend skinning were described by the game development community \cite{ex13,ex14} and the artifacts of this technique were discovered very soon \cite{ex15}. 
+The technique that dealt with some of these issues was introduced in \cite{ex12} and named as "pose space deformation".
+
+
+These techniques, which have
+been variously called skeleton subspace deformation, single weight
+enveloping, and simply skinning, are easy to implement and fast
+to compute and therefore remain in use today.
+
+TALK ABOUT LINEAR BLEND SKINNING AND WHERE WAS IT MENTIONED
+
+OTHER TECHNIQUES AND HOW THEY COULD WORK
+
+What we've read and what was written there. References.
+[Linear blend skinning, for deformation problems, data formats, data format conversion problems (BVH) - this probably to be written somewhere else, maybe overview?]
+
 
 TODO: Explain what are the problems,
 kinematic chain,  what went wrong with stuff what we were doing,
@@ -86,7 +110,7 @@ emphasize that we use our joint model ant only take rotations.
 
 %-------------------------------------------------------------------------
 \Section{Linear blend skinning}
-
+\label{Linear_blend_skinning}
 Linear blend skinning technique is widely used for interactive applications.
 It goes by many different names, such as Skeleton Subspace Deformation or SSD or "smooth skinning" in Maya.
 
@@ -130,7 +154,7 @@ especially in games and virtual environments.
 
 %-------------------------------------------------------------------------
 \Section{Quaternions}
-
+\label{Quaternions}
 A quaternion is a mathematical object, consisting of 4 scalars. Quaternions were first discovered in 19th century by Irish mathematician Sir William Rowan Hamilton during his search for a way to represent points in space.  Soon after their introduction, quaternions appeared at most of universities as an advanced mathematics subject. Nowadays quaternions find their applications in signal processing, physics, bioinformatics, orbital mechanics as well as computer graphics.
 	
 In computer graphics Euler angles are known to have the disadvantage of being susceptible to "Gimbal lock" where attempts to rotate an object fail to appear as expected, due to the order in which the rotations are performed. Quaternions are a solution to this problem. Instead of rotating an object through a series of successive rotations, quaternions provide the ability to rotate an object through an arbitrary rotation axis and angle. Though the rotation is still performed by using matrix mathematics, instead of multiplying matrices together, quaternions, representing the axis of rotation, are multiplied together. The final resulting quaternion is then converted to the desired rotation matrix.
@@ -215,11 +239,12 @@ data needs to be cleaned, edited, and applied to a 3D model.
 
 During this project, for capturing motion data, we used Vicon Motion System,
 combined with Vicon IQ 2.5 software running on our systems host pc.
-Details on how we managed to capture and process motion data can be found on the appendix \textbf{\ref{Vicon appendix}}.
+Details about Vicon motion capture system and how we managed to capture and process motion data can be found on the appendix \textbf{\ref{Vicon appendix}}.
 
 
 %-------------------------------------------------------------------------
 \Section{Motion data}
+\label{Motion_data}
 
 There are various \emph{motion data} storing formats, that mostly depend on what kind of program they
 are being used on. Our aim on this project, considering motion data, was to select
@@ -250,12 +275,14 @@ Being a binary file, the C3D file consists of a number of 512-byte blocks. Logic
 
 The BVH format is an updated version of BioVision’s BVA data format, with the addition of a
 hierarchical data structure representing the bones of the skeleton.
-The BVH file is an ASCII file and consists of two parts.
+The BVH file is an ASCII file and consists of two parts:
 
-First section (\emph{hierarchy}) is for storing hierarchy and initial pose of the skeleton,
+\begin{itemize}
+\item \emph{Hierarchy} is for storing joint hierarchy and initial pose of the skeleton,
 basically joint-to-joint connections and offsets.
-While as second section (\emph{motion}) describes the channel motion data for each frame,
-that is describes the movement of individual joints.
+\item \emph{Motion} describes the channel motion data for each frame,
+that is the movement of individual joints.
+\end{itemize}
 
 The \emph{hierarchy} section starts with \emph{root} joint and contains the definition of a joint hierarchy within nested braces like source code written in the C programming language.
 Each joint in a \emph{hierarchy} has an \emph{offset} field and a \emph{channels} field.
@@ -283,7 +310,7 @@ in another. All the same the format is very flexible and it is relatively easy t
 
 During the workflow of our project, the motion capture data, produced by the Vicon motion capturing system using Vicon IQ software, was encoded in C3D file format. This data in C3D file contains only the positions of the reflective markers at each frame. As it is not sufficient for us to correctly animate character, we have to do additional data processing.
 
-
+\textbf{Only mention that conversion from C3D to BVH was made with 3rd part application?}
 
 %We import C3D animation data file to MotionBuilder software. Then the whole data processing is similar to the one, that must be done after capturing data in post-processing stage, using Vicon IQ software. We assign the C3D motion data to so called actors and characters in MotionBuilder. Basically actor here is a mesh models, and character is skeleton with specified joint structure. As characters have their own skeleton, after assigning C3D data and using the inverse kinematics technique, we have whole body hierarchy and can export to BVH format, which contains the rotation and translation data of each joint for each frame.
 
@@ -291,15 +318,19 @@ During the workflow of our project, the motion capture data, produced by the Vic
 \textbf{Forward Kinematics - The process of calculating the position and orientation of a specific part of an object based on the position and orientation of the root of the object as well as the position and orientation of the joints higher up in that part's kinematic chain.}
 
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=85mm]{images/mb.jpg}
-\end{figure}
+%\begin{figure}[H]
+%  \centering
+%  \includegraphics[width=85mm]{images/mb.jpg}
+%\end{figure}
 
 %-------------------------------------------------------------------------
 \Section{Human body mesh model}
+\label{Maya_mesh}
 
-What do we use for our animation?
+Human model mesh must be selected not only by it's looks and model details,
+but also by its position. The model must be in such a position, that in
+animating stage you could connect models body parts with your skeleton
+and make it move. In this project simple human body mesh was selected with initial T-pose.
 
 %-------------------------------------------------------------------------
 \SubSection{Mesh model preparations}
@@ -308,10 +339,9 @@ Mesh model is a vital object in animation, looking from the users (viewers) side
 After using all the mathematical theories and different approaches, the final result
 highly depends on the mesh being used.
 For our project we decided to use whole human body mesh cut in different body parts,
-with empty space between these rigid parts, that we are later connected to one mesh.
+with empty space between these rigid parts, that are later connected to one mesh.
 The main issue using this kind of approach, is that you lose details of your body mesh,
-so the better solution is obviously using the whole uncut body.
-
+so the better solution is using the whole uncut body.
 
 \begin{figure}[H]
   \centering
@@ -344,9 +374,11 @@ The above described tokens were of importance in our project, but they are not t
 
 %-------------------------------------------------------------------------
 \Section{Animating human body}
-
+\label{Animating_human_body}
 Explain how we load human model, exported from Maya to .obj file.
 How we create natural primary human pose, assign meshes to joints and so on.
+
+\textbf{Having same joint structure in BVH file, we can animate any model, not having to worry about models height and so on, as using rotations we can animate differently sized model on our mesh/model.}
 
 %-------------------------------------------------------------------------
 \SubSection{Creating mesh model}
@@ -394,7 +426,7 @@ other skin deformations
 \nocite{notseen}
 
 %-------------------------------------------------------------------------
-\nocite{ex1,ex5,ex2,ex3,ex4,ex6,ex7}
+\nocite{ex1,ex5,ex2,ex3,ex4,ex6,ex7,ex8,ex9,ex10,ex11,ex12}
 \bibliographystyle{latex8}
 \bibliography{latex8}
 

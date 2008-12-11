@@ -46,7 +46,7 @@ Aalborg University Copenhagen\\ Computer Vision and Graphics\\algirdux@gmail.com
    The motion for this animation was captured using motion capture system
    and after processing it and converting to appropriate BVH format, was ready to use for
    animating 3D human model in lowest programming C++/OpenGL level.
-   
+
    \textbf{Keywords:} Human animation, Vicon motion capture system, OpenGL, C++, Linear Blend Skinning
 \end{abstract}
 
@@ -69,34 +69,40 @@ when the arm turns 180 degrees.
 Also such a technique don't consider many other human body deformations, like stretching or bulging muscles.
 
 %-------------------------------------------------------------------------
-\SubSection{Previous works}
-
-What we've read and what was written there. References.
-[Linear blend skinning, for deformation problems, data formats, data format conversion problems (BVH) - this probably to be written somewhere else, maybe overview?]
-
-%-------------------------------------------------------------------------
 \SubSection{Overview}
 
 We present a motion data driven technique of animating a human body model in OpenGL.
-We have two main issues in this work, firstly getting motion data and using it 
+We have two main issues in this work: getting motion data and using it
 correctly to animate skeleton and then solving the human model mesh deformation problems.
 Using data captured by motion capture system and correctly defined joint structure,
 we achieve realistic body movements for our model. Any motion data, that was captured
 using same joint structure scheme as ours, can be used for animating that human body model.
-\emph{Our human body model mesh was exported from Maya in T-pose or so called dress pose,
-what is necessary to animate model correctly.}
+
+After introducing the techniques that we were using in this project (Sections: \emph{\ref{Linear_blend_skinning}} and \emph{\ref{Quaternions}}), explaining about motion data formats and their differences (Section \emph{\ref{Motion_data}}), we give details on how to prepare 3D human body model mesh for our program (Section \emph{\ref{Maya_mesh}}) and how we managed to animate both skeleton and its underlying layer (Section \emph{\ref{Animating_human_body}}).
 
 
+%-------------------------------------------------------------------------
+\SubSection{Previous works}
 
+Linear blend skinning is very widely used technique, but due to its disability to deal with more complex skin deformations, it has various slightly different approaches and modifications for animating human body model. Furthermore, for animating human body totally different methods are commonly used either.
 
-TODO: Explain what are the problems,
+Basic principles of linear blend skinning were described by the game development community \cite{ex13,ex14} and the artifacts of this technique were discovered very soon \cite{ex15}. 
+The technique that dealt with some of those issues and set background for linear blend skinning type transformations was introduced in \cite{ex12} and was named as "skeleton subspace deformation". It consider skin deformation as an interpolation problem and radial basis functions are used to interpolate between example skins with different shapes, where a one-to-one vertex correspondence must exist between each pair of examples.
+
+Many other used techniques only extends the previous one. In \cite{ex2} so called "extended linear blend skinning" is introduced. Approaching 180 degrees, the linearly blended matrix becomes degenerate and collapses the skin geometry. This method avoids blending transformations that are so dissimilar by adding extra transformations that properly interpolates
+without collapsing. In other paper \cite{ex8} authors introduces non-linear technique to avoid unpleasant defects that are caused by linear shape blending. They achieve that by direct assignment of weights to the
+vertices according to its position around the joint. While in \cite{ex10} authors suggest interpolating transformations itself instead of transformed vertex positions. Considering transformations consisting of a translation and rotation, they suggest using a quaternion representation.
+
+To conclude, despite many techniques correcting the problems of linear blend skinning, none of them can fully avoid them. As a result, the traditional linear blend skinning is still widely used in many applications.
+
+\textbf{TODO: Explain what are the problems,
 kinematic chain,  what went wrong with stuff what we were doing,
 what we could tell to other groups in order to continue with project,
-emphasize that we use our joint model ant only take rotations.
+emphasize that we use our joint model ant only take rotations.}
 
 %-------------------------------------------------------------------------
 \Section{Linear blend skinning}
-
+\label{Linear_blend_skinning}
 Linear blend skinning technique is widely used for interactive applications.
 It goes by many different names, such as Skeleton Subspace Deformation or SSD or "smooth skinning" in Maya.
 
@@ -140,7 +146,7 @@ especially in games and virtual environments.
 
 %-------------------------------------------------------------------------
 \Section{Quaternions}
-
+\label{Quaternions}
 A quaternion is a mathematical object, consisting of 4 scalars. Quaternions were first discovered in 19th century by Irish mathematician Sir William Rowan Hamilton during his search for a way to represent points in space.  Soon after their introduction, quaternions appeared at most of universities as an advanced mathematics subject. Nowadays quaternions find their applications in signal processing, physics, bioinformatics, orbital mechanics as well as computer graphics.
 	
 In computer graphics Euler angles are known to have the disadvantage of being susceptible to "Gimbal lock" where attempts to rotate an object fail to appear as expected, due to the order in which the rotations are performed. Quaternions are a solution to this problem. Instead of rotating an object through a series of successive rotations, quaternions provide the ability to rotate an object through an arbitrary rotation axis and angle. Though the rotation is still performed by using matrix mathematics, instead of multiplying matrices together, quaternions, representing the axis of rotation, are multiplied together. The final resulting quaternion is then converted to the desired rotation matrix.
@@ -209,9 +215,29 @@ a^{2}-b^{2}-c^{2}-d^{2} & 2 \ast b \ast c-2 \ast a \ast d & 2 \ast b \ast d+2 \a
 \end{array}\end{tiny} \right)\]
 
 
+%-------------------------------------------------------------------------
+\Section{Parametric representation of lines in 3D space}
+
+A line is a geometric object, defined by two points A and B. It is infinite in length, passing through the points and extending forever in both directions. A line segment (or just segment) is also defined by two points, its endpoints, but extends only from one endpoint to the other. Although these objects, lines and segments, are very familiar, it is important to describe their parametric representation, as it was one of the solutions, which helped us to implement the linear blend skinning technique.
+
+In order for the linear blend skinning to work, the algorithm, implementing it, has to know exact coordinates of   each vertex, which is going to be affected during the animation of the character. The parametric representation of a line/segment enabled us to find the required vertices, as well as their positions in 3D space.
+
+The parametric representation of a line L can be written as:
+\begin{center}
+\emph{L(t) = A + b $\ast$ t}
+\end{center}
+where \emph{b} is a vector: \emph{b = B - A}, \emph{A} is a starting point of a segment and \emph{B} is an ending point of a segment.
+
+This construction gives us a way to name and compute any point along the line \emph{L}. This is done using a parameter \emph{t}, that distinguishes one point on the line from another. As t varies, so does the position of L(t)  along the line.
+If \emph{t = 0, L(0)} evaluates to \emph{A}, so at \emph{t = 0} we are at point \emph{A}. At \emph{t = 1} then \emph{L(1) = A + (B - A) = B}. As \emph{t} varies, we add a longer or shorter version of \emph{b} to the point \emph{A}, resulting in a new point along the line. If \emph{t} is larger than 1, this point lies somewhere on the opposite side of \emph{B} from \emph{A}, and when \emph{t} is less than 0, it lies on the opposite side of \emph{A} from \emph{B}. Below is a picture illustrating these facts in a graphical 2D view, although 3D version uses the same ideas.
 
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=85mm]{images/lines3d.jpg}
+\end{figure}
 
+A very useful fact is that \emph{L(t)} lies a fraction \emph{t} of the way between \emph{A} and \emph{B} when \emph{t} lies between 0 and 1. For instance, when t = 0.5 the point L(0.5) is the midpoint between \emph{A} and \emph{B} and when t = 0.3, the point L(0.3) is 30\% of the way from \emph{A} to \emph{B}. This is clear from equation \emph{L(t) = A + b * t} since \emph{$|$ L(t) - A $|$ = $|$ b $|$ * $|$ t $|$} and \emph{$|$ B - A $|$ = $|$ b $|$}, so the value of \emph{$|$ t $|$} is the ratio of the distances \emph{$|$ L(t) - A $|$ to $|$ B - A $|$}.
 
 %-------------------------------------------------------------------------
 \Section{Motion capture}
@@ -225,11 +251,12 @@ data needs to be cleaned, edited, and applied to a 3D model.
 
 During this project, for capturing motion data, we used Vicon Motion System,
 combined with Vicon IQ 2.5 software running on our systems host pc.
-Details on how we managed to capture and process motion data can be found on the appendix \textbf{\ref{Vicon appendix}}.
+Details about Vicon motion capture system and how we managed to capture and process motion data can be found on the appendix \textbf{\ref{Vicon appendix}}.
 
 
 %-------------------------------------------------------------------------
 \Section{Motion data}
+\label{Motion_data}
 
 There are various \emph{motion data} storing formats, that mostly depend on what kind of program they
 are being used on. Our aim on this project, considering motion data, was to select
@@ -260,12 +287,14 @@ Being a binary file, the C3D file consists of a number of 512-byte blocks. Logic
 
 The BVH format is an updated version of BioVision’s BVA data format, with the addition of a
 hierarchical data structure representing the bones of the skeleton.
-The BVH file is an ASCII file and consists of two parts.
+The BVH file is an ASCII file and consists of two parts:
 
-First section (\emph{hierarchy}) is for storing hierarchy and initial pose of the skeleton,
+\begin{itemize}
+\item \emph{Hierarchy} is for storing joint hierarchy and initial pose of the skeleton,
 basically joint-to-joint connections and offsets.
-While as second section (\emph{motion}) describes the channel motion data for each frame,
-that is describes the movement of individual joints.
+\item \emph{Motion} describes the channel motion data for each frame,
+that is the movement of individual joints.
+\end{itemize}
 
 The \emph{hierarchy} section starts with \emph{root} joint and contains the definition of a joint hierarchy within nested braces like source code written in the C programming language.
 Each joint in a \emph{hierarchy} has an \emph{offset} field and a \emph{channels} field.
@@ -308,6 +337,7 @@ During the workflow of our project, the motion capture data, produced by the Vic
 
 %-------------------------------------------------------------------------
 \Section{Human body mesh model}
+\label{Maya_mesh}
 
 Human model mesh must be selected not only by it's looks and model details,
 but also by its position. The model must be in such a position, that in
@@ -356,7 +386,7 @@ The above described tokens were of importance in our project, but they are not t
 
 %-------------------------------------------------------------------------
 \Section{Animating human body}
-
+\label{Animating_human_body}
 Explain how we load human model, exported from Maya to .obj file.
 How we create natural primary human pose, assign meshes to joints and so on.
 
@@ -384,7 +414,7 @@ is similar to linear blend skinning. How we automated all the things.
 
 %-------------------------------------------------------------------------
 \Section{Conclusion}
-Conclusion
+Conclusion - can be combined with future work
 
 %-------------------------------------------------------------------------
 \SubSection{Future work}
@@ -408,7 +438,7 @@ other skin deformations
 \nocite{notseen}
 
 %-------------------------------------------------------------------------
-\nocite{ex1,ex5,ex2,ex3,ex4,ex6,ex7}
+\nocite{ex1,ex5,ex2,ex3,ex4,ex6,ex7,ex8,ex9,ex10,ex11,ex12}
 \bibliographystyle{latex8}
 \bibliography{latex8}
 
