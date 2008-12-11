@@ -1,12 +1,36 @@
-\begin{thebibliography}{1}\setlength{\itemsep}{-1ex}\small
+\begin{thebibliography}{10}\setlength{\itemsep}{-1ex}\small
+
+\bibitem{ex11}
+J.~Bloomenthal.
+\newblock Medial-based vertex deformation.
 
 \bibitem{ex1}
 F.~S. Hill and S.~M.Kelley.
 \newblock {\em Computer Graphics Using OpenGL}.
 
+\bibitem{ex10}
+L.~Kavan and J.~Zara.
+\newblock Spherical blend skinning: A real-time deformation of articulated
+  models.
+
 \bibitem{ex5}
 M.~Kitagawa and B.~Windsor.
 \newblock {\em MoCap for Artists - Workflow and Techniques for Motion Capture}.
+
+\bibitem{ex13}
+J.~LANDER.
+\newblock Skin them bones: Game programming for the web generation.
+\newblock {\em Game Developer Magazine}, pages 11--–16, May 1998.
+
+\bibitem{ex14}
+J.~LANDER.
+\newblock Over my dead, polygonal body.
+\newblock {\em Game Developer Magazine}, pages 17--–22, October 1999.
+
+\bibitem{ex12}
+J.~P. Lewis, M.~Cordner, and N.~Fong.
+\newblock Pose space deformation: A unified approach to shape interpolation and
+  skeleton-driven deformation.
 
 \bibitem{ex4}
 M.~Meredith and S.Maddock.
@@ -27,8 +51,21 @@ A.~Mohr, L.~Tokheim, and M.~Gleicher.
 Motion Lab Systems, http://www.c3d.org/HTML/default.htm.
 \newblock {\em C3D Reference}.
 
+\bibitem{ex9}
+S.~I. Park and J.~K. Hodgins.
+\newblock Capturing and animating skin deformation in human motion.
+
 \bibitem{ex6}
 Vicon Motion Systems Ltd.
 \newblock {\em Vicon system reference}.
+
+\bibitem{ex15}
+J.~Weber.
+\newblock Run-time skin deformation.
+\newblock 2000.
+
+\bibitem{ex8}
+X.~S. Yang and J.~J. Zhang.
+\newblock Realistic skeleton driven skin deformation.
 
 \end{thebibliography}
