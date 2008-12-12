@@ -95,11 +95,6 @@ vertices according to its position around the joint. While in \cite{ex10} author
 
 To conclude, despite many techniques correcting the problems of linear blend skinning, none of them can fully avoid them. As a result, the traditional linear blend skinning is still widely used in many applications.
 
-\textbf{TODO: Explain what are the problems,
-kinematic chain,  what went wrong with stuff what we were doing,
-what we could tell to other groups in order to continue with project,
-emphasize that we use our joint model ant only take rotations.}
-
 %-------------------------------------------------------------------------
 \Section{Linear blend skinning}
 \label{Linear_blend_skinning}
@@ -126,6 +121,7 @@ associated with the $\emph{i}$th influence. Taken together, $D_{i}^{-1}\textbf{v
 the location of \textbf{v$_{d}$} in the local coordinate frame of the $\emph{i}$th influence.
 
 \begin{figure}[H]
+  \caption{}
   \centering
   \includegraphics[width=93mm]{images/hand2.jpg}
 \end{figure}
@@ -229,42 +225,21 @@ The parametric representation of a line L can be written as:
 where \emph{b} is a vector: \emph{b = B - A}, \emph{A} is a starting point of a segment and \emph{B} is an ending point of a segment.
 
 This construction gives us a way to name and compute any point along the line \emph{L}. This is done using a parameter \emph{t}, that distinguishes one point on the line from another. As t varies, so does the position of L(t)  along the line.
-If \emph{t = 0, L(0)} evaluates to \emph{A}, so at \emph{t = 0} we are at point \emph{A}. At \emph{t = 1} then \emph{L(1) = A + (B - A) = B}. As \emph{t} varies, we add a longer or shorter version of \emph{b} to the point \emph{A}, resulting in a new point along the line. If \emph{t} is larger than 1, this point lies somewhere on the opposite side of \emph{B} from \emph{A}, and when \emph{t} is less than 0, it lies on the opposite side of \emph{A} from \emph{B}. Below is a picture illustrating these facts in a graphical 2D view, although 3D version uses the same ideas.
+If \emph{t = 0, L(0)} evaluates to \emph{A}, so at \emph{t = 0} we are at point \emph{A}. At \emph{t = 1} then \emph{L(1) = A + (B - A) = B}. As \emph{t} varies, we add a longer or shorter version of \emph{b} to the point \emph{A}, resulting in a new point along the line. If \emph{t} is larger than 1, this point lies somewhere on the opposite side of \emph{B} from \emph{A}, and when \emph{t} is less than 0, it lies on the opposite side of \emph{A} from \emph{B}. Below is a picture \label{line_in_space} illustrating these facts in a graphical 2D view, although 3D version uses the same ideas.
 
 
 \begin{figure}[H]
+  \caption{Line in space}
+  \label{line_in_space}
   \centering
   \includegraphics[width=85mm]{images/lines3d.jpg}
 \end{figure}
 
 A very useful fact is that \emph{L(t)} lies a fraction \emph{t} of the way between \emph{A} and \emph{B} when \emph{t} lies between 0 and 1. For instance, when t = 0.5 the point L(0.5) is the midpoint between \emph{A} and \emph{B} and when t = 0.3, the point L(0.3) is 30\% of the way from \emph{A} to \emph{B}. This is clear from equation \emph{L(t) = A + b * t} since \emph{$|$ L(t) - A $|$ = $|$ b $|$ * $|$ t $|$} and \emph{$|$ B - A $|$ = $|$ b $|$}, so the value of \emph{$|$ t $|$} is the ratio of the distances \emph{$|$ L(t) - A $|$ to $|$ B - A $|$}.
 
-%-------------------------------------------------------------------------
-\Section{Motion capture}
-
-Motion capture (\emph{mocap}) is sampling and recording motion of humans, animals, and inanimate
-objects as 3D data. The data can be used to study motion or to animate 3D computer models.
-During the motion capture process not only the capturing stage using \emph{mocap} equipment
-is very important, as equally important are the preparation and post processing processes.
-The whole system must be well calibrated, adjusted and set up, furthermore, after capturing
-data needs to be cleaned, edited, and applied to a 3D model.
-
-During this project, for capturing motion data, we used Vicon Motion System,
-combined with Vicon IQ 2.5 software running on our systems host pc.
-Details about Vicon motion capture system and how we managed to capture and process motion data can be found on the appendix \textbf{\ref{Vicon appendix}}.
-
 
 %-------------------------------------------------------------------------
-\Section{Motion data}
-\label{Motion_data}
-
-There are various \emph{motion data} storing formats, that mostly depend on what kind of program they
-are being used on. Our aim on this project, considering motion data, was to select
-the most appropriate data format. After reviewing some examples, the decision was made,
-that the best choice for our model animation would be using \emph{BVH} motion data format.
-But because our motion capture is being done using Vicon IQ software,
-that's not able to directly export data to BVH file format, at first we had to work with Vicons' C3D
-and then convert it to BVH.
+\Section{Data formats}
 
 %-------------------------------------------------------------------------
 \SubSection{Description of Vicon C3D format}
@@ -315,51 +290,6 @@ rotational offset can be defined. Moreover, the BVH format is often implemented 
 applications, that is, one BVH format that works well in one application may not be interpreted
 in another. All the same the format is very flexible and it is relatively easy to edit BVH files.
 
-\textbf{[Give more details later about exact structure of our model (like example)]}
-
-%-------------------------------------------------------------------------
-\SubSection{Processing motion data}
-
-During the workflow of our project, the motion capture data, produced by the Vicon motion capturing system using Vicon IQ software, was encoded in C3D file format. This data in C3D file contains only the positions of the reflective markers at each frame. As it is not sufficient for us to correctly animate character, we have to do additional data processing.
-
-\textbf{Only mention that conversion from C3D to BVH was made with 3rd part application?}
-
-%We import C3D animation data file to MotionBuilder software. Then the whole data processing is similar to the one, that must be done after capturing data in post-processing stage, using Vicon IQ software. We assign the C3D motion data to so called actors and characters in MotionBuilder. Basically actor here is a mesh models, and character is skeleton with specified joint structure. As characters have their own skeleton, after assigning C3D data and using the inverse kinematics technique, we have whole body hierarchy and can export to BVH format, which contains the rotation and translation data of each joint for each frame.
-
-
-\textbf{Forward Kinematics - The process of calculating the position and orientation of a specific part of an object based on the position and orientation of the root of the object as well as the position and orientation of the joints higher up in that part's kinematic chain.}
-
-
-%\begin{figure}[H]
-%  \centering
-%  \includegraphics[width=85mm]{images/mb.jpg}
-%\end{figure}
-
-%-------------------------------------------------------------------------
-\Section{Human body mesh model}
-\label{Maya_mesh}
-
-Human model mesh must be selected not only by it's looks and model details,
-but also by its position. The model must be in such a position, that in
-animating stage you could connect models body parts with your skeleton
-and make it move. In this project simple human body mesh was selected with initial T-pose.
-
-%-------------------------------------------------------------------------
-\SubSection{Mesh model preparations}
-
-Mesh model is a vital object in animation, looking from the users (viewers) side.
-After using all the mathematical theories and different approaches, the final result
-highly depends on the mesh being used.
-For our project we decided to use whole human body mesh cut in different body parts,
-with empty space between these rigid parts, that are later connected to one mesh.
-The main issue using this kind of approach, is that you lose details of your body mesh,
-so the better solution is using the whole uncut body.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=85mm]{images/maya_cut.jpg}
-\end{figure}
-
 %-------------------------------------------------------------------------
 \SubSection{Description of OBJ format}
 
@@ -383,6 +313,60 @@ The OBJ file is composed of lines of text, each of them starting with a token, w
 The above described tokens were of importance in our project, but they are not the only ones that OBJ format allows. The OBJ format specification is much broader and covers such abilities as surface encoding, connectivity between free-form surfaces, rendering attributes. The OBJ specification can be found in the document's reference page.
 
 
+%-------------------------------------------------------------------------
+\Section{Motion capture}
+
+Motion capture (\emph{mocap}) is sampling and recording motion of humans, animals, and inanimate
+objects as 3D data. The data can be used to study motion or to animate 3D computer models.
+During the motion capture process not only the capturing stage using \emph{mocap} equipment
+is very important, as equally important are the preparation and post processing processes.
+The whole system must be well calibrated, adjusted and set up, furthermore, after capturing
+data needs to be cleaned, edited, and applied to a 3D model.
+
+During this project, for capturing motion data, we used Vicon Motion System,
+combined with Vicon IQ 2.5 software running on our systems host pc.
+Details about Vicon motion capture system and how we managed to capture and process motion data can be found on the appendix \textbf{\ref{Vicon appendix}}.
+
+
+%-------------------------------------------------------------------------
+\SubSection{Motion data}
+\label{Motion_data}
+
+There are various \emph{motion data} storing formats, that mostly depend on what kind of program they
+are being used on. Our aim on this project, considering motion data, was to select
+the most appropriate data format. After reviewing some examples, the decision was made,
+that the best choice for our model animation would be using \emph{BVH} motion data format.
+But because our motion capture is being done using Vicon IQ software,
+that's not able to directly export data to BVH file format, at first we had to work with Vicons' C3D
+and then convert it to BVH using other 3rd party application.
+
+
+%-------------------------------------------------------------------------
+\Section{Human body mesh model}
+\label{Maya_mesh}
+
+Human body mesh model must be selected not only by it's looks and model details,
+but also by its position. The model must be in such a position, that in
+animating stage you could connect models body parts with your skeleton
+and make it move. In this project simple human body mesh was selected with initial T-pose.
+
+%-------------------------------------------------------------------------
+\SubSection{Mesh model preparations}
+
+Mesh model is a vital object in animation, looking from the users (viewers) side.
+After using all the mathematical theories and different approaches, the final result
+highly depends on the mesh being used.
+For our project we decided to use whole human body mesh cut in different body parts,
+with empty space between these rigid parts, that are later connected to one mesh.
+The main issue using this kind of approach, is that you lose details of your body mesh,
+so the better solution is using the whole uncut body.
+
+\begin{figure}[H]
+  \caption{Mesh model cut in Maya}
+  \centering
+  \includegraphics[width=85mm]{images/maya_cut.jpg}
+\end{figure}
+
 
 %-------------------------------------------------------------------------
 \Section{Animating human body}
@@ -391,6 +375,7 @@ The above described tokens were of importance in our project, but they are not t
 The base of any character animation is its skeleton. A skeleton is a hierarchical structure that let you pose and animate your model. Skeletons are composed of series of joints and bones that form joint hierarchies. Each joint has a number of children joints and one parent. Only the root joint does not have a parent and end-joints don't have children. From a programmers point of view joint hierarchy can be treated as a tree data structure, having a root, nodes and leaves.
 
 \begin{figure}[H]
+  \caption{Human body skeleton}
   \centering
   \includegraphics[width=85mm]{images/bodySkeleton.jpg}
 \end{figure}
@@ -418,26 +403,96 @@ So, for example to get the global transformation of the left ankle joint, the ov
 $M_{global\_left\_ankle}$ = $M_{local\_root}$ $\ast$ $M_{local\_left\_hip}$ $\ast$ $M_{local\_left\_knee}$ $\ast$ $M_{local\_left\_ankle}$
 \end{center}
 
-\textbf{Having same joint structure in BVH file, we can animate any model, not having to worry about models height and so on, as using rotations we can animate differently sized model on our mesh/model.}
+%-------------------------------------------------------------------------
+\SubSection{Our approach for animating human model}
+
+
+\SubSection{Preparing the character for animation}
+
+Our model consists of 18 joints, defined in the BVH data file: Hips (root joint), LeftHip, LeftKnee, LeftAnkle, RightHip, RightKnee, RightAnkle, Chest, Chest2, LeftCollar, LeftShoulder, LeftElbow, LeftWrist, RightCollar, RightShoulder, RightElbow, RightWrist and Neck. All of these joints should be positioned in such a way, that the skeleton is drawn in a T-pose. Below is a picture \ref{our_skeleton} of our skeleton.
+
+\begin{figure}[H]
+  \caption{Our skeleton example}
+  \label{our_skeleton}
+  \centering
+  \includegraphics[width=85mm]{images/our_skeleton.jpg}
+\end{figure}
+
+The joints, mentioned above, allow our model to be correctly animated in 3D scene, although much detail is not achieved as the movement of fingers and toes is not animated. Each joint has a mesh applied to it, which is not affected by the animation data, except being rotated or translated in the scene. The connection between the meshes is being done automatically during the construction of the character. The algorithm for doing that is:
+
+\begin{enumerate}
+\item Find two vertices, belonging to the mesh and its parent mesh, which have the shortest distance of all the vertices.
+\item Determine some threshold value, which can be just user defined (for example 5%). The threshold value determines the longest distance between vertices, belonging to the mesh and its parent.
+\item Find all other vertices, which are necessary to connect, by calculating the distance between each of them. If the distance is between the shortest distance and the distance, calculated from the threshold value, then those two vertices have to be connected.
+\end{enumerate}
+
+Each connection between the mesh and its parent has subvertices. This is necessary for every joint rotation to look smooth. The more subvertices we have, the smoother the rotation looks. To find positions of subvertices on the connecting line, we apply the parametric representation of a line. To give a better view, of how subvertices are introduced in our model, the image of model's right knee is provided. In the image \ref{our_mesh_connection} you can see two meshes being connected by two connecting lines, each of which has four subvertices. Of course, this picture is provided just for explanatory purposes, the full connection between the meshes should have much more connecting lines.
+
+\begin{figure}[H]
+  \caption{Connections between meshes}
+  \label{our_mesh_connection}
+  \centering
+  \includegraphics[width=85mm]{images/mesh_connection.jpg}
+\end{figure}
+
+Any line function can be written as: \emph{L(t) = A + b*t}, where \emph{A} is the starting point of a line, \emph{b} is a vector, determining the direction of a line and \emph{t} is a parameter value. A more detailed explanation of the parametric representation of the line can be found in documents section \ref{line_in_space}.
+
+Since the above mentioned algorithm finds the positions of the first vertex, necessary to connect, (which is letter \emph{A} in the parametric representation of the line) and the second one (let's mark it's position as letter \emph{B}), we can find the direction vector \emph{b = B - A}. Now taking t from 0 to 1 we get the position of the subvertex, which is between \emph{A} and \emph{B}. In fact if we took \emph{t = 0}, from the parametric representation of the line we get the position of vertex \emph{A}, and if we took \emph{t =1}, we get the position of vertex \emph{B}. So to determine the position of the first subvertex on the line, we need to set \emph{t = 1/N}, where \emph{N} is the total number of subvertices. To determine the position of the second subvertex on the line, set \emph{t = 2 * 1/N}. In general, to find the \emph{n}'th subvertex position on the line, we can set
+
+\begin{center}
+t = n $\ast$ 1/N
+\end{center}
+
+Now to calculate the position of subvertices after rotation, we apply the linear blend skinning technique, which means that each subvertex has some weight (let's mark it as \emph{w}), which influences the angle it has to be rotated. Of course, each subvertex weight could be determined manually (for example, user defined), but we found that it is pretty easy to determine it automatically to get the satisfying overall result.
+
+Let's consider that we have \emph{N} vertices on the connecting line. The joint is being rotated by angle \emph{A}. Each vertex weight \emph{w} is being determined by it's position on the connecting line:
+
+\begin{center}
+w = P $\ast$ 1/N
+\end{center}
+where P is the position on the connecting line.
+ 
+So the first vertex on the line has the weight \emph{w = 1 $\ast$ 1/N}, while the last vertex on the line has the weight \emph{w =  N $\ast$ 1/N = 1}.
+
+Now, considering the angle each vertex has to be rotated, the first one is rotated by \emph{A $\ast$ 1 $\ast$ 1/N} degrees, while the last one is being rotated by \emph{A $\ast$ N $\ast$  1/N = A} degrees. After rotating all the subvertices, they are being connected to polygons.
 
 %-------------------------------------------------------------------------
-\SubSection{Creating mesh model}
-Loading rigid parts+Connecting rigid mesh parts
-
-Loaded mesh from OBJ file must correspond with BVH file joint structure hierarchy. Cut mesh model should be connected in T-pose, otherwise program can't find closes vertices.
-
-After we load OBJ file, we get every vertex of each mesh and its polygons connections.
-Using this data we connect each of them to a mesh model.
-
-How we load human body to OpenGL. How we import mesh from obj files.
-Joint creation. Joint connection with meshes.
+\Section{Problems}
+Some of these problems were solved during the work, others still need to be seen into.
 
 %-------------------------------------------------------------------------
-\SubSection{Linear blend skinning relations}
+\SubSection{"Exploding knee" problem}
 
-How we adapted linear blend skinning to our animations.
-Explain how our method using meshes assigned with joint rotations
-is similar to linear blend skinning. How we automated all the things.
+Problem occurred during matrix multiplications, when the difference between frames got very different.
+Sometimes our BVH file format data gave to frames in a row with Z rotations one 179 other -179.
+This artifact can be seen in figure \ref{knee_explosion}, where is a motion sequence taken frame by frame.
+
+\begin{figure}[H]
+  \caption{Knee explosion sequence}
+  \label{knee_explosion}
+  \centering
+  \includegraphics[width=85mm]{images/s_knee_explosion.jpg}
+\end{figure}
+
+%-------------------------------------------------------------------------
+\SubSection{Mesh connections collapsing on complex deformations}
+
+\begin{figure}[H]
+  \caption{Knee rotation by 3 axis}
+  \label{knee_3axis}
+  \centering
+  \includegraphics[width=85mm]{images/s_knee.jpg}
+\end{figure}
+
+These deformations are a lot smaller when rotating only by one angle (as in our first model).
+The deformation while rotating only by one axis gives much better results as seen in figure \ref{knee_1axis} than the one translating by all three, that's seen in figure \ref{knee_3axis}.
+
+\begin{figure}[H]
+  \caption{Knee rotation by 1 axis}
+  \label{knee_1axis}
+  \centering
+  \includegraphics[width=85mm]{images/s_knee_rot1.jpg}
+\end{figure}
 
 
 %-------------------------------------------------------------------------
@@ -466,7 +521,7 @@ other skin deformations
 \nocite{notseen}
 
 %-------------------------------------------------------------------------
-\nocite{ex1,ex5,ex2,ex3,ex4,ex6,ex7,ex8,ex9,ex10,ex11,ex12}
+\nocite{ex1,ex2,ex3,ex4,ex5,ex6,ex7,ex8,ex9,ex10,ex11,ex12,ex13,ex14,ex15}
 \bibliographystyle{latex8}
 \bibliography{latex8}
 

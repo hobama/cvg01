@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  12 DEC 2008 14:57
+This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  12 DEC 2008 19:31
 entering extended mode
 **C:/Mano/Mokslai/Universitetas/5*Semestras/Project/cvg01/docs/Report/latex8.te
 x
@@ -68,7 +68,11 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 LaTeX Warning: Unused global option(s):
     [times].
 
-(latex8.aux)
+(latex8.aux
+
+LaTeX Warning: Label `line_in_space' multiply defined.
+
+)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
 LaTeX Font Info:    ... okay on input line 26.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
@@ -117,73 +121,117 @@ Underfull \vbox (badness 2726) has occurred while \output is active []
 
 
 ]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 113.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 113.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 101.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 118.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 118.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 113.
 
 <images/hand2.jpg, id=10, 548.0475pt x 283.0575pt>
 File: images/hand2.jpg Graphic file (type jpg)
  <use images/hand2.jpg>
-Overfull \hbox (27.47469pt too wide) in paragraph at lines 130--131
+Overfull \hbox (27.47469pt too wide) in paragraph at lines 126--127
  [][] 
  []
 
 
-Underfull \vbox (badness 5607) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [2 <images/hand2.jpg>]
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 200.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 196.
 
  ("C:\Program Files\MiKTeX 2.7\tex\latex\psnfss\omsptm.fd"
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 200.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 196.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 210.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 206.
 
 
-Overfull \hbox (14.96538pt too wide) detected at line 215
+Overfull \hbox (14.96538pt too wide) detected at line 211
 \OML/cmm/m/it/10 R \OT1/cmr/m/n/10 = []
  []
 
-<images/lines3d.jpg, id=20, 350.05782pt x 293.59688pt>
+<images/lines3d.jpg, id=21, 350.05782pt x 293.59688pt>
 File: images/lines3d.jpg Graphic file (type jpg)
 
 <use images/lines3d.jpg>
-Overfull \hbox (4.71248pt too wide) in paragraph at lines 237--238
+Overfull \hbox (4.71248pt too wide) in paragraph at lines 235--236
  [][] 
  []
 
 [3]
 Missing character: There is no ’ in font ptmr7t!
- [4 <images/lines3d.jpg>]
 Missing character: There is no “ in font ptmr7t!
 Missing character: There is no ” in font ptmr7t!
-
-<images/maya_cut.jpg, id=31, 632.3625pt x 531.9875pt>
+ [4 <images/lines3d.jpg>] [5]
+<images/maya_cut.jpg, id=35, 632.3625pt x 531.9875pt>
 File: images/maya_cut.jpg Graphic file (type jpg)
 
 <use images/maya_cut.jpg>
-Overfull \hbox (4.71248pt too wide) in paragraph at lines 360--361
+Overfull \hbox (4.71248pt too wide) in paragraph at lines 367--368
  [][] 
  []
 
-[5 <images/maya_cut.jpg>]
-<images/bodySkeleton.jpg, id=35, 304.88907pt x 188.95593pt>
+<images/bodySkeleton.jpg, id=36, 304.88907pt x 188.95593pt>
 File: images/bodySkeleton.jpg Graphic file (type jpg)
 
 <use images/bodySkeleton.jpg>
-Overfull \hbox (4.71248pt too wide) in paragraph at lines 395--396
+Overfull \hbox (4.71248pt too wide) in paragraph at lines 380--381
  [][] 
  []
 
-[6 <images/bodySkeleton.jpg>] [7] (vicon_appendix.tex
-<images/vicon_mx_basic.jpg, id=43, 955.57pt x 506.89375pt>
+[6 <images/maya_cut.jpg> <images/bodySkeleton.jpg>]
+<images/our_skeleton.jpg, id=40, 578.91281pt x 436.63126pt>
+File: images/our_skeleton.jpg Graphic file (type jpg)
+
+<use images/our_skeleton.jpg>
+Overfull \hbox (4.71248pt too wide) in paragraph at lines 418--419
+ [][] 
+ []
+
+<images/mesh_connection.jpg, id=41, 512.66531pt x 414.79968pt>
+File: images/mesh_connection.jpg Graphic file (type jpg)
+
+<use images/mesh_connection.jpg>
+Overfull \hbox (4.71248pt too wide) in paragraph at lines 435--436
+ [][] 
+ []
+
+[7 <images/our_skeleton.jpg> <images/mesh_connection.jpg>]
+<images/s_knee_explosion.jpg, id=46, 759.83875pt x 280.04625pt>
+File: images/s_knee_explosion.jpg Graphic file (type jpg)
+
+<use images/s_knee_explosion.jpg>
+Overfull \hbox (4.71248pt too wide) in paragraph at lines 474--475
+ [][] 
+ []
+
+<images/s_knee.jpg, id=47, 803.0pt x 803.0pt>
+File: images/s_knee.jpg Graphic file (type jpg)
+ <use images/s_knee.jpg>
+Overfull \hbox (4.71248pt too wide) in paragraph at lines 484--485
+ [][] 
+ []
+
+<images/s_knee_rot1.jpg, id=48, 774.895pt x 774.895pt>
+File: images/s_knee_rot1.jpg Graphic file (type jpg)
+
+<use images/s_knee_rot1.jpg>
+Overfull \hbox (4.71248pt too wide) in paragraph at lines 494--495
+ [][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [8 <images/s_knee_explosion.jpg> <images/s_knee.jpg>] [9
+
+ <images/s_knee_rot1.jpg>]
+(vicon_appendix.tex <images/vicon_mx_basic.jpg, id=55, 955.57pt x 506.89375pt>
 File: images/vicon_mx_basic.jpg Graphic file (type jpg)
 
 <use images/vicon_mx_basic.jpg>
@@ -191,19 +239,19 @@ Overfull \hbox (41.70107pt too wide) in paragraph at lines 38--39
  [][] 
  []
 
-[8
+[10
 
  <images/vicon_mx_basic.jpg>]
-<images/vicon.jpg, id=47, 752.8125pt x 453.19313pt>
+<images/vicon.jpg, id=59, 752.8125pt x 453.19313pt>
 File: images/vicon.jpg Graphic file (type jpg)
  <use images/vicon.jpg>
 Overfull \hbox (18.93886pt too wide) in paragraph at lines 93--94
  [][] 
  []
 
-) [9 <images/vicon.jpg>]
+) [11 <images/vicon.jpg>]
 
-LaTeX Warning: Citation `notseen' undefined on input line 466.
+LaTeX Warning: Citation `notseen' undefined on input line 521.
 
 (latex8.bbl
 Missing character: There is no – in font ptmr7t!
@@ -213,22 +261,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 51--53
 []\OT1/ptm/m/n/9 Motion Lab Sys-tems,
  []
 
-) [10
+) [12
 
 
 ] (latex8.aux)
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 1112 strings out of 95304
- 13571 string characters out of 1183069
- 69994 words of memory out of 1500000
- 4326 multiletter control sequences out of 110000
- 22864 words of font info for 45 fonts, out of 1200000 for 2000
+ 1146 strings out of 95304
+ 14323 string characters out of 1183069
+ 70084 words of memory out of 1500000
+ 4354 multiletter control sequences out of 110000
+ 23961 words of font info for 46 fonts, out of 1200000 for 2000
  14 hyphenation exceptions out of 8191
- 25i,7n,19p,854b,225s stack positions out of 5000i,500n,10000p,200000b,5000s
+ 25i,7n,19p,988b,225s stack positions out of 5000i,500n,10000p,200000b,5000s
 {C:/Program Files/MiKTeX 2.7/fonts/enc/dvips/fontname/8r.enc}<C:/Program File
 s/MiKTeX 2.7/fonts/type1/bluesky/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.7/fon
 ts/type1/bluesky/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky
@@ -239,12 +290,13 @@ ype1/bluesky/cm/cmr5.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cm
 r7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmsy10.pfb><C:/Progr
 am Files/MiKTeX 2.7/fonts/type1/bluesky/cm/cmsy5.pfb><C:/Program Files/MiKTeX 2
 .7/fonts/type1/bluesky/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/ur
-w/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmbi8a.p
-fb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><C:/Program Fi
-les/MiKTeX 2.7/fonts/type1/urw/times/utmri8a.pfb>
-Output written on latex8.pdf (10 pages, 673164 bytes).
+w/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmb8a
+.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmbi8a.pfb><C:/Program
+ Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.7
+/fonts/type1/urw/times/utmri8a.pfb>
+Output written on latex8.pdf (12 pages, 1184817 bytes).
 PDF statistics:
- 102 PDF objects out of 1000 (max. 8388607)
+ 117 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 
