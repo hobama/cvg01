@@ -1,0 +1,32 @@
+newmtl RightElbow_SmoothSkin2_jackieSG
+illum 4
+Kd 0.84 0.69 0.53
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.27 0.27 0.27
+Ns 18.00
+newmtl RightShoulder_SmoothSkin2_jackieSG
+illum 4
+Kd 0.84 0.69 0.53
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.27 0.27 0.27
+Ns 18.00
+newmtl SmoothSkin2_jackieSG
+illum 4
+Kd 0.84 0.69 0.53
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.27 0.27 0.27
+Ns 18.00
+newmtl jackieSG
+illum 4
+Kd 0.84 0.69 0.53
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.27 0.27 0.27
+Ns 18.00
