@@ -95,11 +95,6 @@ vertices according to its position around the joint. While in \cite{ex10} author
 
 To conclude, despite many techniques correcting the problems of linear blend skinning, none of them can fully avoid them. As a result, the traditional linear blend skinning is still widely used in many applications.
 
-\textbf{TODO: Explain what are the problems,
-kinematic chain,  what went wrong with stuff what we were doing,
-what we could tell to other groups in order to continue with project,
-emphasize that we use our joint model ant only take rotations.}
-
 %-------------------------------------------------------------------------
 \Section{Linear blend skinning}
 \label{Linear_blend_skinning}
@@ -239,32 +234,9 @@ If \emph{t = 0, L(0)} evaluates to \emph{A}, so at \emph{t = 0} we are at point 
 
 A very useful fact is that \emph{L(t)} lies a fraction \emph{t} of the way between \emph{A} and \emph{B} when \emph{t} lies between 0 and 1. For instance, when t = 0.5 the point L(0.5) is the midpoint between \emph{A} and \emph{B} and when t = 0.3, the point L(0.3) is 30\% of the way from \emph{A} to \emph{B}. This is clear from equation \emph{L(t) = A + b * t} since \emph{$|$ L(t) - A $|$ = $|$ b $|$ * $|$ t $|$} and \emph{$|$ B - A $|$ = $|$ b $|$}, so the value of \emph{$|$ t $|$} is the ratio of the distances \emph{$|$ L(t) - A $|$ to $|$ B - A $|$}.
 
-%-------------------------------------------------------------------------
-\Section{Motion capture}
-
-Motion capture (\emph{mocap}) is sampling and recording motion of humans, animals, and inanimate
-objects as 3D data. The data can be used to study motion or to animate 3D computer models.
-During the motion capture process not only the capturing stage using \emph{mocap} equipment
-is very important, as equally important are the preparation and post processing processes.
-The whole system must be well calibrated, adjusted and set up, furthermore, after capturing
-data needs to be cleaned, edited, and applied to a 3D model.
-
-During this project, for capturing motion data, we used Vicon Motion System,
-combined with Vicon IQ 2.5 software running on our systems host pc.
-Details about Vicon motion capture system and how we managed to capture and process motion data can be found on the appendix \textbf{\ref{Vicon appendix}}.
-
 
 %-------------------------------------------------------------------------
-\Section{Motion data}
-\label{Motion_data}
-
-There are various \emph{motion data} storing formats, that mostly depend on what kind of program they
-are being used on. Our aim on this project, considering motion data, was to select
-the most appropriate data format. After reviewing some examples, the decision was made,
-that the best choice for our model animation would be using \emph{BVH} motion data format.
-But because our motion capture is being done using Vicon IQ software,
-that's not able to directly export data to BVH file format, at first we had to work with Vicons' C3D
-and then convert it to BVH.
+\Section{Data formats}
 
 %-------------------------------------------------------------------------
 \SubSection{Description of Vicon C3D format}
@@ -315,51 +287,6 @@ rotational offset can be defined. Moreover, the BVH format is often implemented 
 applications, that is, one BVH format that works well in one application may not be interpreted
 in another. All the same the format is very flexible and it is relatively easy to edit BVH files.
 
-\textbf{[Give more details later about exact structure of our model (like example)]}
-
-%-------------------------------------------------------------------------
-\SubSection{Processing motion data}
-
-During the workflow of our project, the motion capture data, produced by the Vicon motion capturing system using Vicon IQ software, was encoded in C3D file format. This data in C3D file contains only the positions of the reflective markers at each frame. As it is not sufficient for us to correctly animate character, we have to do additional data processing.
-
-\textbf{Only mention that conversion from C3D to BVH was made with 3rd part application?}
-
-%We import C3D animation data file to MotionBuilder software. Then the whole data processing is similar to the one, that must be done after capturing data in post-processing stage, using Vicon IQ software. We assign the C3D motion data to so called actors and characters in MotionBuilder. Basically actor here is a mesh models, and character is skeleton with specified joint structure. As characters have their own skeleton, after assigning C3D data and using the inverse kinematics technique, we have whole body hierarchy and can export to BVH format, which contains the rotation and translation data of each joint for each frame.
-
-
-\textbf{Forward Kinematics - The process of calculating the position and orientation of a specific part of an object based on the position and orientation of the root of the object as well as the position and orientation of the joints higher up in that part's kinematic chain.}
-
-
-%\begin{figure}[H]
-%  \centering
-%  \includegraphics[width=85mm]{images/mb.jpg}
-%\end{figure}
-
-%-------------------------------------------------------------------------
-\Section{Human body mesh model}
-\label{Maya_mesh}
-
-Human model mesh must be selected not only by it's looks and model details,
-but also by its position. The model must be in such a position, that in
-animating stage you could connect models body parts with your skeleton
-and make it move. In this project simple human body mesh was selected with initial T-pose.
-
-%-------------------------------------------------------------------------
-\SubSection{Mesh model preparations}
-
-Mesh model is a vital object in animation, looking from the users (viewers) side.
-After using all the mathematical theories and different approaches, the final result
-highly depends on the mesh being used.
-For our project we decided to use whole human body mesh cut in different body parts,
-with empty space between these rigid parts, that are later connected to one mesh.
-The main issue using this kind of approach, is that you lose details of your body mesh,
-so the better solution is using the whole uncut body.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=85mm]{images/maya_cut.jpg}
-\end{figure}
-
 %-------------------------------------------------------------------------
 \SubSection{Description of OBJ format}
 
@@ -383,6 +310,59 @@ The OBJ file is composed of lines of text, each of them starting with a token, w
 The above described tokens were of importance in our project, but they are not the only ones that OBJ format allows. The OBJ format specification is much broader and covers such abilities as surface encoding, connectivity between free-form surfaces, rendering attributes. The OBJ specification can be found in the document's reference page.
 
 
+%-------------------------------------------------------------------------
+\Section{Motion capture}
+
+Motion capture (\emph{mocap}) is sampling and recording motion of humans, animals, and inanimate
+objects as 3D data. The data can be used to study motion or to animate 3D computer models.
+During the motion capture process not only the capturing stage using \emph{mocap} equipment
+is very important, as equally important are the preparation and post processing processes.
+The whole system must be well calibrated, adjusted and set up, furthermore, after capturing
+data needs to be cleaned, edited, and applied to a 3D model.
+
+During this project, for capturing motion data, we used Vicon Motion System,
+combined with Vicon IQ 2.5 software running on our systems host pc.
+Details about Vicon motion capture system and how we managed to capture and process motion data can be found on the appendix \textbf{\ref{Vicon appendix}}.
+
+
+%-------------------------------------------------------------------------
+\SubSection{Motion data}
+\label{Motion_data}
+
+There are various \emph{motion data} storing formats, that mostly depend on what kind of program they
+are being used on. Our aim on this project, considering motion data, was to select
+the most appropriate data format. After reviewing some examples, the decision was made,
+that the best choice for our model animation would be using \emph{BVH} motion data format.
+But because our motion capture is being done using Vicon IQ software,
+that's not able to directly export data to BVH file format, at first we had to work with Vicons' C3D
+and then convert it to BVH using other 3rd party application.
+
+
+%-------------------------------------------------------------------------
+\Section{Human body mesh model}
+\label{Maya_mesh}
+
+Human body mesh model must be selected not only by it's looks and model details,
+but also by its position. The model must be in such a position, that in
+animating stage you could connect models body parts with your skeleton
+and make it move. In this project simple human body mesh was selected with initial T-pose.
+
+%-------------------------------------------------------------------------
+\SubSection{Mesh model preparations}
+
+Mesh model is a vital object in animation, looking from the users (viewers) side.
+After using all the mathematical theories and different approaches, the final result
+highly depends on the mesh being used.
+For our project we decided to use whole human body mesh cut in different body parts,
+with empty space between these rigid parts, that are later connected to one mesh.
+The main issue using this kind of approach, is that you lose details of your body mesh,
+so the better solution is using the whole uncut body.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=85mm]{images/maya_cut.jpg}
+\end{figure}
+
 
 %-------------------------------------------------------------------------
 \Section{Animating human body}
@@ -395,27 +375,54 @@ The base of any character animation is its skeleton. A skeleton is a hierarchica
   \includegraphics[width=85mm]{images/bodySkeleton.jpg}
 \end{figure}
 
+To animate a character, first of all, the animation data has to be applied to characters skeleton (every joint that the skeleton consists of). Generally, the motion of an individual joint consists of translation, rotation and scale components (scaling is usually applied to character's bone). All these components can be merged together to give an overall transform using homogenous coordinates.  If the translation, rotation and scaling is being applied, the overall transformation can be defined as multiplication of corresponding matrices:
 
-\textbf{Having same joint structure in BVH file, we can animate any model, not having to worry about models height and so on, as using rotations we can animate differently sized model on our mesh/model.}
+\begin{center}
+\emph{M = T $\ast$ R $\ast$ S}
+\end{center}
+where \emph{M} is an overall transformation matrix, \emph{T} is translation matrix, \emph{R} is rotation matrix and \emph{S} is scale matrix.
+
+In our case, only the root joint had translational data, applied to it, whereas all other joints were being applied with rotational data. No scaling data was introduced in our motion capturing data.
+
+For the animation to look correctly, a forward kinematics technique has to be applied. With forward kinematics, you rotate or move individual joints to pose and animate your joint chains. Moving a joint affect's that joint and any joints below it in the hierarchy. For example, if you want a joint chain to reach for a particular location in space, you have to rotate each joint individually so that the joint chain can reach the location. To do this, you rotate and translate the joint chain's parent joint, then the next joint, and so on down the joint chain.
+
+From a more detailed point of view, each joint has a local transformation that describes its orientation within its local coordinate system, which in turn is a subject to its parent's local orientations. To obtain a global matrix transform for a given joint, the local transform needs to be pre-multiplied by it's parents global transform, which itself is  derived by multiplying its local transform with its parent's global transform and so on, until you reach the root joint. For the root joint, the local and the global transforms are the same. The equation below outlines this combination sequence, where \emph{n} is the current joint, whose parent joint is \emph{n - 1}, \emph{n = 0} is the root joint and \emph{M} is the joint's transformation matrix.
+
+\begin{center}
+$M^{n}_{global}$ = $\prod^{n}_{i = 0}$ $M^{i}_{local}$
+\end{center}
+
+So, for example to get the global transformation of the left ankle joint, the overall transformation sequence might look like this:
+
+\begin{center}
+$M_{global\_left\_ankle}$ = $M_{local\_root}$ $\ast$ $M_{local\_left\_hip}$ $\ast$ $M_{local\_left\_knee}$ $\ast$ $M_{local\_left\_ankle}$
+\end{center}
 
 %-------------------------------------------------------------------------
-\SubSection{Creating mesh model}
-Loading rigid parts+Connecting rigid mesh parts
+\SubSection{Our approach for animating human model}
+ Bla bla bla
 
-Loaded mesh from OBJ file must correspond with BVH file joint structure hierarchy. Cut mesh model should be connected in T-pose, otherwise program can't find closes vertices.
-
-After we load OBJ file, we get every vertex of each mesh and its polygons connections.
-Using this data we connect each of them to a mesh model.
-
-How we load human body to OpenGL. How we import mesh from obj files.
-Joint creation. Joint connection with meshes.
 
 %-------------------------------------------------------------------------
-\SubSection{Linear blend skinning relations}
+\Section{Problems}
+Some of these problems were solved during the work, others still need to be seen into.
 
-How we adapted linear blend skinning to our animations.
-Explain how our method using meshes assigned with joint rotations
-is similar to linear blend skinning. How we automated all the things.
+%-------------------------------------------------------------------------
+\SubSection{"Exploding knee" problem}
+
+Problem occurred during matrix multiplications, when the difference between frames got very different.
+Sometimes our BVH file format data gave to frames in a row with Z rotations one 179 other -179.
+
+SCREENSHOTS
+
+%-------------------------------------------------------------------------
+\SubSection{Problems for bigger angles}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=85mm]{images/s_knee.jpg}
+\end{figure}
+
 
 
 %-------------------------------------------------------------------------
@@ -444,7 +451,7 @@ other skin deformations
 \nocite{notseen}
 
 %-------------------------------------------------------------------------
-\nocite{ex1,ex5,ex2,ex3,ex4,ex6,ex7,ex8,ex9,ex10,ex11,ex12}
+\nocite{ex1,ex2,ex3,ex4,ex5,ex6,ex7,ex8,ex9,ex10,ex11,ex12,ex13,ex14,ex15}
 \bibliographystyle{latex8}
 \bibliography{latex8}
 
