@@ -86,7 +86,7 @@ After introducing the techniques that we were using in this project (Sections: \
 
 Linear blend skinning is very widely used technique, but due to its disability to deal with more complex skin deformations, it has various slightly different approaches and modifications for animating human body model. Furthermore, for animating human body totally different methods are commonly used either.
 
-Basic principles of linear blend skinning were described by the game development community \cite{ex13,ex14} and the artifacts of this technique were discovered very soon \cite{ex15}. 
+Basic principles of linear blend skinning were described by the game development community \cite{ex13,ex14} and the artifacts of this technique were discovered very soon \cite{ex15}.
 The technique that dealt with some of those issues and set background for linear blend skinning type transformations was introduced in \cite{ex12} and was named as "skeleton subspace deformation". It consider skin deformation as an interpolation problem and radial basis functions are used to interpolate between example skins with different shapes, where a one-to-one vertex correspondence must exist between each pair of examples.
 
 Many other used techniques only extends the previous one. In \cite{ex2} so called "extended linear blend skinning" is introduced. Approaching 180 degrees, the linearly blended matrix becomes degenerate and collapses the skin geometry. This method avoids blending transformations that are so dissimilar by adding extra transformations that properly interpolates
@@ -387,8 +387,36 @@ The above described tokens were of importance in our project, but they are not t
 %-------------------------------------------------------------------------
 \Section{Animating human body}
 \label{Animating_human_body}
-Explain how we load human model, exported from Maya to .obj file.
-How we create natural primary human pose, assign meshes to joints and so on.
+
+The base of any character animation is its skeleton. A skeleton is a hierarchical structure that let you pose and animate your model. Skeletons are composed of series of joints and bones that form joint hierarchies. Each joint has a number of children joints and one parent. Only the root joint does not have a parent and end-joints don't have children. From a programmers point of view joint hierarchy can be treated as a tree data structure, having a root, nodes and leaves.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=85mm]{images/bodySkeleton.jpg}
+\end{figure}
+
+To animate a character, first of all, the animation data has to be applied to characters skeleton (every joint that the skeleton consists of). Generally, the motion of an individual joint consists of translation, rotation and scale components (scaling is usually applied to character's bone). All these components can be merged together to give an overall transform using homogenous coordinates.  If the translation, rotation and scaling is being applied, the overall transformation can be defined as multiplication of corresponding matrices:
+
+\begin{center}
+\emph{M = T $\ast$ R $\ast$ S}
+\end{center}
+where \emph{M} is an overall transformation matrix, \emph{T} is translation matrix, \emph{R} is rotation matrix and \emph{S} is scale matrix.
+
+In our case, only the root joint had translational data, applied to it, whereas all other joints were being applied with rotational data. No scaling data was introduced in our motion capturing data.
+
+For the animation to look correctly, a forward kinematics technique has to be applied. With forward kinematics, you rotate or move individual joints to pose and animate your joint chains. Moving a joint affect's that joint and any joints below it in the hierarchy. For example, if you want a joint chain to reach for a particular location in space, you have to rotate each joint individually so that the joint chain can reach the location. To do this, you rotate and translate the joint chain's parent joint, then the next joint, and so on down the joint chain.
+
+From a more detailed point of view, each joint has a local transformation that describes its orientation within its local coordinate system, which in turn is a subject to its parent's local orientations. To obtain a global matrix transform for a given joint, the local transform needs to be pre-multiplied by it's parents global transform, which itself is  derived by multiplying its local transform with its parent's global transform and so on, until you reach the root joint. For the root joint, the local and the global transforms are the same. The equation below outlines this combination sequence, where \emph{n} is the current joint, whose parent joint is \emph{n - 1}, \emph{n = 0} is the root joint and \emph{M} is the joint's transformation matrix.
+
+\begin{center}
+$M^{n}_{global}$ = $\prod^{n}_{i = 0}$ $M^{i}_{local}$
+\end{center}
+
+So, for example to get the global transformation of the left ankle joint, the overall transformation sequence might look like this:
+
+\begin{center}
+$M_{global\_left\_ankle}$ = $M_{local\_root}$ $\ast$ $M_{local\_left\_hip}$ $\ast$ $M_{local\_left\_knee}$ $\ast$ $M_{local\_left\_ankle}$
+\end{center}
 
 \textbf{Having same joint structure in BVH file, we can animate any model, not having to worry about models height and so on, as using rotations we can animate differently sized model on our mesh/model.}
 
