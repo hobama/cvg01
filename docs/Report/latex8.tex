@@ -57,15 +57,13 @@ Aalborg University Copenhagen\\ Computer Vision and Graphics\\algirdux@gmail.com
 
 Our animation focuses on the most common and partly simple human
 body animation technique, that uses joint based structure to animate human model. Joint structure,
-given their position and orientation, can be thought as being human body skeleton.
+given their position and orientation, can be thought as human body skeleton.
 Animation of the skeleton, when talking about its complexity, is pretty simple,
 as it includes only rigid body parts and requires rotations of bones at the joint position.
 But when taking in account underlying layer of the skeleton, what we call skin, it becomes more
-complicated. This is when linear blend skinning technique comes in use, associating joints to vertices and introducing weights them. Due to very fast computation speeds, this technique is the most popular
-in animation production. On the other hand, using this simple shape blending technique
-to deal with complex transformations, there are
-various skin deformation problems. Typical ones are collapsing elbow, candy-wrapper joint
-when the arm turns 180 degrees.
+complicated. This is when linear blend skinning technique comes in use, associating joints to vertices and introducing weights to them. Due to very fast computation speeds, this technique is the most popular
+in animation production. On the other hand, while using this simple shape blending technique
+to deal with complex transformations various skin deformation problems occur. Typical ones are collapsing elbow, candy-wrapper effect when the arm turns 180 degrees.
 Also such a technique don't consider many other human body deformations, like stretching or bulging muscles.
 
 %-------------------------------------------------------------------------
@@ -84,7 +82,7 @@ After introducing the techniques that we were using in this project (Sections: \
 %-------------------------------------------------------------------------
 \SubSection{Previous works}
 
-Linear blend skinning is very widely used technique, but due to its disability to deal with more complex skin deformations, it has various slightly different approaches and modifications for animating human body model. Furthermore, for animating human body totally different methods are commonly used either.
+Linear blend skinning is very widely used technique, but due to its disability to deal with more complex skin deformations, it has many slightly different approaches and modifications for animating human body model. Furthermore, for animating human body model totally different methods are also used, such as anatomy-based ones \cite{ex8}, using different layers to imitate muscle structures, but we won't be going to details of such a technique.
 
 Basic principles of linear blend skinning were described by the game development community \cite{ex13,ex14} and the artifacts of this technique were discovered very soon \cite{ex15}.
 The technique that dealt with some of those issues and set background for linear blend skinning type transformations was introduced in \cite{ex12} and was named as "skeleton subspace deformation". It consider skin deformation as an interpolation problem and radial basis functions are used to interpolate between example skins with different shapes, where a one-to-one vertex correspondence must exist between each pair of examples.
@@ -129,7 +127,7 @@ the location of \textbf{v$_{d}$} in the local coordinate frame of the $\emph{i}$
 Linear blend skinning though has two primary failings.
 First, the method is incapable of expressing complex deformations.
 Artifacts such as the "candy-wrapper", collapse effect on wrists and
-collapsing around bending joints as shown appear. They
+collapsing around bending joints. They
 occur because vertices are transformed by linearly interpolated matrices.
 If the interpolated matrices are dissimilar as in a rotation of
 nearly 180 degrees, the interpolated transformation is degenerate,
@@ -213,6 +211,7 @@ a^{2}-b^{2}-c^{2}-d^{2} & 2 \ast b \ast c-2 \ast a \ast d & 2 \ast b \ast d+2 \a
 
 %-------------------------------------------------------------------------
 \Section{Parametric representation of lines in 3D space}
+\label{line_in_space_section}
 
 A line is a geometric object, defined by two points A and B. It is infinite in length, passing through the points and extending forever in both directions. A line segment (or just segment) is also defined by two points, its endpoints, but extends only from one endpoint to the other. Although these objects, lines and segments, are very familiar, it is important to describe their parametric representation, as it was one of the solutions, which helped us to implement the linear blend skinning technique.
 
@@ -316,7 +315,7 @@ The above described tokens were of importance in our project, but they are not t
 %-------------------------------------------------------------------------
 \Section{Motion capture}
 
-Motion capture (\emph{mocap}) is sampling and recording motion of humans, animals, and inanimate
+Motion capture (\emph{mocap}) is sampling and recording motion of humans, animals and other various
 objects as 3D data. The data can be used to study motion or to animate 3D computer models.
 During the motion capture process not only the capturing stage using \emph{mocap} equipment
 is very important, as equally important are the preparation and post processing processes.
@@ -325,7 +324,7 @@ data needs to be cleaned, edited, and applied to a 3D model.
 
 During this project, for capturing motion data, we used Vicon Motion System,
 combined with Vicon IQ 2.5 software running on our systems host pc.
-Details about Vicon motion capture system and how we managed to capture and process motion data can be found on the appendix \textbf{\ref{Vicon appendix}}.
+Details about Vicon motion capture system, how we managed to capture and process motion data can be found on the appendix \textbf{\ref{Vicon appendix}}.
 
 
 %-------------------------------------------------------------------------
@@ -336,8 +335,9 @@ There are various \emph{motion data} storing formats, that mostly depend on what
 are being used on. Our aim on this project, considering motion data, was to select
 the most appropriate data format. After reviewing some examples, the decision was made,
 that the best choice for our model animation would be using \emph{BVH} motion data format.
-But because our motion capture is being done using Vicon IQ software,
-that's not able to directly export data to BVH file format, at first we had to work with Vicons' C3D
+In \emph{BVH} file whole model joint structure is described and motion data is represented as rotations and translations of these joints. This feature allows us to easily animate our skeleton, without any additional calculations.
+Only drawback is that our motion capturing is being done using Vicon IQ software,
+which is not able to directly export data to BVH file format. At first we need get Vicons' C3D data file
 and then convert it to BVH using other 3rd party application.
 
 
@@ -415,14 +415,14 @@ Our model consists of 18 joints, defined in the BVH data file: Hips (root joint)
   \caption{Our skeleton example}
   \label{our_skeleton}
   \centering
-  \includegraphics[width=85mm]{images/our_skeleton.jpg}
+  \includegraphics[width=55mm]{images/our_skeleton.jpg}
 \end{figure}
 
 The joints, mentioned above, allow our model to be correctly animated in 3D scene, although much detail is not achieved as the movement of fingers and toes is not animated. Each joint has a mesh applied to it, which is not affected by the animation data, except being rotated or translated in the scene. The connection between the meshes is being done automatically during the construction of the character. The algorithm for doing that is:
 
 \begin{enumerate}
 \item Find two vertices, belonging to the mesh and its parent mesh, which have the shortest distance of all the vertices.
-\item Determine some threshold value, which can be just user defined (for example 5%). The threshold value determines the longest distance between vertices, belonging to the mesh and its parent.
+\item Determine some threshold value, which can be just user defined (for example 5\%). The threshold value determines the longest distance between vertices, belonging to the mesh and its parent.
 \item Find all other vertices, which are necessary to connect, by calculating the distance between each of them. If the distance is between the shortest distance and the distance, calculated from the threshold value, then those two vertices have to be connected.
 \end{enumerate}
 
@@ -435,7 +435,7 @@ Each connection between the mesh and its parent has subvertices. This is necessa
   \includegraphics[width=85mm]{images/mesh_connection.jpg}
 \end{figure}
 
-Any line function can be written as: \emph{L(t) = A + b*t}, where \emph{A} is the starting point of a line, \emph{b} is a vector, determining the direction of a line and \emph{t} is a parameter value. A more detailed explanation of the parametric representation of the line can be found in documents section \ref{line_in_space}.
+Any line function can be written as: \emph{L(t) = A + b*t}, where \emph{A} is the starting point of a line, \emph{b} is a vector, determining the direction of a line and \emph{t} is a parameter value. A more detailed explanation of the parametric representation of the line can be found in documents section \ref{line_in_space_section}.
 
 Since the above mentioned algorithm finds the positions of the first vertex, necessary to connect, (which is letter \emph{A} in the parametric representation of the line) and the second one (let's mark it's position as letter \emph{B}), we can find the direction vector \emph{b = B - A}. Now taking t from 0 to 1 we get the position of the subvertex, which is between \emph{A} and \emph{B}. In fact if we took \emph{t = 0}, from the parametric representation of the line we get the position of vertex \emph{A}, and if we took \emph{t =1}, we get the position of vertex \emph{B}. So to determine the position of the first subvertex on the line, we need to set \emph{t = 1/N}, where \emph{N} is the total number of subvertices. To determine the position of the second subvertex on the line, set \emph{t = 2 * 1/N}. In general, to find the \emph{n}'th subvertex position on the line, we can set
 
@@ -451,7 +451,7 @@ Let's consider that we have \emph{N} vertices on the connecting line. The joint 
 w = P $\ast$ 1/N
 \end{center}
 where P is the position on the connecting line.
- 
+
 So the first vertex on the line has the weight \emph{w = 1 $\ast$ 1/N}, while the last vertex on the line has the weight \emph{w =  N $\ast$ 1/N = 1}.
 
 Now, considering the angle each vertex has to be rotated, the first one is rotated by \emph{A $\ast$ 1 $\ast$ 1/N} degrees, while the last one is being rotated by \emph{A $\ast$ N $\ast$  1/N = A} degrees. After rotating all the subvertices, they are being connected to polygons.
@@ -460,6 +460,10 @@ Now, considering the angle each vertex has to be rotated, the first one is rotat
 \Section{Problems}
 Some of these problems were solved during the work, others still need to be seen into.
 
+%-------------------------------------------------------------------------
+\SubSection{Initial BVH pose}
+Mention that most of the BVH files start with initial pose with arms down,
+and this needs to be edited manually
 %-------------------------------------------------------------------------
 \SubSection{"Exploding knee" problem}
 
