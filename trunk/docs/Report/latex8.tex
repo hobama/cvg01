@@ -492,27 +492,26 @@ Some of these problems were solved during the work, while others still need to b
 %-------------------------------------------------------------------------
 \SubSection{Initial BVH pose}
 
-Animating human skeleton, initial pose is not important, but when we have to deal with human body mesh,
-it's all they way around. As our human model body mesh was cut in different parts, in order to connect them,
-we had to have appropriate initial pose. In our case, this pose must be the T-pose, as only in it we can find the shortest distance between two mesh vertices and then connect mesh parts correctly. The detailed way how we connect these vertices is described in section \ref{preparing_character}.
+During the animation of human skeleton, the initial pose is not important, but when the mesh is considered,
+it's all they way around. As our human model was cut into individual parts,
+we had to have appropriate initial pose to correctly connect separate meshes. In our case, the appropriate pose was the T-pose. The T-pose was the only pose, which enabled us to find the shortest distance between two meshes and connect them correctly. The detailed way how the meshes are connected is described in section \ref{preparing_character}.
 
-The problem was, that after processing motion data and exporting it to BVH, it wasn't in initial T-pose.
-The same problem occurred after trying a number of examples from the internet. The initial pose always was with model hands straight down.
-Due to BVH structure, fixing this problem requires file to be manually edited:
+The problem was, that after processing motion data and exporting it to BVH file, the character was not in initial T-pose.
+The same problem occurred after trying a number of examples downloaded from the internet. The initial pose was the I-pose instead of the T-pose.
+Due to BVH structure, fixing this problem requires the file to be manually edited:
 
 \begin{enumerate}
-\item Skeleton structure and joint offsets in BVH file has to be changed to match T pose. Basically we had to use forward kinematics from the elbow joint.
-\item All the frame rotations has to be recalculated, as all the rotations in BVH file are given from the global initial position.
+\item Skeleton structure and joint offsets in BVH file has to be changed to match T pose.
+\item All the frame rotations has to be recalculated, as the rotations in BVH file are given from the initial position.
 \end{enumerate}
 
-We managed to automate these two steps, by using third-party application. After changing initial pose using applications' graphical user interface, it has automatically recalculated frame rotations.
+We managed to automate these two steps by using third-party application. After changing the initial pose, the application automatically recalculated frame rotations.
 
 %-------------------------------------------------------------------------
 \SubSection{"Exploding knee" problem}
 
-Problem occurred during matrix multiplications, when the difference between frames got very different.
-Sometimes our BVH file format data gave to frames in a row with Z rotations one 179 other -179.
-This artifact can be seen in figure \ref{knee_explosion}, where is a motion sequence taken frame by frame.
+The "exploding knee" problem occured during the animation, when the overall rotation is being applied as three separate rotations around Z, Y and X axes. This artifact can be seen in figure \ref{knee_explosion}.
+During the rotations around Z, Y and X axes in a row, the linear blend skinning algorithm, which we apply to animate connections between meshes, provides faulty results. The solution for this problem was the introduction of quaternions, which enabled us to calculate a unique rotation vector, as well as rotation angle, representing three separate rotations around Z, Y and X axes.
 
 \begin{figure}[H]
   \caption{Knee explosion sequence}
@@ -524,7 +523,7 @@ This artifact can be seen in figure \ref{knee_explosion}, where is a motion sequ
 %-------------------------------------------------------------------------
 \SubSection{Mesh connections collapsing on complex deformations}
 
-While implementing and testing our linear blend skinning algorithm on human model knee with only simple deformations, that only made joint rotation on one of the 3D axis, we were getting really promising results. It can be seen on figure \ref{knee_1axis}.
+During the implementation and testing of our linear blend skinning algorithm, only one-axis rotations were considered, which provided really promising results. It can be seen in figure \ref{knee_1axis}.
 
 \begin{figure}[H]
   \caption{Knee rotation by 1 axis}
@@ -533,7 +532,7 @@ While implementing and testing our linear blend skinning algorithm on human mode
   \includegraphics[width=75mm]{images/s_knee_rot1.jpg}
 \end{figure}
 
-Though after introducing full human body animation and taking data from BVH motion data file, we got joint rotations on all 3 axis, what caused totally different final results for our linear blend skinning algorithm. Results can be seen on figure \label{knee_3axis}.
+After introducing a full human body animation and taking data from BVH motion data file, we were provided with rotations around all three axes. Although the application of quaternions enabled us to calculate the rotation vector and angle, representing the transformations around all three axes, the final results were not so smooth as in the testing phase. The results can be seen in figure \label{knee_3axis}.
 
 \begin{figure}[H]
   \caption{Knee rotation by 3 axis}
@@ -542,20 +541,22 @@ Though after introducing full human body animation and taking data from BVH moti
   \includegraphics[width=75mm]{images/s_knee.jpg}
 \end{figure}
 
-The solution for this problem could be trying different weight distribution for vertices than that we're using now.
-Other solution that could give positive results, is cutting out smaller bits of model.
+The solution for this problem could be trying different weight distribution for vertices than those we were using.
+Other solution, that could give positive results, is cutting out smaller bits of the model.
 
 %-------------------------------------------------------------------------
 \Section{Conclusion}
 
-This project showed how to animate human body model using data from motion capture system.
-As our animating program was a part of this project, this paper was only finished, when we had the whole program code running, we are now able to provide all the necessary steps needed.
-All the mathematical formulas were provided in a paper, needed for animating characters in a 3D world. Furthermore, we provided our own interpretation of the linear blend skinning technique, that deals with model skin deformations.
+ The aim of this project was to animate human model using data from the Vicon motion capturing system. For the animation to look smooth, the linear blend skinning technique was chosen. To realize the linear blend skinning algorithm correctly, merits of quaternions were applied as well. Although linear blend skinning is very popular among game developers and other 3D graphics communities, the technique is not perfect. The linear blend skinning implementation in our project showed up with many problems. Usually most of them are solved by manually assigning different weights for each vertex, but this way requires user interruption, whereas our idea was to automatically determine the correct weights.
+ All in all, our project succeeded in animating the human model in 3D scene. The main goals were reached, though improvements are necessary at some areas.
 
 %-------------------------------------------------------------------------
 \SubSection{Future work}
-What could be implemented to improve this project?
-Live streaming to our animating program (straight from cameras to animation in OpenGL);
+Further improvements:
+1. More detailed animation. (moving fingers and toes).
+2. Detailed facial animation.
+3. Improved animation around joint areas. Reconsidering the implementation of linear blend skinning technique.
+4. Live streaming to our animating program (straight from cameras to animation in OpenGL);
 other skin deformations
 
 %-------------------------------------------------------------------------
