@@ -208,6 +208,23 @@ a^{2}-b^{2}-c^{2}-d^{2} & 2 \ast b \ast c-2 \ast a \ast d & 2 \ast b \ast d+2 \a
 0 & 0 & 0 & 1
 \end{array}\end{tiny} \right)\]
 
+Instead of calculating the direct rotation matrix, another approach is to calculate back the rotation vector and Eulerian angle from their quaternion representation. The angle can be calculated as:
+\begin{description}
+	\item angle = arccos(a) $\ast$ 2
+\end{description}
+
+The vector can be calculated as:
+
+\begin{description}
+    \setlength{\itemsep}{0pt}
+
+    \item sin$_a$ = sqrt(1 - a $\ast$ a);
+
+	\item vector$_x$ = b / sin$_a$
+	\item vector$_y$ = c / sin$_a$
+	\item vector$_z$ = d / sin$_a$
+\end{description}
+
 
 %-------------------------------------------------------------------------
 \Section{Parametric representation of lines in 3D space}
@@ -258,7 +275,7 @@ Being a binary file, the C3D file consists of a number of 512-byte blocks. Logic
 
 %-------------------------------------------------------------------------
 \SubSection{Description of Biovision BVH format}
-
+\label{bvh_description}
 The BVH format is an updated version of BioVision’s BVA data format, with the addition of a
 hierarchical data structure representing the bones of the skeleton.
 The BVH file is an ASCII file and consists of two parts:
@@ -406,7 +423,6 @@ $M_{global\_left\_ankle}$ = $M_{local\_root}$ $\ast$ $M_{local\_left\_hip}$ $\as
 %-------------------------------------------------------------------------
 \SubSection{Our approach for animating human model}
 
-
 \SubSection{Preparing the character for animation}
 \label{preparing_character}
 
@@ -456,6 +472,16 @@ where P is the position on the connecting line.
 So the first vertex on the line has the weight \emph{w = 1 $\ast$ 1/N}, while the last vertex on the line has the weight \emph{w =  N $\ast$ 1/N = 1}.
 
 Now, considering the angle each vertex has to be rotated, the first one is rotated by \emph{A $\ast$ 1 $\ast$ 1/N} degrees, while the last one is being rotated by \emph{A $\ast$ N $\ast$  1/N = A} degrees. After rotating all the subvertices, they are being connected to polygons.
+
+\SubSection{Animating the character}
+\label{animating_our_character}
+
+Our character is being animated by the data, provided by the Vicon motion capturing system. Motion data is encoded as BVH format file, consisting of  1289 frames (a more detailed explanation about Biovision BVH format is provided in document's section \ref{bvh_description}). Each frame holds rotation values for every joint as well as translation values for root joint in 3D space. Since rotation values are provided as three separate rotations around \emph{X}, \emph{Y} and \emph{Z} axis, quaternions are being used to calculate rotation axis and rotation angle.
+
+For example in the first frame, the root joint is being rotated by -0.66 degrees around \emph{Z} axis, 0.80 degrees around \emph{Y} axis and 171.21 degrees around \emph{X} axis. By applying the mathematics of quaternions, the overall rotation vector is (0.00631242, 0.999959, 0.00653654) and the rotation angle is 171.209 (quaternions are being explained in document's section 3). Since BVH format file provides only local rotations for each joint, to get the global rotation in 3D space, each joint's parent rotation should be taken into account. Considering the previous example, not only the root joint has to be be rotated by 171.209 degrees around the rotation axis  (0.00631242, 0.999959, 0.00653654), but all of its children as well.
+
+Since each joint has a mesh applied to it, during the animation, meshes are transformed in 3D scene the same way the joints are translated and rotated. Only the mesh connection has a different approach. In order for the mesh connection to rotate correctly, a linear blend skinning technique is applied, which is explained in more detail in document's section 2.
+
 
 %-------------------------------------------------------------------------
 \Section{Problems}
