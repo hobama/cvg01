@@ -364,7 +364,7 @@ so the better solution is using the whole uncut body.
 \begin{figure}[H]
   \caption{Mesh model cut in Maya}
   \centering
-  \includegraphics[width=85mm]{images/maya_cut.jpg}
+  \includegraphics[width=75mm]{images/maya_cut.jpg}
 \end{figure}
 
 
@@ -408,6 +408,7 @@ $M_{global\_left\_ankle}$ = $M_{local\_root}$ $\ast$ $M_{local\_left\_hip}$ $\as
 
 
 \SubSection{Preparing the character for animation}
+\label{preparing_character}
 
 Our model consists of 18 joints, defined in the BVH data file: Hips (root joint), LeftHip, LeftKnee, LeftAnkle, RightHip, RightKnee, RightAnkle, Chest, Chest2, LeftCollar, LeftShoulder, LeftElbow, LeftWrist, RightCollar, RightShoulder, RightElbow, RightWrist and Neck. All of these joints should be positioned in such a way, that the skeleton is drawn in a T-pose. Below is a picture \ref{our_skeleton} of our skeleton.
 
@@ -459,17 +460,26 @@ Now, considering the angle each vertex has to be rotated, the first one is rotat
 %-------------------------------------------------------------------------
 \Section{Problems}
 
-Here we give some examples of the problems that occurred during the project.
-Some of these problems were solved during the work, others still need to be seen into.
+In this section we give some examples of the problems that occurred during the project.
+Some of these problems were solved during the work, while others still need to be seen into.
 
 %-------------------------------------------------------------------------
 \SubSection{Initial BVH pose}
 
 Animating human skeleton, initial pose is not important, but when we have to deal with human body mesh,
 it's all they way around. As our human model body mesh was cut in different parts, in order to connect them,
-we had to have correct initial pose. In our case, this correct pose must be the T-pose, as it allows to connect meshes vertices correctly. 
-Mention that most of the BVH files start with initial pose with arms down,
-and this needs to be edited manually
+we had to have appropriate initial pose. In our case, this pose must be the T-pose, as only in it we can find the shortest distance between two mesh vertices and then connect mesh parts correctly. The detailed way how we connect these vertices is described in section \ref{preparing_character}.
+
+The problem was, that after processing motion data and exporting it to BVH, it wasn't in initial T-pose.
+The same problem occurred after trying a number of examples from the internet. The initial pose always was with model hands straight down.
+Due to BVH structure, fixing this problem requires file to be manually edited:
+
+\begin{enumerate}
+\item Skeleton structure and joint offsets in BVH file has to be changed to match T pose. Basically we had to use forward kinematics from the elbow joint.
+\item All the frame rotations has to be recalculated, as all the rotations in BVH file are given from the global initial position.
+\end{enumerate}
+
+We managed to automate these two steps, by using third-party application. After changing initial pose using applications' graphical user interface, it has automatically recalculated frame rotations.
 
 %-------------------------------------------------------------------------
 \SubSection{"Exploding knee" problem}
@@ -488,6 +498,17 @@ This artifact can be seen in figure \ref{knee_explosion}, where is a motion sequ
 %-------------------------------------------------------------------------
 \SubSection{Mesh connections collapsing on complex deformations}
 
+While implementing and testing our linear blend skinning algorithm on human model knee with only simple deformations, that only made joint rotation on one of the 3D axis, we managed to get really good results. What's can be seen on figure \ref{knee_1axis}.
+
+\begin{figure}[H]
+  \caption{Knee rotation by 1 axis}
+  \label{knee_1axis}
+  \centering
+  \includegraphics[width=75mm]{images/s_knee_rot1.jpg}
+\end{figure}
+
+After introducing full human body animation and taking data from BVH motion data file, we got joint rotations on all 3 axis, what caused totally different final results for our linear blend skinning algorithm.
+
 \begin{figure}[H]
   \caption{Knee rotation by 3 axis}
   \label{knee_3axis}
@@ -498,12 +519,7 @@ This artifact can be seen in figure \ref{knee_explosion}, where is a motion sequ
 These deformations are a lot smaller when rotating only by one angle (as in our first model).
 The deformation while rotating only by one axis gives much better results as seen in figure \ref{knee_1axis} than the one translating by all three, that's seen in figure \ref{knee_3axis}.
 
-\begin{figure}[H]
-  \caption{Knee rotation by 1 axis}
-  \label{knee_1axis}
-  \centering
-  \includegraphics[width=75mm]{images/s_knee_rot1.jpg}
-\end{figure}
+
 
 
 %-------------------------------------------------------------------------
