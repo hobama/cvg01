@@ -364,7 +364,7 @@ so the better solution is using the whole uncut body.
 \begin{figure}[H]
   \caption{Mesh model cut in Maya}
   \centering
-  \includegraphics[width=85mm]{images/maya_cut.jpg}
+  \includegraphics[width=75mm]{images/maya_cut.jpg}
 \end{figure}
 
 
@@ -460,8 +460,8 @@ Now, considering the angle each vertex has to be rotated, the first one is rotat
 %-------------------------------------------------------------------------
 \Section{Problems}
 
-Here we give some examples of the problems that occurred during the project.
-Some of these problems were solved during the work, others still need to be seen into.
+In this section we give some examples of the problems that occurred during the project.
+Some of these problems were solved during the work, while others still need to be seen into.
 
 %-------------------------------------------------------------------------
 \SubSection{Initial BVH pose}
@@ -479,7 +479,7 @@ Due to BVH structure, fixing this problem requires file to be manually edited:
 \item All the frame rotations has to be recalculated, as all the rotations in BVH file are given from the global initial position.
 \end{enumerate}
 
-We managed to automate these two steps, by using third-party application. After changing initial pose using applications graphical user interface, it automatically recalculated frame rotations.
+We managed to automate these two steps, by using third-party application. After changing initial pose using applications' graphical user interface, it has automatically recalculated frame rotations.
 
 %-------------------------------------------------------------------------
 \SubSection{"Exploding knee" problem}
@@ -498,15 +498,7 @@ This artifact can be seen in figure \ref{knee_explosion}, where is a motion sequ
 %-------------------------------------------------------------------------
 \SubSection{Mesh connections collapsing on complex deformations}
 
-\begin{figure}[H]
-  \caption{Knee rotation by 3 axis}
-  \label{knee_3axis}
-  \centering
-  \includegraphics[width=75mm]{images/s_knee.jpg}
-\end{figure}
-
-These deformations are a lot smaller when rotating only by one angle (as in our first model).
-The deformation while rotating only by one axis gives much better results as seen in figure \ref{knee_1axis} than the one translating by all three, that's seen in figure \ref{knee_3axis}.
+While implementing and testing our linear blend skinning algorithm on human model knee with only simple deformations, that only made joint rotation on one of the 3D axis, we were getting really promising results. It can be seen on figure \ref{knee_1axis}.
 
 \begin{figure}[H]
   \caption{Knee rotation by 1 axis}
@@ -515,6 +507,16 @@ The deformation while rotating only by one axis gives much better results as see
   \includegraphics[width=75mm]{images/s_knee_rot1.jpg}
 \end{figure}
 
+Though after introducing full human body animation and taking data from BVH motion data file, we got joint rotations on all 3 axis, what caused totally different final results for our linear blend skinning algorithm. Results can be seen on figure \label{knee_3axis}. 
+
+\begin{figure}[H]
+  \caption{Knee rotation by 3 axis}
+  \label{knee_3axis}
+  \centering
+  \includegraphics[width=75mm]{images/s_knee.jpg}
+\end{figure}
+
+The solution for this problem could be trying different weight distribution for vertices than that we're using now.
 
 %-------------------------------------------------------------------------
 \Section{Conclusion}

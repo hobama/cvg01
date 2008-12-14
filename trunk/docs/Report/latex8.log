@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  14 DEC 2008 12:33
+This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  14 DEC 2008 15:47
 entering extended mode
 **C:/Mano/Mokslai/Universitetas/5*Semestras/Project/cvg01/docs/Report/latex8.te
 x
@@ -71,6 +71,9 @@ LaTeX Warning: Unused global option(s):
 (latex8.aux
 
 LaTeX Warning: Label `line_in_space' multiply defined.
+
+
+LaTeX Warning: Label `knee_3axis' multiply defined.
 
 )
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
@@ -168,14 +171,10 @@ Missing character: There is no ’ in font ptmr7t!
 Missing character: There is no “ in font ptmr7t!
 Missing character: There is no ” in font ptmr7t!
  [4 <images/lines3d.jpg>] [5]
-<images/maya_cut.jpg, id=35, 632.3625pt x 531.9875pt>
+<images/maya_cut.jpg, id=35, 499.8675pt x 507.8975pt>
 File: images/maya_cut.jpg Graphic file (type jpg)
 
 <use images/maya_cut.jpg>
-Overfull \hbox (4.71248pt too wide) in paragraph at lines 367--368
- [][] 
- []
-
 <images/bodySkeleton.jpg, id=36, 304.88907pt x 188.95593pt>
 File: images/bodySkeleton.jpg Graphic file (type jpg)
 
@@ -197,19 +196,14 @@ ection.jpg>] <images/s_knee_explosion.jpg, id=46, 759.83875pt x 280.04625pt>
 File: images/s_knee_explosion.jpg Graphic file (type jpg)
 
 <use images/s_knee_explosion.jpg>
-<images/s_knee.jpg, id=47, 803.0pt x 803.0pt>
-File: images/s_knee.jpg Graphic file (type jpg)
- <use images/s_knee.jpg>
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [8 <images/s_knee_explosion.jpg>] <images/s_knee_rot1.jpg, id=51, 774.895pt x 
-774.895pt>
+<images/s_knee_rot1.jpg, id=47, 774.895pt x 774.895pt>
 File: images/s_knee_rot1.jpg Graphic file (type jpg)
 
-<use images/s_knee_rot1.jpg>
-Underfull \vbox (badness 6592) has occurred while \output is active []
-
- [9 <images/s_knee.jpg> <images/s_knee_rot1.jpg>] (vicon_appendix.tex
+<use images/s_knee_rot1.jpg> [8 <images/s_knee_explosion.jpg>]
+<images/s_knee.jpg, id=51, 803.0pt x 803.0pt>
+File: images/s_knee.jpg Graphic file (type jpg)
+ <use images/s_knee.jpg> [9 <images/s_knee_rot1.jpg> <images/s_knee.jpg>] (vico
+n_appendix.tex
 <images/vicon_mx_basic.jpg, id=55, 955.57pt x 506.89375pt>
 File: images/vicon_mx_basic.jpg Graphic file (type jpg)
 
@@ -230,7 +224,7 @@ Overfull \hbox (18.93886pt too wide) in paragraph at lines 93--94
 
 ) [11 <images/vicon.jpg>]
 
-LaTeX Warning: Citation `notseen' undefined on input line 542.
+LaTeX Warning: Citation `notseen' undefined on input line 544.
 
 (latex8.bbl
 Missing character: There is no – in font ptmr7t!
@@ -273,7 +267,7 @@ w/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmb8a
 .pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmbi8a.pfb><C:/Program
  Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.7
 /fonts/type1/urw/times/utmri8a.pfb>
-Output written on latex8.pdf (12 pages, 1186432 bytes).
+Output written on latex8.pdf (12 pages, 1182545 bytes).
 PDF statistics:
  117 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
