@@ -415,7 +415,7 @@ Our model consists of 18 joints, defined in the BVH data file: Hips (root joint)
   \caption{Our skeleton example}
   \label{our_skeleton}
   \centering
-  \includegraphics[width=85mm]{images/our_skeleton.jpg}
+  \includegraphics[width=55mm]{images/our_skeleton.jpg}
 \end{figure}
 
 The joints, mentioned above, allow our model to be correctly animated in 3D scene, although much detail is not achieved as the movement of fingers and toes is not animated. Each joint has a mesh applied to it, which is not affected by the animation data, except being rotated or translated in the scene. The connection between the meshes is being done automatically during the construction of the character. The algorithm for doing that is:
@@ -432,7 +432,7 @@ Each connection between the mesh and its parent has subvertices. This is necessa
   \caption{Connections between meshes}
   \label{our_mesh_connection}
   \centering
-  \includegraphics[width=85mm]{images/mesh_connection.jpg}
+  \includegraphics[width=75mm]{images/mesh_connection.jpg}
 \end{figure}
 
 Any line function can be written as: \emph{L(t) = A + b*t}, where \emph{A} is the starting point of a line, \emph{b} is a vector, determining the direction of a line and \emph{t} is a parameter value. A more detailed explanation of the parametric representation of the line can be found in documents section \ref{line_in_space_section}.
@@ -458,12 +458,19 @@ Now, considering the angle each vertex has to be rotated, the first one is rotat
 
 %-------------------------------------------------------------------------
 \Section{Problems}
+
+Here we give some examples of the problems that occurred during the project.
 Some of these problems were solved during the work, others still need to be seen into.
 
 %-------------------------------------------------------------------------
 \SubSection{Initial BVH pose}
+
+Animating human skeleton, initial pose is not important, but when we have to deal with human body mesh,
+it's all they way around. As our human model body mesh was cut in different parts, in order to connect them,
+we had to have correct initial pose. In our case, this correct pose must be the T-pose, as it allows to connect meshes vertices correctly. 
 Mention that most of the BVH files start with initial pose with arms down,
 and this needs to be edited manually
+
 %-------------------------------------------------------------------------
 \SubSection{"Exploding knee" problem}
 
@@ -475,7 +482,7 @@ This artifact can be seen in figure \ref{knee_explosion}, where is a motion sequ
   \caption{Knee explosion sequence}
   \label{knee_explosion}
   \centering
-  \includegraphics[width=85mm]{images/s_knee_explosion.jpg}
+  \includegraphics[width=75mm]{images/s_knee_explosion.jpg}
 \end{figure}
 
 %-------------------------------------------------------------------------
@@ -485,7 +492,7 @@ This artifact can be seen in figure \ref{knee_explosion}, where is a motion sequ
   \caption{Knee rotation by 3 axis}
   \label{knee_3axis}
   \centering
-  \includegraphics[width=85mm]{images/s_knee.jpg}
+  \includegraphics[width=75mm]{images/s_knee.jpg}
 \end{figure}
 
 These deformations are a lot smaller when rotating only by one angle (as in our first model).
@@ -495,7 +502,7 @@ The deformation while rotating only by one axis gives much better results as see
   \caption{Knee rotation by 1 axis}
   \label{knee_1axis}
   \centering
-  \includegraphics[width=85mm]{images/s_knee_rot1.jpg}
+  \includegraphics[width=75mm]{images/s_knee_rot1.jpg}
 \end{figure}
 
 
