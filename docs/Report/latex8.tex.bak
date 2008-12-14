@@ -84,7 +84,7 @@ After introducing the techniques that we were using in this project (Sections: \
 
 Linear blend skinning is very widely used technique, but due to its disability to deal with more complex skin deformations, it has many slightly different approaches and modifications for animating human body model. Furthermore, for animating human body model totally different methods are also used, such as anatomy-based ones \cite{ex8}, using different layers to imitate muscle structures, but we won't be going to details of such a technique.
 
-Basic principles of linear blend skinning were described by the game development community \cite{ex13,ex14} and the artifacts of this technique were discovered very soon \cite{ex15}.
+Basic principles of linear blend skinning were described by the game development community \cite{ex13,ex14,ex10} and the artifacts of this technique were discovered very soon \cite{ex15}.
 The technique that dealt with some of those issues and set background for linear blend skinning type transformations was introduced in \cite{ex12} and was named as "skeleton subspace deformation". It consider skin deformation as an interpolation problem and radial basis functions are used to interpolate between example skins with different shapes, where a one-to-one vertex correspondence must exist between each pair of examples.
 
 Many other used techniques only extends the previous one. In \cite{ex2} so called "extended linear blend skinning" is introduced. Approaching 180 degrees, the linearly blended matrix becomes degenerate and collapses the skin geometry. This method avoids blending transformations that are so dissimilar by adding extra transformations that properly interpolates
@@ -498,7 +498,7 @@ This artifact can be seen in figure \ref{knee_explosion}, where is a motion sequ
 %-------------------------------------------------------------------------
 \SubSection{Mesh connections collapsing on complex deformations}
 
-While implementing and testing our linear blend skinning algorithm on human model knee with only simple deformations, that only made joint rotation on one of the 3D axis, we managed to get really good results. What's can be seen on figure \ref{knee_1axis}.
+While implementing and testing our linear blend skinning algorithm on human model knee with only simple deformations, that only made joint rotation on one of the 3D axis, we were getting really promising results. It can be seen on figure \ref{knee_1axis}.
 
 \begin{figure}[H]
   \caption{Knee rotation by 1 axis}
@@ -507,7 +507,7 @@ While implementing and testing our linear blend skinning algorithm on human mode
   \includegraphics[width=75mm]{images/s_knee_rot1.jpg}
 \end{figure}
 
-After introducing full human body animation and taking data from BVH motion data file, we got joint rotations on all 3 axis, what caused totally different final results for our linear blend skinning algorithm.
+Though after introducing full human body animation and taking data from BVH motion data file, we got joint rotations on all 3 axis, what caused totally different final results for our linear blend skinning algorithm. Results can be seen on figure \label{knee_3axis}.
 
 \begin{figure}[H]
   \caption{Knee rotation by 3 axis}
@@ -516,15 +516,13 @@ After introducing full human body animation and taking data from BVH motion data
   \includegraphics[width=75mm]{images/s_knee.jpg}
 \end{figure}
 
-These deformations are a lot smaller when rotating only by one angle (as in our first model).
-The deformation while rotating only by one axis gives much better results as seen in figure \ref{knee_1axis} than the one translating by all three, that's seen in figure \ref{knee_3axis}.
-
-
-
+The solution for this problem could be trying different weight distribution for vertices than that we're using now.
+Other solution that could give positive results, is cutting out smaller bits of model.
 
 %-------------------------------------------------------------------------
 \Section{Conclusion}
-Conclusion - can be combined with future work
+
+
 
 %-------------------------------------------------------------------------
 \SubSection{Future work}
