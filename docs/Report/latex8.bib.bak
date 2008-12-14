@@ -9,7 +9,7 @@
 
 @Book{ex1,
    title =   "Computer Graphics Using OpenGL",
-   author =   {F. S. Hill and Stephen M.Kelley}",
+   author =   {F. S. Hill and Stephen M.Kelley},
    edition = "Third",
    publisher =   "Prentice Hall",
    year =   "2007"
@@ -89,4 +89,9 @@
    journal = "Game Developer Magazine",
    pages = "17-–22",
    month = "October"
+}
+@Article{ex15,
+    author =   {Jason Weber},
+   title =   "Run-Time Skin Deformation",
+   year = "2000"
 }

@@ -1,22 +1,11 @@
 This is BibTeX, Version 0.99cThe top-level auxiliary file: latex8.aux
 The style file: latex8.bst
 Database file #1: latex8.bib
-I was expecting a `,' or a `}'---line 12 of file latex8.bib
- :    author =   {F. S. Hill and Stephen M.Kelley}
- :                                                ",
-I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 41 of file latex8.bib
- :    author =   {Midori Kitagawa and Brian Windsor}
- :                                                  ",
-I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "notseen"
 Warning--empty journal in ex11
 Warning--empty year in ex11
-Warning--empty publisher in ex1
-Warning--empty year in ex1
 Warning--empty journal in ex10
 Warning--empty year in ex10
-Warning--empty publisher in ex5
 Warning--empty year in ex5
 Warning--empty journal in ex12
 Warning--empty year in ex12
@@ -28,4 +17,4 @@ Warning--empty year in ex9
 Warning--empty journal in ex15
 Warning--empty journal in ex8
 Warning--empty year in ex8
-(There were 2 error messages)
+(There were 16 warnings)
