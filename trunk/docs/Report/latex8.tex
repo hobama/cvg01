@@ -44,7 +44,7 @@ Aalborg University Copenhagen\\ Computer Vision and Graphics\\algirdux@gmail.com
    This helps to avoid some common animation problems, that occurs while dealing with
    various human body rigid parts transformations.
    The motion for this animation was captured using motion capture system
-   and after processing it and converting to appropriate BVH format, was ready to use for
+   and after processing it and converting to appropriate data format, was ready to use for
    animating 3D human model in lowest programming C++/OpenGL level.
 
    \textbf{Keywords:} Human animation, Vicon motion capture system, OpenGL, C++, Linear Blend Skinning
@@ -69,7 +69,7 @@ Also such a technique don't consider many other human body deformations, like st
 %-------------------------------------------------------------------------
 \SubSection{Overview}
 
-We present a motion data driven technique of animating a human body model in OpenGL.
+We present a motion data driven technique of animating a human body model in a program written in C++ programming language and working in an OpenGL environment.
 We have two main issues in this work: getting motion data and using it
 correctly to animate skeleton and then solving the human model mesh deformation problems.
 Using data captured by motion capture system and correctly defined joint structure,
@@ -84,7 +84,7 @@ After introducing the techniques that we were using in this project (Sections: \
 
 Linear blend skinning is very widely used technique, but due to its disability to deal with more complex skin deformations, it has many slightly different approaches and modifications for animating human body model. Furthermore, for animating human body model totally different methods are also used, such as anatomy-based ones \cite{ex8}, using different layers to imitate muscle structures, but we won't be going to details of such a technique.
 
-Basic principles of linear blend skinning were described by the game development community \cite{ex13,ex14} and the artifacts of this technique were discovered very soon \cite{ex15}.
+Basic principles of linear blend skinning were described by the game development community \cite{ex13,ex14,ex10} and the artifacts of this technique were discovered very soon \cite{ex15}.
 The technique that dealt with some of those issues and set background for linear blend skinning type transformations was introduced in \cite{ex12} and was named as "skeleton subspace deformation". It consider skin deformation as an interpolation problem and radial basis functions are used to interpolate between example skins with different shapes, where a one-to-one vertex correspondence must exist between each pair of examples.
 
 Many other used techniques only extends the previous one. In \cite{ex2} so called "extended linear blend skinning" is introduced. Approaching 180 degrees, the linearly blended matrix becomes degenerate and collapses the skin geometry. This method avoids blending transformations that are so dissimilar by adding extra transformations that properly interpolates
@@ -507,7 +507,7 @@ While implementing and testing our linear blend skinning algorithm on human mode
   \includegraphics[width=75mm]{images/s_knee_rot1.jpg}
 \end{figure}
 
-Though after introducing full human body animation and taking data from BVH motion data file, we got joint rotations on all 3 axis, what caused totally different final results for our linear blend skinning algorithm. Results can be seen on figure \label{knee_3axis}. 
+Though after introducing full human body animation and taking data from BVH motion data file, we got joint rotations on all 3 axis, what caused totally different final results for our linear blend skinning algorithm. Results can be seen on figure \label{knee_3axis}.
 
 \begin{figure}[H]
   \caption{Knee rotation by 3 axis}
@@ -517,10 +517,14 @@ Though after introducing full human body animation and taking data from BVH moti
 \end{figure}
 
 The solution for this problem could be trying different weight distribution for vertices than that we're using now.
+Other solution that could give positive results, is cutting out smaller bits of model.
 
 %-------------------------------------------------------------------------
 \Section{Conclusion}
-Conclusion - can be combined with future work
+
+This project showed how to animate human body model using data from motion capture system. 
+As our animating program was a part of this project, this paper was only finished, when we had the whole program code running, we are now able to provide all the necessary steps needed. 
+All the mathematical formulas were provided in a paper, needed for animating characters in a 3D world. Furthermore, we provided our own interpretation of the linear blend skinning technique, that deals with model skin deformations. 
 
 %-------------------------------------------------------------------------
 \SubSection{Future work}
