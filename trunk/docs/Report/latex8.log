@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  14 DEC 2008 19:23
+This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  15 DEC 2008 00:10
 entering extended mode
 **C:/Mano/Mokslai/Universitetas/5*Semestras/Project/cvg01/docs/Report/latex8.te
 x
@@ -71,9 +71,6 @@ LaTeX Warning: Unused global option(s):
 (latex8.aux
 
 LaTeX Warning: Label `line_in_space' multiply defined.
-
-
-LaTeX Warning: Label `knee_3axis' multiply defined.
 
 )
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
@@ -205,14 +202,11 @@ File: images/s_knee_rot1.jpg Graphic file (type jpg)
 <use images/s_knee_rot1.jpg> <images/s_knee.jpg, id=51, 803.0pt x 803.0pt>
 File: images/s_knee.jpg Graphic file (type jpg)
 
-<use images/s_knee.jpg>
-Underfull \vbox (badness 3635) has occurred while \output is active []
+<use images/s_knee.jpg> [9 <images/s_knee_explosion.jpg> <images/s_knee_rot1.jp
+g> <images/s_knee.jpg>] [10
 
- [9 <images/s_knee_explosion.jpg> <images/s_knee_rot1.jpg> <images/s_knee.jpg>]
- [10
-
-]
-(vicon_appendix.tex <images/vicon_mx_basic.jpg, id=58, 955.57pt x 506.89375pt>
+] (vicon_appendix.tex
+<images/vicon_mx_basic.jpg, id=58, 955.57pt x 506.89375pt>
 File: images/vicon_mx_basic.jpg Graphic file (type jpg)
 
 <use images/vicon_mx_basic.jpg>
@@ -230,11 +224,7 @@ Overfull \hbox (18.93886pt too wide) in paragraph at lines 93--94
  [][] 
  []
 
-) [12 <images/vicon.jpg>]
-
-LaTeX Warning: Citation `notseen' undefined on input line 574.
-
-(latex8.bbl
+) [12 <images/vicon.jpg>] (latex8.bbl
 Missing character: There is no – in font ptmr7t!
 Missing character: There is no – in font ptmr7t!
 
@@ -247,17 +237,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 53--55
 
 ] (latex8.aux)
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 1150 strings out of 95304
- 14409 string characters out of 1183069
+ 1149 strings out of 95304
+ 14400 string characters out of 1183069
  71122 words of memory out of 1500000
- 4358 multiletter control sequences out of 110000
+ 4357 multiletter control sequences out of 110000
  23961 words of font info for 46 fonts, out of 1200000 for 2000
  14 hyphenation exceptions out of 8191
  25i,7n,19p,988b,225s stack positions out of 5000i,500n,10000p,200000b,5000s
@@ -275,7 +262,7 @@ w/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmb8a
 .pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmbi8a.pfb><C:/Program
  Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.7
 /fonts/type1/urw/times/utmri8a.pfb>
-Output written on latex8.pdf (13 pages, 1185542 bytes).
+Output written on latex8.pdf (13 pages, 1186042 bytes).
 PDF statistics:
  121 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)

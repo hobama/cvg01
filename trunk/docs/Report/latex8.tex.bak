@@ -39,12 +39,12 @@ Aalborg University Copenhagen\\ Computer Vision and Graphics\\algirdux@gmail.com
 
 \begin{abstract}
    This paper explains how to animate 3D human model in OpenGL,
-   using skeleton-driven deformation technique, similar to Linear Blend Skinning,
+   using skeleton-driven deformation technique, similar to Linear Blend Skinning
    that computes deformed weighted vertex position, which is calculated using quaternions.
-   This helps to avoid some common animation problems, that occurs while dealing with
+   This helps to avoid some common animation problems, which occur while dealing with
    various human body rigid parts transformations.
    The motion for this animation was captured using motion capture system
-   and after processing it and converting to appropriate BVH format, was ready to use for
+   and after processing it and converting to appropriate data format, was ready to use for
    animating 3D human model in lowest programming C++/OpenGL level.
 
    \textbf{Keywords:} Human animation, Vicon motion capture system, OpenGL, C++, Linear Blend Skinning
@@ -56,7 +56,7 @@ Aalborg University Copenhagen\\ Computer Vision and Graphics\\algirdux@gmail.com
 \Section{Introduction}
 
 Our animation focuses on the most common and partly simple human
-body animation technique, that uses joint based structure to animate human model. Joint structure,
+body animation technique that uses joint based structure to animate human model. Joint structure,
 given their position and orientation, can be thought as human body skeleton.
 Animation of the skeleton, when talking about its complexity, is pretty simple,
 as it includes only rigid body parts and requires rotations of bones at the joint position.
@@ -64,16 +64,16 @@ But when taking in account underlying layer of the skeleton, what we call skin, 
 complicated. This is when linear blend skinning technique comes in use, associating joints to vertices and introducing weights to them. Due to very fast computation speeds, this technique is the most popular
 in animation production. On the other hand, while using this simple shape blending technique
 to deal with complex transformations various skin deformation problems occur. Typical ones are collapsing elbow, candy-wrapper effect when the arm turns 180 degrees.
-Also such a technique don't consider many other human body deformations, like stretching or bulging muscles.
+Also such a technique doesn't consider many other human body deformations, like stretching or bulging muscles.
 
 %-------------------------------------------------------------------------
 \SubSection{Overview}
 
-We present a motion data driven technique of animating a human body model in OpenGL.
+We present a motion data driven technique of animating a human body model in a program written in C++ programming language and working in an OpenGL environment.
 We have two main issues in this work: getting motion data and using it
 correctly to animate skeleton and then solving the human model mesh deformation problems.
 Using data captured by motion capture system and correctly defined joint structure,
-we achieve realistic body movements for our model. Any motion data, that was captured
+we achieve realistic body movements for our model. Any motion data, which was captured
 using same joint structure scheme as ours, can be used for animating that human body model.
 
 After introducing the techniques that we were using in this project (Sections: \emph{\ref{Linear_blend_skinning}} and \emph{\ref{Quaternions}}), explaining about motion data formats and their differences (Section \emph{\ref{Motion_data}}), we give details on how to prepare 3D human body model mesh for our program (Section \emph{\ref{Maya_mesh}}) and how we managed to animate both skeleton and its underlying layer (Section \emph{\ref{Animating_human_body}}).
@@ -87,7 +87,7 @@ Linear blend skinning is very widely used technique, but due to its disability t
 Basic principles of linear blend skinning were described by the game development community \cite{ex13,ex14,ex10} and the artifacts of this technique were discovered very soon \cite{ex15}.
 The technique that dealt with some of those issues and set background for linear blend skinning type transformations was introduced in \cite{ex12} and was named as "skeleton subspace deformation". It consider skin deformation as an interpolation problem and radial basis functions are used to interpolate between example skins with different shapes, where a one-to-one vertex correspondence must exist between each pair of examples.
 
-Many other used techniques only extends the previous one. In \cite{ex2} so called "extended linear blend skinning" is introduced. Approaching 180 degrees, the linearly blended matrix becomes degenerate and collapses the skin geometry. This method avoids blending transformations that are so dissimilar by adding extra transformations that properly interpolates
+Many other used techniques only extend the previous one. In \cite{ex2} so called "extended linear blend skinning" is introduced. Approaching 180 degrees, the linearly blended matrix becomes degenerate and collapses the skin geometry. This method avoids blending transformations that are so dissimilar by adding extra transformations that properly interpolates
 without collapsing. In other paper \cite{ex8} authors introduces non-linear technique to avoid unpleasant defects that are caused by linear shape blending. They achieve that by direct assignment of weights to the
 vertices according to its position around the joint. While in \cite{ex10} authors suggest interpolating transformations itself instead of transformed vertex positions. Considering transformations consisting of a translation and rotation, they suggest using a quaternion representation.
 
@@ -99,7 +99,7 @@ To conclude, despite many techniques correcting the problems of linear blend ski
 Linear blend skinning technique is widely used for interactive applications.
 It goes by many different names, such as Skeleton Subspace Deformation or SSD or "smooth skinning" in Maya.
 
-The linear blend skinning algorithm works by first placing a hierarchical
+The linear blend skinning algorithm works by placing a hierarchical
 skeleton inside a static model mesh of a character in
 some neutral pose (usually in the da Vinci posture or so called "dress pose").
 Then, each vertex is assigned a set of influencing joints and a
@@ -141,11 +141,11 @@ especially in games and virtual environments.
 %-------------------------------------------------------------------------
 \Section{Quaternions}
 \label{Quaternions}
-A quaternion is a mathematical object, consisting of 4 scalars. Quaternions were first discovered in 19th century by Irish mathematician Sir William Rowan Hamilton during his search for a way to represent points in space.  Soon after their introduction, quaternions appeared at most of universities as an advanced mathematics subject. Nowadays quaternions find their applications in signal processing, physics, bioinformatics, orbital mechanics as well as computer graphics.
+A quaternion is a mathematical object, consisting of 4 scalars. Quaternions were discovered in 19th century by Irish mathematician Sir William Rowan Hamilton during his search for a way to represent points in space.  Soon after their introduction, quaternions appeared at most of universities as an advanced mathematics subject. Nowadays quaternions find their applications in signal processing, physics, bioinformatics, orbital mechanics as well as computer graphics.
 	
 In computer graphics Euler angles are known to have the disadvantage of being susceptible to "Gimbal lock" where attempts to rotate an object fail to appear as expected, due to the order in which the rotations are performed. Quaternions are a solution to this problem. Instead of rotating an object through a series of successive rotations, quaternions provide the ability to rotate an object through an arbitrary rotation axis and angle. Though the rotation is still performed by using matrix mathematics, instead of multiplying matrices together, quaternions, representing the axis of rotation, are multiplied together. The final resulting quaternion is then converted to the desired rotation matrix.
 
-As mentioned earlier, a quaternion is four numbers, representing one real dimension and 3 imaginary dimensions. Each of it's imaginary dimensions has a unit value of square root of -1 (a complex number). In addition to that, imaginary dimensions are all perpendicular to each other and can be noted as i, j, k. So a quaternion can be represented as follows:
+As mentioned earlier, a quaternion is four numbers, representing one real dimension and 3 imaginary dimensions. Each of its imaginary dimensions has a unit value of square root of -1 (a complex number). In addition to that, imaginary dimensions are all perpendicular to each other and can be noted as i, j, k. So a quaternion can be represented as follows:
 \begin{center}
 q = \emph{a} + i$\ast$b + j$\ast$c + k$\ast$d
 \end{center}
@@ -188,7 +188,7 @@ q1 $\ast$ q2 $\neq$ q2 $\ast$ q1
 
 As mentioned above, the multiplication operation,  provides us with the ability to rotate one quaternion by another quaternion. So the rotation of quaternion q1 by quaternion q2 would result in another quaternion q = q2 $\ast$ q1;
 
-Since the representation of a quaternion is quite complex and hard to imagine, it can be interpreted in another way. The x, y, z components of a quaternion can be treated as a representation of rotation axis and a component - as a representation of rotation angle. The relation between actual values and their representations as quarternion's components can be described as:
+Since the representation of a quaternion is quite complex and hard to imagine, it can be interpreted in another way. The x, y, z components of a quaternion can be treated as a representation of rotation axis and a component - as a representation of rotation angle. The relation between actual values and their representations as quaternion's components can be described as:
 
 \begin{itemize}
 \item a = $cos(angle / 2)$
@@ -207,6 +207,23 @@ a^{2}-b^{2}-c^{2}-d^{2} & 2 \ast b \ast c-2 \ast a \ast d & 2 \ast b \ast d+2 \a
 2 \ast b \ast d-2 \ast a \ast c & 2 \ast c \ast d-2 \ast a \ast b & a^{2}-b^{2}c^{2}+d^{2} & 0 \\
 0 & 0 & 0 & 1
 \end{array}\end{tiny} \right)\]
+
+Instead of calculating the direct rotation matrix, another approach is to calculate back the rotation vector and Eulerian angle from their quaternion representation. The angle can be calculated as:
+\begin{description}
+	\item angle = arccos(a) $\ast$ 2
+\end{description}
+
+The vector can be calculated as:
+
+\begin{description}
+    \setlength{\itemsep}{0pt}
+
+    \item sin$_a$ = sqrt(1 - a $\ast$ a);
+
+	\item vector$_x$ = b / sin$_a$
+	\item vector$_y$ = c / sin$_a$
+	\item vector$_z$ = d / sin$_a$
+\end{description}
 
 
 %-------------------------------------------------------------------------
@@ -258,7 +275,7 @@ Being a binary file, the C3D file consists of a number of 512-byte blocks. Logic
 
 %-------------------------------------------------------------------------
 \SubSection{Description of Biovision BVH format}
-
+\label{bvh_description}
 The BVH format is an updated version of BioVision’s BVA data format, with the addition of a
 hierarchical data structure representing the bones of the skeleton.
 The BVH file is an ASCII file and consists of two parts:
@@ -273,7 +290,7 @@ that is the movement of individual joints.
 The \emph{hierarchy} section starts with \emph{root} joint and contains the definition of a joint hierarchy within nested braces like source code written in the C programming language.
 Each joint in a \emph{hierarchy} has an \emph{offset} field and a \emph{channels} field.
 The \emph{offset} field stores initial \emph{offset} values for each joint with respect to its parent joint.
-\emph{channels} field defines which “channels” of transformation (translation and/or rotation) exist for the joint in
+\emph{Channels} field defines which “channels” of transformation (translation and/or rotation) exist for the joint in
 the \emph{motion} data section of the file. The \emph{channels} field also defines the order of transformation. A
 \emph{channel} is either x-, y-, or z-translation or local x-, y-, or z-rotation. All the segments are assumed
 to be rigid and scaling is not available.
@@ -406,7 +423,6 @@ $M_{global\_left\_ankle}$ = $M_{local\_root}$ $\ast$ $M_{local\_left\_hip}$ $\as
 %-------------------------------------------------------------------------
 \SubSection{Our approach for animating human model}
 
-
 \SubSection{Preparing the character for animation}
 \label{preparing_character}
 
@@ -457,6 +473,16 @@ So the first vertex on the line has the weight \emph{w = 1 $\ast$ 1/N}, while th
 
 Now, considering the angle each vertex has to be rotated, the first one is rotated by \emph{A $\ast$ 1 $\ast$ 1/N} degrees, while the last one is being rotated by \emph{A $\ast$ N $\ast$  1/N = A} degrees. After rotating all the subvertices, they are being connected to polygons.
 
+\SubSection{Animating the character}
+\label{animating_our_character}
+
+Our character is being animated by the data, provided by the Vicon motion capturing system. Motion data is encoded as BVH format file, consisting of  1289 frames (a more detailed explanation about Biovision BVH format is provided in document's section \ref{bvh_description}). Each frame holds rotation values for every joint as well as translation values for root joint in 3D space. Since rotation values are provided as three separate rotations around \emph{X}, \emph{Y} and \emph{Z} axis, quaternions are being used to calculate rotation axis and rotation angle.
+
+For example in the first frame, the root joint is being rotated by -0.66 degrees around \emph{Z} axis, 0.80 degrees around \emph{Y} axis and 171.21 degrees around \emph{X} axis. By applying the mathematics of quaternions, the overall rotation vector is (0.00631242, 0.999959, 0.00653654) and the rotation angle is 171.209 (quaternions are being explained in document's section 3). Since BVH format file provides only local rotations for each joint, to get the global rotation in 3D space, each joint's parent rotation should be taken into account. Considering the previous example, not only the root joint has to be rotated by 171.209 degrees around the rotation axis  (0.00631242, 0.999959, 0.00653654), but all of its children as well.
+
+Since each joint has a mesh applied to it, during the animation, meshes are transformed in 3D scene the same way the joints are translated and rotated. Only the mesh connection has a different approach. In order for the mesh connection to rotate correctly, a linear blend skinning technique is applied, which is explained in more detail in document's section 2.
+
+
 %-------------------------------------------------------------------------
 \Section{Problems}
 
@@ -466,27 +492,26 @@ Some of these problems were solved during the work, while others still need to b
 %-------------------------------------------------------------------------
 \SubSection{Initial BVH pose}
 
-Animating human skeleton, initial pose is not important, but when we have to deal with human body mesh,
-it's all they way around. As our human model body mesh was cut in different parts, in order to connect them,
-we had to have appropriate initial pose. In our case, this pose must be the T-pose, as only in it we can find the shortest distance between two mesh vertices and then connect mesh parts correctly. The detailed way how we connect these vertices is described in section \ref{preparing_character}.
+During the animation of human skeleton, the initial pose is not important, but when the mesh is considered,
+it's all they way around. As our human model was cut into individual parts,
+we had to have appropriate initial pose to correctly connect separate meshes. In our case, the appropriate pose was the T-pose. The T-pose was the only pose, which enabled us to find the shortest distance between two meshes and connect them correctly. The detailed way how the meshes are connected is described in section \ref{preparing_character}.
 
-The problem was, that after processing motion data and exporting it to BVH, it wasn't in initial T-pose.
-The same problem occurred after trying a number of examples from the internet. The initial pose always was with model hands straight down.
-Due to BVH structure, fixing this problem requires file to be manually edited:
+The problem was, that after processing motion data and exporting it to BVH file, the character was not in initial T-pose.
+The same problem occurred after trying a number of examples downloaded from the internet. The initial pose was the I-pose instead of the T-pose.
+Due to BVH structure, fixing this problem requires the file to be manually edited:
 
 \begin{enumerate}
-\item Skeleton structure and joint offsets in BVH file has to be changed to match T pose. Basically we had to use forward kinematics from the elbow joint.
-\item All the frame rotations has to be recalculated, as all the rotations in BVH file are given from the global initial position.
+\item Skeleton structure and joint offsets in BVH file has to be changed to match T pose.
+\item All the frame rotations has to be recalculated, as the rotations in BVH file are given from the initial position.
 \end{enumerate}
 
-We managed to automate these two steps, by using third-party application. After changing initial pose using applications' graphical user interface, it has automatically recalculated frame rotations.
+We managed to automate these two steps by using third-party application. After changing the initial pose, the application automatically recalculated frame rotations.
 
 %-------------------------------------------------------------------------
 \SubSection{"Exploding knee" problem}
 
-Problem occurred during matrix multiplications, when the difference between frames got very different.
-Sometimes our BVH file format data gave to frames in a row with Z rotations one 179 other -179.
-This artifact can be seen in figure \ref{knee_explosion}, where is a motion sequence taken frame by frame.
+The "exploding knee" problem occured during the animation, when the overall rotation is being applied as three separate rotations around Z, Y and X axes. This artifact can be seen in figure \ref{knee_explosion}.
+During the rotations around Z, Y and X axes in a row, the linear blend skinning algorithm, which we apply to animate connections between meshes, provides faulty results. The solution for this problem was the introduction of quaternions, which enabled us to calculate a unique rotation vector, as well as rotation angle, representing three separate rotations around Z, Y and X axes.
 
 \begin{figure}[H]
   \caption{Knee explosion sequence}
@@ -498,7 +523,7 @@ This artifact can be seen in figure \ref{knee_explosion}, where is a motion sequ
 %-------------------------------------------------------------------------
 \SubSection{Mesh connections collapsing on complex deformations}
 
-While implementing and testing our linear blend skinning algorithm on human model knee with only simple deformations, that only made joint rotation on one of the 3D axis, we were getting really promising results. It can be seen on figure \ref{knee_1axis}.
+During the implementation and testing of our linear blend skinning algorithm, only one-axis rotations were considered, which provided really promising results. It can be seen in figure \ref{knee_1axis}.
 
 \begin{figure}[H]
   \caption{Knee rotation by 1 axis}
@@ -507,7 +532,7 @@ While implementing and testing our linear blend skinning algorithm on human mode
   \includegraphics[width=75mm]{images/s_knee_rot1.jpg}
 \end{figure}
 
-Though after introducing full human body animation and taking data from BVH motion data file, we got joint rotations on all 3 axis, what caused totally different final results for our linear blend skinning algorithm. Results can be seen on figure \label{knee_3axis}.
+After introducing a full human body animation and taking data from BVH motion data file, we were provided with rotations around all three axes. Although the application of quaternions enabled us to calculate the rotation vector and angle, representing the transformations around all three axes, the final results were not so smooth as in the testing phase. The results can be seen in figure \label{knee_3axis}.
 
 \begin{figure}[H]
   \caption{Knee rotation by 3 axis}
@@ -516,18 +541,22 @@ Though after introducing full human body animation and taking data from BVH moti
   \includegraphics[width=75mm]{images/s_knee.jpg}
 \end{figure}
 
-The solution for this problem could be trying different weight distribution for vertices than that we're using now.
-Other solution that could give positive results, is cutting out smaller bits of model.
+The solution for this problem could be trying different weight distribution for vertices than those we were using.
+Other solution, that could give positive results, is cutting out smaller bits of the model.
 
 %-------------------------------------------------------------------------
 \Section{Conclusion}
 
-
+ The aim of this project was to animate human model using data from the Vicon motion capturing system. For the animation to look smooth, the linear blend skinning technique was chosen. To realize the linear blend skinning algorithm correctly, merits of quaternions were applied as well. Although linear blend skinning is very popular among game developers and other 3D graphics communities, the technique is not perfect. The linear blend skinning implementation in our project showed up with many problems. Usually most of them are solved by manually assigning different weights for each vertex, but this way requires user interruption, whereas our idea was to automatically determine the correct weights.
+ All in all, our project succeeded in animating the human model in 3D scene. The main goals were reached, though improvements are necessary at some areas.
 
 %-------------------------------------------------------------------------
 \SubSection{Future work}
-What could be implemented to improve this project?
-Live streaming to our animating program (straight from cameras to animation in OpenGL);
+Further improvements:
+1. More detailed animation. (moving fingers and toes).
+2. Detailed facial animation.
+3. Improved animation around joint areas. Reconsidering the implementation of linear blend skinning technique.
+4. Live streaming to our animating program (straight from cameras to animation in OpenGL);
 other skin deformations
 
 %-------------------------------------------------------------------------

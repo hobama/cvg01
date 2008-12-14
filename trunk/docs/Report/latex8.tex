@@ -27,11 +27,11 @@
 
 \title{Animating human model in OpenGL using data from Vicon system}
 
-\author{Gediminas Mazrimas\\
-Aalborg University Copenhagen\\ Computer Vision and Graphics\\g.mazrimas@gmail.com
-\and
-Algirdas Beinaravicius\\
+\author{Algirdas Beinaravicius\\
 Aalborg University Copenhagen\\ Computer Vision and Graphics\\algirdux@gmail.com
+\and
+Gediminas Mazrimas\\
+Aalborg University Copenhagen\\ Computer Vision and Graphics\\g.mazrimas@gmail.com
 }
 
 \maketitle
@@ -510,7 +510,7 @@ We managed to automate these two steps by using third-party application. After c
 %-------------------------------------------------------------------------
 \SubSection{"Exploding knee" problem}
 
-The "exploding knee" problem occured during the animation, when the overall rotation is being applied as three separate rotations around Z, Y and X axes. This artifact can be seen in figure \ref{knee_explosion}.
+The "exploding knee" problem occurred during the animation, when the overall rotation is being applied as three separate rotations around Z, Y and X axes. This artifact can be seen in figure \ref{knee_explosion}.
 During the rotations around Z, Y and X axes in a row, the linear blend skinning algorithm, which we apply to animate connections between meshes, provides faulty results. The solution for this problem was the introduction of quaternions, which enabled us to calculate a unique rotation vector, as well as rotation angle, representing three separate rotations around Z, Y and X axes.
 
 \begin{figure}[H]
@@ -532,7 +532,7 @@ During the implementation and testing of our linear blend skinning algorithm, on
   \includegraphics[width=75mm]{images/s_knee_rot1.jpg}
 \end{figure}
 
-After introducing a full human body animation and taking data from BVH motion data file, we were provided with rotations around all three axes. Although the application of quaternions enabled us to calculate the rotation vector and angle, representing the transformations around all three axes, the final results were not so smooth as in the testing phase. The results can be seen in figure \label{knee_3axis}.
+After introducing a full human body animation and taking data from BVH motion data file, we were provided with rotations around all three axes. Although the application of quaternions enabled us to calculate the rotation vector and angle, representing the transformations around all three axes, the final results were not so smooth as in the testing phase. The results can be seen in figure \ref{knee_3axis}.
 
 \begin{figure}[H]
   \caption{Knee rotation by 3 axis}
@@ -548,16 +548,19 @@ Other solution, that could give positive results, is cutting out smaller bits of
 \Section{Conclusion}
 
  The aim of this project was to animate human model using data from the Vicon motion capturing system. For the animation to look smooth, the linear blend skinning technique was chosen. To realize the linear blend skinning algorithm correctly, merits of quaternions were applied as well. Although linear blend skinning is very popular among game developers and other 3D graphics communities, the technique is not perfect. The linear blend skinning implementation in our project showed up with many problems. Usually most of them are solved by manually assigning different weights for each vertex, but this way requires user interruption, whereas our idea was to automatically determine the correct weights.
+ 
  All in all, our project succeeded in animating the human model in 3D scene. The main goals were reached, though improvements are necessary at some areas.
 
 %-------------------------------------------------------------------------
 \SubSection{Future work}
-Further improvements:
-1. More detailed animation. (moving fingers and toes).
-2. Detailed facial animation.
-3. Improved animation around joint areas. Reconsidering the implementation of linear blend skinning technique.
-4. Live streaming to our animating program (straight from cameras to animation in OpenGL);
-other skin deformations
+Possible further improvements:
+\begin{enumerate}
+    \item More detailed animation (moving fingers sand toes);
+    \item Detailed facial animation;
+    \item Improved animation around joint areas. Reconsidering the implementation of linear blend skinning technique;
+    \item Live streaming to our animating program (straight from motion capture system to animation in OpenGL);
+    \item Other skin deformations (stretching/bulging muscles).
+\end{enumerate}
 
 %-------------------------------------------------------------------------
 \clearpage
@@ -571,8 +574,6 @@ other skin deformations
 
 \clearpage
 \newpage
-
-\nocite{notseen}
 
 %-------------------------------------------------------------------------
 \nocite{ex1,ex2,ex3,ex4,ex5,ex6,ex7,ex8,ex9,ex10,ex11,ex12,ex13,ex14,ex15}
