@@ -1,10 +1,8 @@
 
 %
-%  $Description: Author guidelines and sample document in LaTeX 2.09$
+%  $Description: Animating human body project$
 %
 %  $Author: Gediminas Mazrimas $
-%  $Date: 1995/09/15 15:20:59 $
-%  $Revision: 1.4 $
 %
 
 \documentclass[times, 10pt,twocolumn]{article}
@@ -25,7 +23,7 @@
 %-------------------------------------------------------------------------
 \begin{document}
 
-\title{Animating human model in OpenGL using data from Vicon system}
+\title{Animating human model in OpenGL using data from motion capture system}
 
 \author{Algirdas Beinaravicius\\
 Aalborg University Copenhagen\\ Computer Vision and Graphics\\algirdux@gmail.com
@@ -38,16 +36,11 @@ Aalborg University Copenhagen\\ Computer Vision and Graphics\\g.mazrimas@gmail.c
 \thispagestyle{empty}
 
 \begin{abstract}
-   This paper explains how to animate 3D human model in OpenGL 
-   using motion data. After processing motion data,  Our implementation of Linear Blend Skinning technique was used for skin deformations.
-   that computes deformed weighted vertex position, which is calculated using quaternions.
-   This helps to avoid some common animation problems, which occur while dealing with
-   various human body transformations.
-   The motion for this animation was captured using motion capture system
-   and after processing it and converting to appropriate data format, was ready to use for
-   animating 3D human model in lowest programming C++/OpenGL level.
+   This paper explains how to animate a 3D human model in OpenGL using motion data. Human model here is a skeleton and its underlying layer - skin.
+   Motion data processing for correct interpretation in animating program is vital.
+   For the final visual result, skin deformations are considered the most important part of the animation, so our own implementation of the linear blend skinning technique is used. Such a technique allows to avoid some common animation problems, especially when dealing with more complex transformations. As the main concern is a full body animation, detailed body part deformations were not considered.
 
-   \textbf{Keywords:} Human animation, Motion capturing data, OpenGL, C++, Linear Blend Skinning
+   \textbf{Keywords:} Human animation, Motion capturing data, Linear Blend Skinning
 \end{abstract}
 
 
@@ -106,11 +99,11 @@ Formula for calculating new vertex position $ \overline{\textbf{v}} $ is
 \begin{center}
 $ \overline{\textbf{v}} = \displaystyle\sum_{i=1}^n\emph{w}_{i}M_{i}D_{i}^{-1}\textbf{v}_{d} $
 \end{center}
-where $w_{i}$ are the influence weights, $v_{d}$ is the initial pose location of a
+where $w_{i}$ are the influence weights, $v_{d}$ is the initial position of a
 particular vertex \textbf{v}, $\emph{M}_{i}$ is the transformation matrix associated with
 the $\emph{i}$th influence, and $D_{i}^{-1}$ is the inverse of the initial pose matrix
-associated with the $\emph{i}$th influence. Taken together, $D_{i}^{-1}\textbf{v}_{d}$ represents
-the location of \textbf{v$_{d}$} in the local coordinate frame of the $\emph{i}$th influence.
+associated with the $\emph{i}$th influence. Then $D_{i}^{-1}\textbf{v}_{d}$ represents
+the position of \textbf{v$_{d}$} in the local coordinate system of the $\emph{i}$th influence.
 
 \begin{figure}[H]
   \caption{}
@@ -239,7 +232,7 @@ A very useful fact is that \emph{L(t)} lies a fraction \emph{t} of the way betwe
 %-------------------------------------------------------------------------
 \Section{Data formats}
 
-In this project we have to deal with various file formats. \emph{C3D} file format stores motion data from motion capture system and \emph{BVH} stores hierarchical skeleton structure and its rotations/translations adopted from C3D data. The \emph{BVH} data is used to define the skeleton with its joint structure as well as all the animation frames, while the \emph{OBJ} files are used for storing meshes of different human body parts, which are loaded on to the skeleton. Our project program required the direct parsing of \emph{BVH} and \emph{OBJ} files, so the corresponding parsers had to be implemented. 
+In this project we have to deal with various file formats. \emph{C3D} file format stores motion data from motion capture system and \emph{BVH} stores hierarchical skeleton structure and its rotations/translations adopted from C3D data. The \emph{BVH} data is used to define the skeleton with its joint structure as well as all the animation frames, while the \emph{OBJ} files are used for storing meshes of different human body parts, which are loaded on to the skeleton. Our project program required the direct parsing of \emph{BVH} and \emph{OBJ} files, so the corresponding parsers had to be implemented.
 
 %-------------------------------------------------------------------------
 \SubSection{Description of Vicon C3D format}
@@ -303,7 +296,7 @@ The OBJ file is composed of lines of text, each of them starting with a token, w
 
 \begin{itemize}
 \item "\#" - a comment line. Lines, starting with "\#" token, are simply skipped by OBJ file readers.
-\item "g" - a group line. Lines, starting with "g" (group) token, determine the start of a group. "g" token is followed by the group name. 
+\item "g" - a group line. Lines, starting with "g" (group) token, determine the start of a group. "g" token is followed by the group name.
 \item "v" - a vertex line. Lines, starting with "v" (vertex) token, provide the information, concerning vertices. This token is followed by x, y and z coordinates of the vertex.
 \item "vt" - a texture line. Lines, starting with "vt" (vertex texture) token, are recorded with information, concerning textures. "vt" token is followed by x, y and z coordinates of the texture, although only the x and y coordinates are of importance (z coordinate is 0.0).
 \item "vn" - a vertex normal line. Lines, starting with "vn" (vertex normal) token, contain information, concerning the normal of a vertex. "vn" token is followed by x, y and z coordinates of the normal.
@@ -405,8 +398,6 @@ $M_{global\_left\_ankle}$ = $M_{local\_root}$ $\ast$ $M_{local\_left\_hip}$ $\as
 \end{center}
 
 %-------------------------------------------------------------------------
-\SubSection{Our approach for animating human model}
-
 \SubSection{Preparing the character for animation}
 \label{preparing_character}
 
