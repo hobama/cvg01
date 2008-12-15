@@ -38,16 +38,16 @@ Aalborg University Copenhagen\\ Computer Vision and Graphics\\g.mazrimas@gmail.c
 \thispagestyle{empty}
 
 \begin{abstract}
-   This paper explains how to animate 3D human model in OpenGL,
-   using skeleton-driven deformation technique, similar to Linear Blend Skinning
+   This paper explains how to animate 3D human model in OpenGL 
+   using motion data. After processing motion data,  Our implementation of Linear Blend Skinning technique was used for skin deformations.
    that computes deformed weighted vertex position, which is calculated using quaternions.
    This helps to avoid some common animation problems, which occur while dealing with
-   various human body rigid parts transformations.
+   various human body transformations.
    The motion for this animation was captured using motion capture system
    and after processing it and converting to appropriate data format, was ready to use for
    animating 3D human model in lowest programming C++/OpenGL level.
 
-   \textbf{Keywords:} Human animation, Vicon motion capture system, OpenGL, C++, Linear Blend Skinning
+   \textbf{Keywords:} Human animation, Motion capturing data, OpenGL, C++, Linear Blend Skinning
 \end{abstract}
 
 
@@ -82,7 +82,7 @@ After introducing the techniques that we were using in this project (Sections: \
 %-------------------------------------------------------------------------
 \SubSection{Previous works}
 
-Linear blend skinning is very widely used technique, but due to its disability to deal with more complex skin deformations, it has many slightly different approaches and modifications for animating human body model. Furthermore, for animating human body model totally different methods are also used, such as anatomy-based ones \cite{ex8}, using different layers to imitate muscle structures, but we won't be going to details of such a technique.
+Linear blend skinning is a very widely used technique, but due to its disability to deal with more complex skin deformations, it has many slightly different approaches and modifications for animating human body model. Furthermore, for animating human body model totally different methods are also used, such as anatomy-based ones \cite{ex8}, using different layers to imitate muscle structures, but we won't be going to details of such a technique.
 
 Basic principles of linear blend skinning were described by the game development community \cite{ex13,ex14,ex10} and the artifacts of this technique were discovered very soon \cite{ex15}.
 The technique that dealt with some of those issues and gave more detailed for linear blend skinning type transformations was introduced in \cite{ex12} and was named as "skeleton subspace deformation". It consider skin deformation as an interpolation problem and radial basis functions are used to interpolate between example skins, where a one-to-one vertex correspondence must exist between each pair of examples.
@@ -97,7 +97,7 @@ To conclude, despite many techniques correcting the problems of linear blend ski
 \Section{Linear blend skinning}
 \label{Linear_blend_skinning}
 
-In our project linear blend skinning technique was used for animating human body mesh.
+In our project linear blend skinning technique was used to smoothly animate human body skin.
 This technique with or without modifications is widely used for various applications and goes by many different names, such as Skeleton Subspace Deformation or SSD or "smooth skinning" in Maya.
 
 Basic principle of linear blend skinning algorithm is placing mesh model on the skeleton in some neutral pose, usually in T-pose or so called "dress pose". Then mesh vertices are assigned an influencing joints with predefined weights for these influences. Though in our algorithm vertices are always influenced by only one joint, in this section we look into the most common linear blend skinning method example. Our algorithm will be explained in further sections.
@@ -239,7 +239,7 @@ A very useful fact is that \emph{L(t)} lies a fraction \emph{t} of the way betwe
 %-------------------------------------------------------------------------
 \Section{Data formats}
 
-In this project we have to deal with various file formats. \emph{C3D} file format stores motion data from motion capture system and \emph{BVH} stores hierarchical skeleton structure and its rotations/translations adopted from C3D data. \emph{BVH} data was used in our program to define skeleton with its joint structure and animate it, while as \emph{OBJ} files were used for storing meshes of different human body parts, that has to be loaded on to the skeleton.
+In this project we have to deal with various file formats. \emph{C3D} file format stores motion data from motion capture system and \emph{BVH} stores hierarchical skeleton structure and its rotations/translations adopted from C3D data. The \emph{BVH} data is used to define the skeleton with its joint structure as well as all the animation frames, while the \emph{OBJ} files are used for storing meshes of different human body parts, which are loaded on to the skeleton. Our project program required the direct parsing of \emph{BVH} and \emph{OBJ} files, so the corresponding parsers had to be implemented. 
 
 %-------------------------------------------------------------------------
 \SubSection{Description of Vicon C3D format}
@@ -260,7 +260,7 @@ Being a binary file, the C3D file consists of a number of 512-byte blocks. Logic
 %-------------------------------------------------------------------------
 \SubSection{Description of Biovision BVH format}
 \label{bvh_description}
-The BVH format is an updated version of BioVisionís BVA data format, with the addition of a
+The BVH format is an updated version of BioVision√≠s BVA data format, with the addition of a
 hierarchical data structure representing the bones of the skeleton.
 The BVH file is an ASCII file and consists of two parts:
 
@@ -274,7 +274,7 @@ that is the movement of individual joints.
 The \emph{hierarchy} section starts with \emph{root} joint and contains the definition of a joint hierarchy within nested braces like source code written in the C programming language.
 Each joint in a \emph{hierarchy} has an \emph{offset} field and a \emph{channels} field.
 The \emph{offset} field stores initial \emph{offset} values for each joint with respect to its parent joint.
-\emph{Channels} field defines which ìchannelsî of transformation (translation and/or rotation) exist for the joint in
+\emph{Channels} field defines which √¨channels√Æ of transformation (translation and/or rotation) exist for the joint in
 the \emph{motion} data section of the file. The \emph{channels} field also defines the order of transformation. A
 \emph{channel} is either x-, y-, or z-translation or local x-, y-, or z-rotation. All the segments are assumed
 to be rigid and scaling is not available.
@@ -302,15 +302,15 @@ The OBJ file format supports lines, polygons, and free-form curves and surfaces.
 The OBJ file is composed of lines of text, each of them starting with a token, which describes the type of the entity being  recorded in that line. Below are listed various tokens, which were of importance in our project:
 
 \begin{itemize}
-\item "\#" - a comment line. Lines, starting with "\#" token, are simply skipped by OBJ file readers. For example "\# this is a comment".
-\item "g" - a group line. Lines, starting with "g" (group) token, determine the start of a group. "g" token is followed by the group name. For example $"g left_arm"$. In our project each group name corresponded to some body part, described by vertices, textures, normals and polygons.
-\item "v" - a vertex line. Lines, starting with "v" (vertex) token, provide the information, concerning vertices. This token is followed by x, y and z coordinates of the vertex. For example "v -0.756447 0.702621 0.047024" is a vertex with coordinates (-0.756447, 0.702621, 0.047024).
-\item "vt" - a texture line. Lines, starting with "vt" (vertex texture) token, are recorded with information, concerning textures. "vt" token is followed by x, y and z coordinates of the texture, although only the x and y coordinates are of importance (z coordinate is 0.0). For example "vt 0.487840 0.942165 0.000000".
-\item "vn" - a vertex normal line. Lines, starting with "vn" (vertex normal) token, contain information, concerning the normal of a vertex. "vn" token is followed by x, y and z coordinates of the normal. For example "vn 0.149280 -0.186998 -0.240511".
-\item "f" - a line, describing face. Lines, starting with "f" (face) token, provide the information, concerning polygons. "f" token is followed by a number of triplets, which is equal to the number of vertices, the polygon has. Each triplet is of a form "int/int/int", where the first "int" is a vertex position in the file, the second "int" is "texture" position in the file and the third "int" is a normal position in the file. For example "f 6/9/6 2/5/2 1/1/1" is a triangle polygon, with vertices 6, 2 and 1, textures 9, 5 and 1 and normals 6, 2 and 1.
+\item "\#" - a comment line. Lines, starting with "\#" token, are simply skipped by OBJ file readers.
+\item "g" - a group line. Lines, starting with "g" (group) token, determine the start of a group. "g" token is followed by the group name. 
+\item "v" - a vertex line. Lines, starting with "v" (vertex) token, provide the information, concerning vertices. This token is followed by x, y and z coordinates of the vertex.
+\item "vt" - a texture line. Lines, starting with "vt" (vertex texture) token, are recorded with information, concerning textures. "vt" token is followed by x, y and z coordinates of the texture, although only the x and y coordinates are of importance (z coordinate is 0.0).
+\item "vn" - a vertex normal line. Lines, starting with "vn" (vertex normal) token, contain information, concerning the normal of a vertex. "vn" token is followed by x, y and z coordinates of the normal.
+\item "f" - a line, describing face. Lines, starting with "f" (face) token, provide the information, concerning polygons. "f" token is followed by a number of triplets, which is equal to the number of vertices, the polygon has. Each triplet is of a form "int/int/int", where the first "int" is a vertex position in the file, the second "int" is "texture" position in the file and the third "int" is a normal position in the file.
 \end{itemize}
 
-The above described tokens were of importance in our project, but they are not the only ones that OBJ format allows. The OBJ format specification is much broader and covers such abilities as surface encoding, connectivity between free-form surfaces, rendering attributes. The OBJ specification can be found in the document's reference page.
+The above described tokens were of importance in our project, but they are not the only ones that OBJ format supports. The OBJ format specification is much broader and covers such abilities as surface encoding, connectivity between free-form surfaces, rendering attributes. The OBJ specification can be found in the document's reference page.
 
 
 %-------------------------------------------------------------------------
