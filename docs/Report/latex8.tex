@@ -85,7 +85,7 @@ After introducing the techniques that we were using in this project (Sections: \
 Linear blend skinning is very widely used technique, but due to its disability to deal with more complex skin deformations, it has many slightly different approaches and modifications for animating human body model. Furthermore, for animating human body model totally different methods are also used, such as anatomy-based ones \cite{ex8}, using different layers to imitate muscle structures, but we won't be going to details of such a technique.
 
 Basic principles of linear blend skinning were described by the game development community \cite{ex13,ex14,ex10} and the artifacts of this technique were discovered very soon \cite{ex15}.
-The technique that dealt with some of those issues and set background for linear blend skinning type transformations was introduced in \cite{ex12} and was named as "skeleton subspace deformation". It consider skin deformation as an interpolation problem and radial basis functions are used to interpolate between example skins with different shapes, where a one-to-one vertex correspondence must exist between each pair of examples.
+The technique that dealt with some of those issues and gave more detailed for linear blend skinning type transformations was introduced in \cite{ex12} and was named as "skeleton subspace deformation". It consider skin deformation as an interpolation problem and radial basis functions are used to interpolate between example skins, where a one-to-one vertex correspondence must exist between each pair of examples.
 
 Many other used techniques only extend the previous one. In \cite{ex2} so called "extended linear blend skinning" is introduced. Approaching 180 degrees, the linearly blended matrix becomes degenerate and collapses the skin geometry. This method avoids blending transformations that are so dissimilar by adding extra transformations that properly interpolates
 without collapsing. In other paper \cite{ex8} authors introduces non-linear technique to avoid unpleasant defects that are caused by linear shape blending. They achieve that by direct assignment of weights to the
@@ -96,25 +96,19 @@ To conclude, despite many techniques correcting the problems of linear blend ski
 %-------------------------------------------------------------------------
 \Section{Linear blend skinning}
 \label{Linear_blend_skinning}
-Linear blend skinning technique is widely used for interactive applications.
-It goes by many different names, such as Skeleton Subspace Deformation or SSD or "smooth skinning" in Maya.
 
-The linear blend skinning algorithm works by placing a hierarchical
-skeleton inside a static model mesh of a character in
-some neutral pose (usually in the da Vinci posture or so called "dress pose").
-Then, each vertex is assigned a set of influencing joints and a
-blending weight for each influence. Computing the deformation in
-some pose involves rigidly transforming each dress pose vertex by
-all of its influencing joints. Then the blending weights are used to
-combine these rigidly transformed positions.
+In our project linear blend skinning technique was used for animating human body mesh.
+This technique with or without modifications is widely used for various applications and goes by many different names, such as Skeleton Subspace Deformation or SSD or "smooth skinning" in Maya.
 
-The deformed vertex position, $ \overline{\textbf{v}} $ is
+Basic principle of linear blend skinning algorithm is placing mesh model on the skeleton in some neutral pose, usually in T-pose or so called "dress pose". Then mesh vertices are assigned an influencing joints with predefined weights for these influences. Though in our algorithm vertices are always influenced by only one joint, in this section we look into the most common linear blend skinning method example. Our algorithm will be explained in further sections.
+
+Formula for calculating new vertex position $ \overline{\textbf{v}} $ is
 \begin{center}
 $ \overline{\textbf{v}} = \displaystyle\sum_{i=1}^n\emph{w}_{i}M_{i}D_{i}^{-1}\textbf{v}_{d} $
 \end{center}
-where $w_{i}$ are the influence weights, $v_{d}$ is the dress-pose location of a
+where $w_{i}$ are the influence weights, $v_{d}$ is the initial pose location of a
 particular vertex \textbf{v}, $\emph{M}_{i}$ is the transformation matrix associated with
-the $\emph{i}$th influence, and $D_{i}^{-1}$ is the inverse of the dress-pose matrix
+the $\emph{i}$th influence, and $D_{i}^{-1}$ is the inverse of the initial pose matrix
 associated with the $\emph{i}$th influence. Taken together, $D_{i}^{-1}\textbf{v}_{d}$ represents
 the location of \textbf{v$_{d}$} in the local coordinate frame of the $\emph{i}$th influence.
 
@@ -124,19 +118,7 @@ the location of \textbf{v$_{d}$} in the local coordinate frame of the $\emph{i}$
   \includegraphics[width=93mm]{images/hand2.jpg}
 \end{figure}
 
-Linear blend skinning though has two primary failings.
-First, the method is incapable of expressing complex deformations.
-Artifacts such as the "candy-wrapper", collapse effect on wrists and
-collapsing around bending joints. They
-occur because vertices are transformed by linearly interpolated matrices.
-If the interpolated matrices are dissimilar as in a rotation of
-nearly 180 degrees, the interpolated transformation is degenerate,
-so the geometry must collapse.
-Second, authoring linear blend skins is difficult and frustrating for users.
-
-Despite its failings, this skinning algorithm is very fast and
-widely supported by commercial applications so it remains popular
-especially in games and virtual environments.
+Linear blend skinning has its drawbacks also. Various artifacts, such as "candy-wrapper" effect and collapsing around bending joints, occur on complex deformations. Though different approaches of this technique may fix some of the most common problems.
 
 %-------------------------------------------------------------------------
 \Section{Quaternions}
@@ -172,11 +154,11 @@ The multiplication of two quaternions is :
 \begin{center}
 (a + i$\ast$b + j$\ast$c + k$\ast$d) $\ast$ (e + i$\ast$f + j$\ast$g + k$\ast$h)
 
-$\Updownarrow$
+=
 
 a $\ast$ e + i$\ast$a$\ast$f  + j$\ast$a$\ast$g + k$\ast$a$\ast$h + i$\ast$b$\ast$e - b$\ast$f  + k$\ast$b$\ast$g - j$\ast$ b$\ast$h + j$\ast$e$\ast$c - k$\ast$c$\ast$f - c$\ast$g + i$\ast$c$\ast$h + k$\ast$e$\ast$d + j$\ast$d$\ast$f - i$\ast$d$\ast$g - d$\ast$h
 
-$\Updownarrow$
+=
 
 (a$\ast$e - b$\ast$f - c$\ast$g - d$\ast$h)  + i$\ast$(a$\ast$f + b$\ast$e + c$\ast$h - d$\ast$g) + j$\ast$(a$\ast$g - b$\ast$h + e$\ast$c + d$\ast$f) + k$\ast$(a$\ast$h + b$\ast$g - c$\ast$f + e$\ast$d)
 \end{center}
@@ -256,6 +238,8 @@ A very useful fact is that \emph{L(t)} lies a fraction \emph{t} of the way betwe
 
 %-------------------------------------------------------------------------
 \Section{Data formats}
+
+In this project we have to deal with various file formats. \emph{C3D} file format stores motion data from motion capture system and \emph{BVH} stores hierarchical skeleton structure and its rotations/translations adopted from C3D data. \emph{BVH} data was used in our program to define skeleton with its joint structure and animate it, while as \emph{OBJ} files were used for storing meshes of different human body parts, that has to be loaded on to the skeleton.
 
 %-------------------------------------------------------------------------
 \SubSection{Description of Vicon C3D format}
@@ -548,7 +532,7 @@ Other solution, that could give positive results, is cutting out smaller bits of
 \Section{Conclusion}
 
  The aim of this project was to animate human model using data from the Vicon motion capturing system. For the animation to look smooth, the linear blend skinning technique was chosen. To realize the linear blend skinning algorithm correctly, merits of quaternions were applied as well. Although linear blend skinning is very popular among game developers and other 3D graphics communities, the technique is not perfect. The linear blend skinning implementation in our project showed up with many problems. Usually most of them are solved by manually assigning different weights for each vertex, but this way requires user interruption, whereas our idea was to automatically determine the correct weights.
- 
+
  All in all, our project succeeded in animating the human model in 3D scene. The main goals were reached, though improvements are necessary at some areas.
 
 %-------------------------------------------------------------------------
