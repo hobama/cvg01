@@ -1,5 +1,16 @@
 \begin{thebibliography}{10}\setlength{\itemsep}{-1ex}\small
 
+\bibitem{ex17}
+{\em OBJ specification}.
+\newblock http://local.wasp.uwa.edu.au/~pbourke/dataformats/obj/.
+
+\bibitem{ex16}
+M.~J. Baker.
+\newblock {\em Quaternion algebra}.
+\newblock
+  http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/ar%
+ithmetic/index.htm.
+
 \bibitem{ex11}
 J.~Bloomenthal.
 \newblock Medial-based vertex deformation.
