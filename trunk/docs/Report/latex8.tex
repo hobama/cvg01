@@ -53,8 +53,7 @@ body animation technique that uses joint based structure to animate human model.
 given their position and orientation, can be thought as human body skeleton.
 Animation of the skeleton, when talking about its complexity, is pretty simple,
 as it includes only rigid body parts and requires rotations of bones at the joint position.
-But when taking in account underlying layer of the skeleton, what we call skin, it becomes more
-complicated. This is when linear blend skinning technique comes in use, associating joints to vertices and introducing weights to them. Due to very fast computation speeds, this technique is the most popular
+But when taking in account underlying layer of the skeleton - skin, it becomes complicated. This is when linear blend skinning technique comes in use, associating joints to vertices and introducing weights to them. Due to very fast computation speeds, this technique is the most popular
 in animation production. On the other hand, while using this simple shape blending technique
 to deal with complex transformations various skin deformation problems occur. Typical ones are collapsing elbow, candy-wrapper effect when the arm turns 180 degrees.
 Also such a technique doesn't consider many other human body deformations, like stretching or bulging muscles.
@@ -62,14 +61,11 @@ Also such a technique doesn't consider many other human body deformations, like 
 %-------------------------------------------------------------------------
 \SubSection{Overview}
 
-We present a motion data driven technique of animating a human body model in a program written in C++ programming language and working in an OpenGL environment.
-We have two main issues in this work: getting motion data and using it
-correctly to animate skeleton and then solving the human model mesh deformation problems.
-Using data captured by motion capture system and correctly defined joint structure,
-we achieve realistic body movements for our model. Any motion data, which was captured
-using same joint structure scheme as ours, can be used for animating that human body model.
+We present a motion data driven technique for animating human body model in a program written in a C++ programming language and working in an OpenGL environment.
+Main issues in this work are to get motion data, interpret it correctly for animation and then solve skin deformation problems that are caused by the body transformations.
+Realistic character movements in animation are achieved by using data that was captured using motion capture system. Of course motion data at first must be in appropriate format and then processed correctly, in order to use in our animation program. While dealing with skin deformation, our implementation of linear blend skinning algorithm is used combined with mathematical objects - quaternions in calculations.
 
-After introducing the techniques that we were using in this project (Sections: \emph{\ref{Linear_blend_skinning}} and \emph{\ref{Quaternions}}), explaining about motion data formats and their differences (Section \emph{\ref{Motion_data}}), we give details on how to prepare 3D human body model mesh for our program (Section \emph{\ref{Maya_mesh}}) and how we managed to animate both skeleton and its underlying layer (Section \emph{\ref{Animating_human_body}}).
+In further sections the techniques used in this project are introduced (\emph{\ref{Linear_blend_skinning}}, \emph{\ref{Quaternions}}, \emph{\ref{line_in_space_section}}), data and data formats that we have to deal with described in detail (\emph{\ref{data_formats}}, \emph{\ref{Motion_capturing_data}}). Then our approaches in preparing 3D human model body mesh for our program (\emph{\ref{Maya_mesh}}) and in animating both skeleton and its underlying layer (\emph{\ref{Animating_human_body}}) are explained. Finally, problems that appeared during this project work are provided (\emph{\ref{Problems}}).
 
 
 %-------------------------------------------------------------------------
@@ -78,7 +74,7 @@ After introducing the techniques that we were using in this project (Sections: \
 Linear blend skinning is a very widely used technique, but due to its disability to deal with more complex skin deformations, it has many slightly different approaches and modifications for animating human body model. Furthermore, for animating human body model totally different methods are also used, such as anatomy-based ones \cite{ex8}, using different layers to imitate muscle structures, but we won't be going to details of such a technique.
 
 Basic principles of linear blend skinning were described by the game development community \cite{ex13,ex14,ex10} and the artifacts of this technique were discovered very soon \cite{ex15}.
-The technique that dealt with some of those issues and gave more detailed for linear blend skinning type transformations was introduced in \cite{ex12} and was named as "skeleton subspace deformation". It consider skin deformation as an interpolation problem and radial basis functions are used to interpolate between example skins, where a one-to-one vertex correspondence must exist between each pair of examples.
+The technique that dealt with some of those issues and gave more detailed overview for linear blend skinning type transformations was introduced in \cite{ex12} and was named as "skeleton subspace deformation". It consider skin deformation as an interpolation problem and radial basis functions are used to interpolate between example skins.
 
 Many other used techniques only extend the previous one. In \cite{ex2} so called "extended linear blend skinning" is introduced. Approaching 180 degrees, the linearly blended matrix becomes degenerate and collapses the skin geometry. This method avoids blending transformations that are so dissimilar by adding extra transformations that properly interpolates
 without collapsing. In other paper \cite{ex8} authors introduces non-linear technique to avoid unpleasant defects that are caused by linear shape blending. They achieve that by direct assignment of weights to the
@@ -93,7 +89,7 @@ To conclude, despite many techniques correcting the problems of linear blend ski
 In our project linear blend skinning technique was used to smoothly animate human body skin.
 This technique with or without modifications is widely used for various applications and goes by many different names, such as Skeleton Subspace Deformation or SSD or "smooth skinning" in Maya.
 
-Basic principle of linear blend skinning algorithm is placing mesh model on the skeleton in some neutral pose, usually in T-pose or so called "dress pose". Then mesh vertices are assigned an influencing joints with predefined weights for these influences. Though in our algorithm vertices are always influenced by only one joint, in this section we look into the most common linear blend skinning method example. Our algorithm will be explained in further sections.
+Basic principle of linear blend skinning algorithm is placing mesh model on the skeleton in some neutral pose, usually in T-pose or so called "dress pose". Then mesh vertices are assigned an influencing joints with predefined weights for these influences. In this section we look into the most common linear blend skinning method example. Our exact algorithm, which by the way is always influenced by only one joint, will be explained in further sections.
 
 Formula for calculating new vertex position $ \overline{\textbf{v}} $ is
 \begin{center}
@@ -116,9 +112,11 @@ Linear blend skinning has its drawbacks also. Various artifacts, such as "candy-
 %-------------------------------------------------------------------------
 \Section{Quaternions}
 \label{Quaternions}
+In our project we introduce the mathematics of quaternions. The power of quaternions was being used to process the motion data as well as solving some problems, which occurred before the usage of this technique. Motion data, contained in BVH file (section \ref{bvh_description}), usually describes the transformation of each entity in 3D scene as three separate rotations around Z, Y and X axes. The usage of quaternions enabled us to find a single axis and a single angle equivalent to the rotations around Z, Y and X axes.  This lead us to a much simpler implementation of the overall character animation as well as the solution for the "exploding knee" problem (Section \ref{knee_explosion}). This section describes quaternions from a mathematical point of view, providing enough information to implement and use them.
+
 A quaternion is a mathematical object, consisting of 4 scalars. Quaternions were discovered in 19th century by Irish mathematician Sir William Rowan Hamilton during his search for a way to represent points in space.  Soon after their introduction, quaternions appeared at most of universities as an advanced mathematics subject. Nowadays quaternions find their applications in signal processing, physics, bioinformatics, orbital mechanics as well as computer graphics.
 	
-In computer graphics Euler angles are known to have the disadvantage of being susceptible to "Gimbal lock" where attempts to rotate an object fail to appear as expected, due to the order in which the rotations are performed. Quaternions are a solution to this problem. Instead of rotating an object through a series of successive rotations, quaternions provide the ability to rotate an object through an arbitrary rotation axis and angle. Though the rotation is still performed by using matrix mathematics, instead of multiplying matrices together, quaternions, representing the axis of rotation, are multiplied together. The final resulting quaternion is then converted to the desired rotation matrix.
+In computer graphics the usage of Euler angles is pretty natural and easily implemented. But Euler angles have their disadvantages as well. One of them is the well known "Gimbal lock" problem.  The "Gimbal lock" occurs, when an attempt to rotate an object ends up with strange unsuspected results. \textbf{The problem shows up due to the order in which the rotations are being performed as in particular situations rotation around one axe might "lock" the rotation around another axe.} The usage of quaternions is the solution to the "Gimbal lock" problem. Instead of rotating an object through a number of different axes, quaternions provide the ability to calculate a single axis and an angle realizing a number of separate independent rotations. Although the rotation is still performed by traditional matrix mathematics, instead of multiplying matrices together, quaternions, representing the axis of rotation, are multiplied together. The final resulting quaternion is then converted to the proper rotation matrix.
 
 As mentioned earlier, a quaternion is four numbers, representing one real dimension and 3 imaginary dimensions. Each of its imaginary dimensions has a unit value of square root of -1 (a complex number). In addition to that, imaginary dimensions are all perpendicular to each other and can be noted as i, j, k. So a quaternion can be represented as follows:
 \begin{center}
@@ -126,9 +124,9 @@ q = \emph{a} + i$\ast$b + j$\ast$c + k$\ast$d
 \end{center}
 where \emph{a} is a real dimension representation and b,  c,  d are just scalars.
 
-Since quaternions are mathematical objects, they have a certain algebra with all the addition, subtraction,  multiplication and division operations applied to them. In this section of the report we are going to consider just the quaternion multiplication operation, since this operation is necessary to represent a rotation. All other operations can be found in the references page of the report.
+Since quaternions are mathematical objects, they have a certain algebra with all the addition, subtraction,  multiplication and division operations applied to them. In this section of the report we are going to consider just the quaternion multiplication operation, since this operation is necessary to represent a rotation. \textbf{All other operations can be found in the references page of the report}.
 
-In order to perform a quaternion multiplication, a quaternion's imaginary dimension multiplication has to be described first:
+In order to perform a quaternion multiplication, a quaternions imaginary dimension multiplication has to be described first:
 
 \begin{description}
     \setlength{\itemsep}{0pt}
@@ -163,7 +161,7 @@ q1 $\ast$ q2 $\neq$ q2 $\ast$ q1
 
 As mentioned above, the multiplication operation,  provides us with the ability to rotate one quaternion by another quaternion. So the rotation of quaternion q1 by quaternion q2 would result in another quaternion q = q2 $\ast$ q1;
 
-Since the representation of a quaternion is quite complex and hard to imagine, it can be interpreted in another way. The x, y, z components of a quaternion can be treated as a representation of rotation axis and a component - as a representation of rotation angle. The relation between actual values and their representations as quaternion's components can be described as:
+Since the representation of a quaternion is quite complex and hard to imagine, it can be interpreted in another way. The x, y, z components of a quaternion can be treated as a representation of rotation axis and a component - as a representation of rotation angle. The relation between actual values and their representations as quaternion components can be described as:
 
 \begin{itemize}
 \item a = $cos(angle / 2)$
@@ -205,18 +203,20 @@ The vector can be calculated as:
 \Section{Parametric representation of lines in 3D space}
 \label{line_in_space_section}
 
-A line is a geometric object, defined by two points A and B. It is infinite in length, passing through the points and extending forever in both directions. A line segment (or just segment) is also defined by two points, its endpoints, but extends only from one endpoint to the other. Although these objects, lines and segments, are very familiar, it is important to describe their parametric representation, as it was one of the solutions, which helped us to implement the linear blend skinning technique.
+The approach of animating the character in our project, first of all, consisted of cutting the model in appropriate meshes (Figure \ref{img_maya_mesh} shows the picture of our character being cut in separate meshes).  After the model had been cut, it was necessary to connect its separate parts so that the character is complete and full-scale. Apart from that, the connected area (what we further call the mesh connection) is the area, where we implement our approach to linear blend skinning. So in order to connect separate meshes, our project took advantage of parametric representation of lines in 3D space.
 
-In order for the linear blend skinning to work, the algorithm, implementing it, has to know exact coordinates of   each vertex, which is going to be affected during the animation of the character. The parametric representation of a line/segment enabled us to find the required vertices, as well as their positions in 3D space.
+A line is a geometric object, which can be defined by two points, for example \emph{A} and \emph{B}. A line segment (or just segment) can be also defined by two points. The main difference between a line and a segment is that the \textbf{latter} one has a finite length. The segment only extends from point A to point B (usually points A and B are called segment endpoints). Although these objects, lines and segments, are very familiar, it is important to describe their parametric representation, as it was one of the solutions, which helped us to implement our approach to linear blend skinning technique.
 
-The parametric representation of a line L can be written as:
+In order for the linear blend skinning to work, the algorithm, implementing it, has to know exact coordinates of each vertex, which is going to be affected during the animation of the character. The parametric representation of a line/segment enabled us to find the required vertices, as well as their positions in 3D space.
+
+The parametric representation of a line \emph{L} can be written as:
 \begin{center}
 \emph{L(t) = A + b $\ast$ t}
 \end{center}
 where \emph{b} is a vector: \emph{b = B - A}, \emph{A} is a starting point of a segment and \emph{B} is an ending point of a segment.
 
-This construction gives us a way to name and compute any point along the line \emph{L}. This is done using a parameter \emph{t}, that distinguishes one point on the line from another. As t varies, so does the position of L(t)  along the line.
-If \emph{t = 0, L(0)} evaluates to \emph{A}, so at \emph{t = 0} we are at point \emph{A}. At \emph{t = 1} then \emph{L(1) = A + (B - A) = B}. As \emph{t} varies, we add a longer or shorter version of \emph{b} to the point \emph{A}, resulting in a new point along the line. If \emph{t} is larger than 1, this point lies somewhere on the opposite side of \emph{B} from \emph{A}, and when \emph{t} is less than 0, it lies on the opposite side of \emph{A} from \emph{B}. Below is a picture \label{line_in_space} illustrating these facts in a graphical 2D view, although 3D version uses the same ideas.
+This construction gives us a way to calculate any point along the line \emph{L}. This is done using a parameter \emph{t}, which can be imagined as a representation of time (the formula, realizing the parametric representation of a line, has a corresponding formula in the introductory physics of mechanics). In our case, parameter \emph{t} can also be viewed as a number  that sets apart one point on the line from another. As \emph{t} changes its values, so does the point L(t)  along the line.
+If \emph{t = 0, L(0)} is the same position as \emph{A}, so at \emph{t = 0} we are at point \emph{A}. At \emph{t = 1},  \emph{L(1) = A + (B - A) = B}. So as you can see, as \emph{t} varies, we add a vector \emph{b} (which is lengthened or shortened by the value of \emph{t}) to the point \emph{A}. As a result, we get a new point along the line. Taking a closer look, if \emph{t} is larger than 1, this point lies somewhere on the opposite side of \emph{B} from \emph{A}. If \emph{t} is less than 0, \emph{L(t)} lies on the opposite side of \emph{A} from \emph{B}. Below is a picture \label{line_in_space} illustrating these facts in a graphical 2D view, although 3D version uses the same ideas.
 
 
 \begin{figure}[H]
@@ -226,12 +226,12 @@ If \emph{t = 0, L(0)} evaluates to \emph{A}, so at \emph{t = 0} we are at point 
   \includegraphics[width=85mm]{images/lines3d.jpg}
 \end{figure}
 
-A very useful fact is that \emph{L(t)} lies a fraction \emph{t} of the way between \emph{A} and \emph{B} when \emph{t} lies between 0 and 1. For instance, when t = 0.5 the point L(0.5) is the midpoint between \emph{A} and \emph{B} and when t = 0.3, the point L(0.3) is 30\% of the way from \emph{A} to \emph{B}. This is clear from equation \emph{L(t) = A + b * t} since \emph{$|$ L(t) - A $|$ = $|$ b $|$ * $|$ t $|$} and \emph{$|$ B - A $|$ = $|$ b $|$}, so the value of \emph{$|$ t $|$} is the ratio of the distances \emph{$|$ L(t) - A $|$ to $|$ B - A $|$}.
+A very useful fact to note are the values of parameter \emph{t}, which lies between 0 and 1. These values proportionally scale the line/segment. For example, when \emph{t = 0.3}, the point \emph{L(t)} lies 30\% of the way from point A. When \emph{t = 0.5}, the point \emph{L(t)} lies exactly in the middle of the line/segment. This fact can be proven by considering equation \emph{L(t) = A + b * t}. Since \emph{$|$ B - A $|$ = $|$ b $|$}, then \emph{$|$ L(t) - A $|$ = $|$ b $|$ * $|$ t $|$}. So the value of \emph{$|$ t $|$} corresponds to the scale of the distance of \emph{$|$ B - A $|$}: \emph{$|$ t $|$ = $|$ L(t) - A $|$ / $|$ B - A $|$}
 
 
 %-------------------------------------------------------------------------
 \Section{Data formats}
-
+\label{data_formats}
 In this project we have to deal with various file formats. \emph{C3D} file format stores motion data from motion capture system and \emph{BVH} stores hierarchical skeleton structure and its rotations/translations adopted from C3D data. The \emph{BVH} data is used to define the skeleton with its joint structure as well as all the animation frames, while the \emph{OBJ} files are used for storing meshes of different human body parts, which are loaded on to the skeleton. Our project program required the direct parsing of \emph{BVH} and \emph{OBJ} files, so the corresponding parsers had to be implemented.
 
 %-------------------------------------------------------------------------
@@ -245,7 +245,7 @@ Being a binary file, the C3D file consists of a number of 512-byte blocks. Logic
 \begin{itemize}
 \item Header section is the first section of a file. The main purpose of this section is holding a pointer to the start of parameters section. Other parts of this section, is of no particular importance, as usually it consists data, copied from parameters section.
 
-\item The parameters section usually starts at block number 2, although this is not fixed and should not be assumed to be the case for every C3D file. This section contains information about the 3D data stored in the file. The section is extensible, meaning that user can define it's own parameters without  violating the format specification.
+\item The parameters section usually starts at block number 2, although this is not fixed and should not be assumed to be the case for every C3D file. This section contains information about the 3D data stored in the file. The section is extensible, meaning that user can define its own parameters without  violating the format specification.
 
 \item Data section containing the 3D point coordinates is usually located after the parameters section. This section simply contains sequential frames data. In the case of 3D points (the data is X, Y and Z coordinates).
 \end{itemize}
@@ -253,7 +253,7 @@ Being a binary file, the C3D file consists of a number of 512-byte blocks. Logic
 %-------------------------------------------------------------------------
 \SubSection{Description of Biovision BVH format}
 \label{bvh_description}
-The BVH format is an updated version of BioVisionís BVA data format, with the addition of a
+The BVH format is an updated version of BioVisions BVA data format, with the addition of a
 hierarchical data structure representing the bones of the skeleton.
 The BVH file is an ASCII file and consists of two parts:
 
@@ -267,7 +267,7 @@ that is the movement of individual joints.
 The \emph{hierarchy} section starts with \emph{root} joint and contains the definition of a joint hierarchy within nested braces like source code written in the C programming language.
 Each joint in a \emph{hierarchy} has an \emph{offset} field and a \emph{channels} field.
 The \emph{offset} field stores initial \emph{offset} values for each joint with respect to its parent joint.
-\emph{Channels} field defines which ìchannelsî of transformation (translation and/or rotation) exist for the joint in
+\emph{Channels} field defines which channels of transformation (translation and/or rotation) exist for the joint in
 the \emph{motion} data section of the file. The \emph{channels} field also defines the order of transformation. A
 \emph{channel} is either x-, y-, or z-translation or local x-, y-, or z-rotation. All the segments are assumed
 to be rigid and scaling is not available.
@@ -303,11 +303,12 @@ The OBJ file is composed of lines of text, each of them starting with a token, w
 \item "f" - a line, describing face. Lines, starting with "f" (face) token, provide the information, concerning polygons. "f" token is followed by a number of triplets, which is equal to the number of vertices, the polygon has. Each triplet is of a form "int/int/int", where the first "int" is a vertex position in the file, the second "int" is "texture" position in the file and the third "int" is a normal position in the file.
 \end{itemize}
 
-The above described tokens were of importance in our project, but they are not the only ones that OBJ format supports. The OBJ format specification is much broader and covers such abilities as surface encoding, connectivity between free-form surfaces, rendering attributes. The OBJ specification can be found in the document's reference page.
+The above described tokens were of importance in our project, but they are not the only ones that OBJ format supports. The OBJ format specification is much broader and covers such abilities as surface encoding, connectivity between free-form surfaces, rendering attributes. \textbf{The OBJ specification can be found in the document reference page.}
 
 
 %-------------------------------------------------------------------------
 \Section{Motion capture}
+\label{Motion_capturing_data}
 
 Motion capture (\emph{mocap}) is sampling and recording motion of humans, animals and other various
 objects as 3D data. The data can be used to study motion or to animate 3D computer models.
@@ -339,7 +340,7 @@ and then convert it to BVH using other 3rd party application.
 \Section{Human body mesh model}
 \label{Maya_mesh}
 
-Human body mesh model must be selected not only by it's looks and model details,
+Human body mesh model must be selected not only by its looks and model details,
 but also by its position. The model must be in such a position, that in
 animating stage you could connect models body parts with your skeleton
 and make it move. In this project simple human body mesh was selected with initial T-pose.
@@ -357,6 +358,7 @@ so the better solution is using the whole uncut body.
 
 \begin{figure}[H]
   \caption{Mesh model cut in Maya}
+  \label{img_maya_mesh}
   \centering
   \includegraphics[width=75mm]{images/maya_cut.jpg}
 \end{figure}
@@ -366,7 +368,9 @@ so the better solution is using the whole uncut body.
 \Section{Animating human body}
 \label{Animating_human_body}
 
-The base of any character animation is its skeleton. A skeleton is a hierarchical structure that let you pose and animate your model. Skeletons are composed of series of joints and bones that form joint hierarchies. Each joint has a number of children joints and one parent. Only the root joint does not have a parent and end-joints don't have children. From a programmers point of view joint hierarchy can be treated as a tree data structure, having a root, nodes and leaves.
+The base of any character animation is its skeleton. Skeletons are composed of a hierarchical structure of joints and bones that let you pose and animate your model. As our skeleton is composed of joints (bones are just  segments between corresponding joints), most of the time only the joints will be considered as the base of characters' movements.
+
+So, each joint has a number of children joints and one parent. Only the root joint does not have a parent and end-joints don't have children. From a programmers point of view joint hierarchy can be treated as a tree data structure, having a root, nodes and leaves.
 
 \begin{figure}[H]
   \caption{Human body skeleton}
@@ -374,18 +378,18 @@ The base of any character animation is its skeleton. A skeleton is a hierarchica
   \includegraphics[width=85mm]{images/bodySkeleton.jpg}
 \end{figure}
 
-To animate a character, first of all, the animation data has to be applied to characters skeleton (every joint that the skeleton consists of). Generally, the motion of an individual joint consists of translation, rotation and scale components (scaling is usually applied to character's bone). All these components can be merged together to give an overall transform using homogenous coordinates.  If the translation, rotation and scaling is being applied, the overall transformation can be defined as multiplication of corresponding matrices:
+To animate a character, first of all, the animation data has to be applied to character skeleton (every joint that the skeleton consists of). Generally, the motion of an individual joint consists of translation, rotation and scale components (scaling is usually applied to character bones). All these components can be merged together to give an overall transform using homogenous coordinates.  If the translation, rotation and scaling is being applied, the overall transformation can be defined as multiplication of corresponding matrices:
 
 \begin{center}
 \emph{M = T $\ast$ R $\ast$ S}
 \end{center}
 where \emph{M} is an overall transformation matrix, \emph{T} is translation matrix, \emph{R} is rotation matrix and \emph{S} is scale matrix.
 
-In our case, only the root joint had translational data, applied to it, whereas all other joints were being applied with rotational data. No scaling data was introduced in our motion capturing data.
+In our case, only the root joint had the translational data, applied to it, whereas all other joints were being applied with rotational data. No scaling data was introduced in our motion capturing data.
 
-For the animation to look correctly, a forward kinematics technique has to be applied. With forward kinematics, you rotate or move individual joints to pose and animate your joint chains. Moving a joint affect's that joint and any joints below it in the hierarchy. For example, if you want a joint chain to reach for a particular location in space, you have to rotate each joint individually so that the joint chain can reach the location. To do this, you rotate and translate the joint chain's parent joint, then the next joint, and so on down the joint chain.
+For the animation to look correctly, a forward kinematics technique has to be applied. With forward kinematics, you rotate or translate individual joints to  animate your skeleton. Transforming a joint in 3D scene affects that joint and any joints below it in the tree hierarchy. In other words, if you rotate any joint, you have to rotate all of its children as well. For example, the shoulder joint rotation by an angle \emph{O} would affect the elbow joint and wrist joint. The elbow should be rotated by \emph{O} degrees, as well as the wrist should be rotated by \emph{O} degrees.
 
-From a more detailed point of view, each joint has a local transformation that describes its orientation within its local coordinate system, which in turn is a subject to its parent's local orientations. To obtain a global matrix transform for a given joint, the local transform needs to be pre-multiplied by it's parents global transform, which itself is  derived by multiplying its local transform with its parent's global transform and so on, until you reach the root joint. For the root joint, the local and the global transforms are the same. The equation below outlines this combination sequence, where \emph{n} is the current joint, whose parent joint is \emph{n - 1}, \emph{n = 0} is the root joint and \emph{M} is the joint's transformation matrix.
+From a more detailed point of view, each joint has a local transformation that describes its orientation within its local coordinate system, which is dependent on its parents' local transformation. To calculate a global matrix transform for a given joint, the local transform needs to be pre-multiplied by its parents' global transform, which itself is  derived by multiplying its local transform with its parents' global transform and so on, until you reach the root joint. For the root joint, the local and the global transforms are the same. The equation below outlines this combination sequence, where \emph{n} is the current joint, whose parent joint is \emph{n - 1}, \emph{n = 0} is the root joint and \emph{M} is the joint transformation matrix.
 
 \begin{center}
 $M^{n}_{global}$ = $\prod^{n}_{i = 0}$ $M^{i}_{local}$
@@ -418,7 +422,7 @@ The joints, mentioned above, allow our model to be correctly animated in 3D scen
 \item Find all other vertices, which are necessary to connect, by calculating the distance between each of them. If the distance is between the shortest distance and the distance, calculated from the threshold value, then those two vertices have to be connected.
 \end{enumerate}
 
-Each connection between the mesh and its parent has subvertices. This is necessary for every joint rotation to look smooth. The more subvertices we have, the smoother the rotation looks. To find positions of subvertices on the connecting line, we apply the parametric representation of a line. To give a better view, of how subvertices are introduced in our model, the image of model's right knee is provided. In the image \ref{our_mesh_connection} you can see two meshes being connected by two connecting lines, each of which has four subvertices. Of course, this picture is provided just for explanatory purposes, the full connection between the meshes should have much more connecting lines.
+Each connection between the mesh and its parent has subvertices. This is necessary for every joint rotation to look smooth. The more subvertices we have, the smoother the rotation looks. To find positions of subvertices on the connecting line, we apply the parametric representation of a line. To give a better view, of how subvertices are introduced in our model, the image of models right knee is provided. In the image \ref{our_mesh_connection} you can see two meshes being connected by two connecting lines, each of which has four subvertices. Of course, this picture is provided just for explanatory purposes, the full connection between the meshes should have much more connecting lines.
 
 \begin{figure}[H]
   \caption{Connections between meshes}
@@ -429,18 +433,31 @@ Each connection between the mesh and its parent has subvertices. This is necessa
 
 Any line function can be written as: \emph{L(t) = A + b*t}, where \emph{A} is the starting point of a line, \emph{b} is a vector, determining the direction of a line and \emph{t} is a parameter value. A more detailed explanation of the parametric representation of the line can be found in documents section \ref{line_in_space_section}.
 
-Since the above mentioned algorithm finds the positions of the first vertex, necessary to connect, (which is letter \emph{A} in the parametric representation of the line) and the second one (let's mark it's position as letter \emph{B}), we can find the direction vector \emph{b = B - A}. Now taking t from 0 to 1 we get the position of the subvertex, which is between \emph{A} and \emph{B}. In fact if we took \emph{t = 0}, from the parametric representation of the line we get the position of vertex \emph{A}, and if we took \emph{t =1}, we get the position of vertex \emph{B}. So to determine the position of the first subvertex on the line, we need to set \emph{t = 1/N}, where \emph{N} is the total number of subvertices. To determine the position of the second subvertex on the line, set \emph{t = 2 * 1/N}. In general, to find the \emph{n}'th subvertex position on the line, we can set
+Since the above mentioned algorithm finds the positions of the first vertex, necessary to connect, (which is letter \emph{A} in the parametric representation of the line) and the second one (lets mark its position as letter \emph{B}), we can find the direction vector \emph{b = B - A}. Now taking t from 0 to 1 we get the position of the subvertex, which is between \emph{A} and \emph{B}. In fact if we took \emph{t = 0}, from the parametric representation of the line we get the position of vertex \emph{A}, and if we took \emph{t =1}, we get the position of vertex \emph{B}. So to determine the position of the first subvertex on the line, we need to set \emph{t = 1/N}, where \emph{N} is the total number of subvertices. To determine the position of the second subvertex on the line, set \emph{t = 2 * 1/N}. In general, to find the \emph{n}'th subvertex position on the line, we can set
 
 \begin{center}
 t = n $\ast$ 1/N
 \end{center}
 
-Now to calculate the position of subvertices after rotation, we apply the linear blend skinning technique, which means that each subvertex has some weight (let's mark it as \emph{w}), which influences the angle it has to be rotated. Of course, each subvertex weight could be determined manually (for example, user defined), but we found that it is pretty easy to determine it automatically to get the satisfying overall result.
 
-Let's consider that we have \emph{N} vertices on the connecting line. The joint is being rotated by angle \emph{A}. Each vertex weight \emph{w} is being determined by it's position on the connecting line:
+\SubSection{Animating the character}
+\label{animating_our_character}
+
+Our character is being animated by the data, provided by the Vicon motion capturing system. Motion data is encoded as BVH format file, consisting of  1289 frames (a more detailed explanation about Biovision BVH format is provided in section \ref{bvh_description}). Each frame holds rotation values for every joint as well as translation values for root joint in 3D space. Since rotation values are provided as three separate rotations around \emph{X}, \emph{Y} and \emph{Z} axis, quaternions are being used to calculate rotation axis and rotation angle.
+
+For example in the first frame, the root joint is being rotated by -0.66 degrees around \emph{Z} axis, 0.80 degrees around \emph{Y} axis and 171.21 degrees around \emph{X} axis. By applying the mathematics of quaternions, the overall rotation vector is (0.00631242, 0.999959, 0.00653654) and the rotation angle is 171.209 (quaternions are being explained in section \ref{Quaternions}). Since BVH format file provides only local rotations for each joint, to get the global rotation in 3D space, each joints' parent rotation should be taken into account. Considering the previous example, not only the root joint has to be rotated by 171.209 degrees around the rotation axis  (0.00631242, 0.999959, 0.00653654), but all of its children as well.
+
+Since each joint has a mesh applied to it, during the animation, meshes are transformed in 3D scene the same way the joints are translated and rotated. Only the mesh connection has a different approach. In order for the mesh connection to rotate correctly, our approach of linear blend skinning technique is applied, which is explained in more detail in section \ref{Our_approach_to_linear_blend_skinning}.
+
+\SubSection{Our approach to linear blend skinning}
+\label{Our_approach_to_linear_blend_skinning}
+
+To calculate the position of subvertices after rotation, we apply our approach to the linear blend skinning technique, which means that each subvertex has some weight (lets mark it as \emph{w}), which influences the angle it has to be rotated. Of course, each subvertex weight could be determined manually (for example, user defined), but we found that it is pretty easy to determine it automatically to get the satisfying overall result.
+
+Lets consider that we have \emph{N} vertices on the connecting line. The joint is being rotated by angle \emph{A}. Each vertex weight \emph{w} is being determined by its position on the connecting line:
 
 \begin{center}
-w = P $\ast$ 1/N
+\emph{w} = P $\ast$ 1/N
 \end{center}
 where P is the position on the connecting line.
 
@@ -448,19 +465,26 @@ So the first vertex on the line has the weight \emph{w = 1 $\ast$ 1/N}, while th
 
 Now, considering the angle each vertex has to be rotated, the first one is rotated by \emph{A $\ast$ 1 $\ast$ 1/N} degrees, while the last one is being rotated by \emph{A $\ast$ N $\ast$  1/N = A} degrees. After rotating all the subvertices, they are being connected to polygons.
 
-\SubSection{Animating the character}
-\label{animating_our_character}
+\SubSection{Relation between our approach to linear blend skinning technique and the original implementation}
+\label{relation}
 
-Our character is being animated by the data, provided by the Vicon motion capturing system. Motion data is encoded as BVH format file, consisting of  1289 frames (a more detailed explanation about Biovision BVH format is provided in document's section \ref{bvh_description}). Each frame holds rotation values for every joint as well as translation values for root joint in 3D space. Since rotation values are provided as three separate rotations around \emph{X}, \emph{Y} and \emph{Z} axis, quaternions are being used to calculate rotation axis and rotation angle.
+From the section \ref{Linear_blend_skinning}, the traditional implementation of linear blend skinning is defined by the formula:
+\begin{center}
+$ \overline{\textbf{v}} = \displaystyle\sum_{i=1}^n\emph{w}_{i}M_{i}D_{i}^{-1}\textbf{v}_{d} $
+\end{center}
+where $w_{i}$ are the influence weights, $v_{d}$ is the initial pose location of a
+particular vertex \textbf{v}, $\emph{M}_{i}$ is the transformation matrix associated with
+the $\emph{i}$th influence, and $D_{i}^{-1}$ is the inverse of the initial pose matrix
+associated with the $\emph{i}$th influence.
 
-For example in the first frame, the root joint is being rotated by -0.66 degrees around \emph{Z} axis, 0.80 degrees around \emph{Y} axis and 171.21 degrees around \emph{X} axis. By applying the mathematics of quaternions, the overall rotation vector is (0.00631242, 0.999959, 0.00653654) and the rotation angle is 171.209 (quaternions are being explained in document's section 3). Since BVH format file provides only local rotations for each joint, to get the global rotation in 3D space, each joint's parent rotation should be taken into account. Considering the previous example, not only the root joint has to be rotated by 171.209 degrees around the rotation axis  (0.00631242, 0.999959, 0.00653654), but all of its children as well.
-
-Since each joint has a mesh applied to it, during the animation, meshes are transformed in 3D scene the same way the joints are translated and rotated. Only the mesh connection has a different approach. In order for the mesh connection to rotate correctly, a linear blend skinning technique is applied, which is explained in more detail in document's section 2.
-
+Since our implementation of linear blend skinning technique has only one influence, the necessity of summing up the influences disappears. The weight \emph{w} = P $\ast$ 1/N as described in previous section \ref{Our_approach_to_linear_blend_skinning}. The transformation matrix \emph{M} is calculated by applying the quaternions technique (section \ref{Quaternions}). The $D_{i}^{-1}\textbf{v}_{d}$ part of the original formula is the same in our linear blend skinning approach, representing the position of \textbf{v$_{d}$} in the local coordinate frame. Below is the overall formula, illustrating our implementation of linear blend skinning technique.
+\begin{center}
+$ \overline{\textbf{v}} = \emph{ P / N}MD^{-1}\textbf{v}_{d} $
+\end{center}
 
 %-------------------------------------------------------------------------
 \Section{Problems}
-
+\label{Problems}
 In this section we give some examples of the problems that occurred during the project.
 Some of these problems were solved during the work, while others still need to be seen into.
 
@@ -468,7 +492,7 @@ Some of these problems were solved during the work, while others still need to b
 \SubSection{Initial BVH pose}
 
 During the animation of human skeleton, the initial pose is not important, but when the mesh is considered,
-it's all they way around. As our human model was cut into individual parts,
+it is all they way around. As our human model was cut into individual parts,
 we had to have appropriate initial pose to correctly connect separate meshes. In our case, the appropriate pose was the T-pose. The T-pose was the only pose, which enabled us to find the shortest distance between two meshes and connect them correctly. The detailed way how the meshes are connected is described in section \ref{preparing_character}.
 
 The problem was, that after processing motion data and exporting it to BVH file, the character was not in initial T-pose.

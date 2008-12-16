@@ -1,10 +1,8 @@
 
 %
-%  $Description: Author guidelines and sample document in LaTeX 2.09$
+%  $Description: Animating human body project$
 %
 %  $Author: Gediminas Mazrimas $
-%  $Date: 1995/09/15 15:20:59 $
-%  $Revision: 1.4 $
 %
 
 \documentclass[times, 10pt,twocolumn]{article}
@@ -25,7 +23,7 @@
 %-------------------------------------------------------------------------
 \begin{document}
 
-\title{Animating human model in OpenGL using data from Vicon system}
+\title{Animating human model in OpenGL using data from motion capture system}
 
 \author{Algirdas Beinaravicius\\
 Aalborg University Copenhagen\\ Computer Vision and Graphics\\algirdux@gmail.com
@@ -38,16 +36,11 @@ Aalborg University Copenhagen\\ Computer Vision and Graphics\\g.mazrimas@gmail.c
 \thispagestyle{empty}
 
 \begin{abstract}
-   This paper explains how to animate a 3D human model in OpenGL
-   using motion data. For skin deformations our own implementation of Linear Blend Skinning technique is used,
-   that computes deformed weighted vertex position, which is calculated using quaternions.
-   This helps to avoid some common animation problems, which occur while dealing with
-   various human body transformations.
-   The motion for this animation was captured using motion capture system
-   and after processing it and converting to appropriate data format, was ready to use for
-   animating 3D human model in lowest programming C++/OpenGL level.
+   This paper explains how to animate a 3D human model in OpenGL using motion data. Human model here is a skeleton and its underlying layer - skin.
+   Motion data processing for correct interpretation in animating program is vital.
+   For the final visual result, skin deformations are considered the most important part of the animation, so our own implementation of the linear blend skinning technique is used. Such a technique allows to avoid some common animation problems, especially when dealing with more complex transformations. As the main concern is a full body animation, detailed body part deformations were not considered.
 
-   \textbf{Keywords:} Human animation, Motion capturing data, OpenGL, C++, Linear Blend Skinning
+   \textbf{Keywords:} Human animation, Motion capturing data, Linear Blend Skinning
 \end{abstract}
 
 
@@ -60,8 +53,7 @@ body animation technique that uses joint based structure to animate human model.
 given their position and orientation, can be thought as human body skeleton.
 Animation of the skeleton, when talking about its complexity, is pretty simple,
 as it includes only rigid body parts and requires rotations of bones at the joint position.
-But when taking in account underlying layer of the skeleton, what we call skin, it becomes more
-complicated. This is when linear blend skinning technique comes in use, associating joints to vertices and introducing weights to them. Due to very fast computation speeds, this technique is the most popular
+But when taking in account underlying layer of the skeleton - skin, it becomes complicated. This is when linear blend skinning technique comes in use, associating joints to vertices and introducing weights to them. Due to very fast computation speeds, this technique is the most popular
 in animation production. On the other hand, while using this simple shape blending technique
 to deal with complex transformations various skin deformation problems occur. Typical ones are collapsing elbow, candy-wrapper effect when the arm turns 180 degrees.
 Also such a technique doesn't consider many other human body deformations, like stretching or bulging muscles.
@@ -69,14 +61,11 @@ Also such a technique doesn't consider many other human body deformations, like 
 %-------------------------------------------------------------------------
 \SubSection{Overview}
 
-We present a motion data driven technique of animating a human body model in a program written in C++ programming language and working in an OpenGL environment.
-We have two main issues in this work: getting motion data and using it
-correctly to animate skeleton and then solving the human model mesh deformation problems.
-Using data captured by motion capture system and correctly defined joint structure,
-we achieve realistic body movements for our model. Any motion data, which was captured
-using same joint structure scheme as ours, can be used for animating that human body model.
+We present a motion data driven technique for animating human body model in a program written in a C++ programming language and working in an OpenGL environment.
+Main issues in this work are to get motion data, interpret it correctly for animation and then solve skin deformation problems that are caused by the body transformations.
+Realistic character movements are achieved by using data that was captured using motion capture system. Of course motion data at first must be in appropriate format and then processed correctly, in order to use in our animation program. \textbf{While implementing our linear blend skinning algorithm for skin deformations, mathematical objects - quaternions are used.}
 
-After introducing the techniques that we were using in this project (Sections: \emph{\ref{Linear_blend_skinning}} and \emph{\ref{Quaternions}}), explaining about motion data formats and their differences (Section \emph{\ref{Motion_data}}), we give details on how to prepare 3D human body model mesh for our program (Section \emph{\ref{Maya_mesh}}) and how we managed to animate both skeleton and its underlying layer (Section \emph{\ref{Animating_human_body}}).
+In further sections the techniques used in this project are introduced (\emph{\ref{Linear_blend_skinning}}, \emph{\ref{Quaternions}}, \emph{\ref{line_in_space_section}}), data and data formats that we have to deal with described in detail (\emph{\ref{data_formats}}, \emph{\ref{Motion_capturing_data}}). Then our approaches in preparing 3D human model body mesh for our program (\emph{\ref{Maya_mesh}}) and in animating both skeleton and its underlying layer (\emph{\ref{Animating_human_body}}) are explained. Finally, problems that appeared during this project work are provided (\emph{\ref{Problems}}).
 
 
 %-------------------------------------------------------------------------
@@ -106,11 +95,11 @@ Formula for calculating new vertex position $ \overline{\textbf{v}} $ is
 \begin{center}
 $ \overline{\textbf{v}} = \displaystyle\sum_{i=1}^n\emph{w}_{i}M_{i}D_{i}^{-1}\textbf{v}_{d} $
 \end{center}
-where $w_{i}$ are the influence weights, $v_{d}$ is the initial pose location of a
+where $w_{i}$ are the influence weights, $v_{d}$ is the initial position of a
 particular vertex \textbf{v}, $\emph{M}_{i}$ is the transformation matrix associated with
 the $\emph{i}$th influence, and $D_{i}^{-1}$ is the inverse of the initial pose matrix
-associated with the $\emph{i}$th influence. Taken together, $D_{i}^{-1}\textbf{v}_{d}$ represents
-the location of \textbf{v$_{d}$} in the local coordinate frame of the $\emph{i}$th influence.
+associated with the $\emph{i}$th influence. Then $D_{i}^{-1}\textbf{v}_{d}$ represents
+the position of \textbf{v$_{d}$} in the local coordinate system of the $\emph{i}$th influence.
 
 \begin{figure}[H]
   \caption{}
@@ -123,9 +112,11 @@ Linear blend skinning has its drawbacks also. Various artifacts, such as "candy-
 %-------------------------------------------------------------------------
 \Section{Quaternions}
 \label{Quaternions}
+In our project we introduce the mathematics of quaternions. The power of quaternions was being used to process the motion data as well as solving some problems, which occurred before the usage of this technique. Motion data, contained in BVH file (section \ref{bvh_description}), usually describes the transformation of each entity in 3D scene as three separate rotations around Z, Y and X axes. The usage of quaternions enabled us to find a single axis and a single angle equivalent to the rotations around Z, Y and X axes.  This lead us to a much simpler implementation of the overall character animation as well as the solution for the "exploding knee" problem (Section \ref{knee_explosion}). This section describes quaternions from a mathematical point of view, providing enough information to implement and use them.
+
 A quaternion is a mathematical object, consisting of 4 scalars. Quaternions were discovered in 19th century by Irish mathematician Sir William Rowan Hamilton during his search for a way to represent points in space.  Soon after their introduction, quaternions appeared at most of universities as an advanced mathematics subject. Nowadays quaternions find their applications in signal processing, physics, bioinformatics, orbital mechanics as well as computer graphics.
 	
-In computer graphics Euler angles are known to have the disadvantage of being susceptible to "Gimbal lock" where attempts to rotate an object fail to appear as expected, due to the order in which the rotations are performed. Quaternions are a solution to this problem. Instead of rotating an object through a series of successive rotations, quaternions provide the ability to rotate an object through an arbitrary rotation axis and angle. Though the rotation is still performed by using matrix mathematics, instead of multiplying matrices together, quaternions, representing the axis of rotation, are multiplied together. The final resulting quaternion is then converted to the desired rotation matrix.
+In computer graphics the usage of Euler angles is pretty natural and easily implemented. But Euler angles have their disadvantages as well. One of them is the well known "Gimbal lock" problem.  The "Gimbal lock" occurs, when an attempt to rotate an object ends up with strange unsuspected results. The problem shows up due to the order in which the rotations are being performed as in particular situations rotation around one axe might "lock" the rotation around another axe. The usage of quaternions is the solution to the "Gimbal lock" problem. Instead of rotating an object through a number of different axes, quaternions provide the ability to calculate a single axe and an angle realizing a number of separate independent rotations. Although the rotation is still performed by traditional matrix mathematics, instead of multiplying matrices together, quaternions, representing the axis of rotation, are multiplied together. The final resulting quaternion is then converted to the proper rotation matrix.
 
 As mentioned earlier, a quaternion is four numbers, representing one real dimension and 3 imaginary dimensions. Each of its imaginary dimensions has a unit value of square root of -1 (a complex number). In addition to that, imaginary dimensions are all perpendicular to each other and can be noted as i, j, k. So a quaternion can be represented as follows:
 \begin{center}
@@ -133,7 +124,7 @@ q = \emph{a} + i$\ast$b + j$\ast$c + k$\ast$d
 \end{center}
 where \emph{a} is a real dimension representation and b,  c,  d are just scalars.
 
-Since quaternions are mathematical objects, they have a certain algebra with all the addition, subtraction,  multiplication and division operations applied to them. In this section of the report we are going to consider just the quaternion multiplication operation, since this operation is necessary to represent a rotation. All other operations can be found in the references page of the report.
+Since the representation of a quaternion is quite complex and hard to imagine, it can be interpreted in another way. The x, y, z components of a quaternion can be treated as a representation of rotation axis and \emph{a} component - as a representation of rotation angle. The relation between actual values and their representations as quaternion's components can be described as:
 
 In order to perform a quaternion multiplication, a quaternion's imaginary dimension multiplication has to be described first:
 
@@ -238,7 +229,7 @@ A very useful fact is that \emph{L(t)} lies a fraction \emph{t} of the way betwe
 
 %-------------------------------------------------------------------------
 \Section{Data formats}
-
+\label{data_formats}
 In this project we have to deal with various file formats. \emph{C3D} file format stores motion data from motion capture system and \emph{BVH} stores hierarchical skeleton structure and its rotations/translations adopted from C3D data. The \emph{BVH} data is used to define the skeleton with its joint structure as well as all the animation frames, while the \emph{OBJ} files are used for storing meshes of different human body parts, which are loaded on to the skeleton. Our project program required the direct parsing of \emph{BVH} and \emph{OBJ} files, so the corresponding parsers had to be implemented.
 
 %-------------------------------------------------------------------------
@@ -260,7 +251,7 @@ Being a binary file, the C3D file consists of a number of 512-byte blocks. Logic
 %-------------------------------------------------------------------------
 \SubSection{Description of Biovision BVH format}
 \label{bvh_description}
-The BVH format is an updated version of BioVisionís BVA data format, with the addition of a
+The BVH format is an updated version of BioVisions BVA data format, with the addition of a
 hierarchical data structure representing the bones of the skeleton.
 The BVH file is an ASCII file and consists of two parts:
 
@@ -274,7 +265,7 @@ that is the movement of individual joints.
 The \emph{hierarchy} section starts with \emph{root} joint and contains the definition of a joint hierarchy within nested braces like source code written in the C programming language.
 Each joint in a \emph{hierarchy} has an \emph{offset} field and a \emph{channels} field.
 The \emph{offset} field stores initial \emph{offset} values for each joint with respect to its parent joint.
-\emph{Channels} field defines which ìchannelsî of transformation (translation and/or rotation) exist for the joint in
+\emph{Channels} field defines which channels of transformation (translation and/or rotation) exist for the joint in
 the \emph{motion} data section of the file. The \emph{channels} field also defines the order of transformation. A
 \emph{channel} is either x-, y-, or z-translation or local x-, y-, or z-rotation. All the segments are assumed
 to be rigid and scaling is not available.
@@ -315,6 +306,7 @@ The above described tokens were of importance in our project, but they are not t
 
 %-------------------------------------------------------------------------
 \Section{Motion capture}
+\label{Motion_capturing_data}
 
 Motion capture (\emph{mocap}) is sampling and recording motion of humans, animals and other various
 objects as 3D data. The data can be used to study motion or to animate 3D computer models.
@@ -467,7 +459,7 @@ Since each joint has a mesh applied to it, during the animation, meshes are tran
 
 %-------------------------------------------------------------------------
 \Section{Problems}
-
+\label{Problems}
 In this section we give some examples of the problems that occurred during the project.
 Some of these problems were solved during the work, while others still need to be seen into.
 
