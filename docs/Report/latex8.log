@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  16 DEC 2008 13:18
+This is pdfTeX, Version 3.1415926-1.40.9 (MiKTeX 2.7) (preloaded format=pdflatex 2008.11.18)  16 DEC 2008 14:18
 entering extended mode
 **C:/Mano/Mokslai/Universitetas/5*Semestras/Project/cvg01/docs/Report/latex8.te
 x
@@ -156,21 +156,13 @@ Overfull \hbox (14.96538pt too wide) detected at line 182
 File: images/lines3d.jpg Graphic file (type jpg)
 
 <use images/lines3d.jpg>
-Overfull \hbox (4.71248pt too wide) in paragraph at lines 226--227
- [][] 
- []
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [4 <images/lines3d.jpg>] [5] <images/maya_cut.jpg, id=35, 499.8675pt x 507.897
 5pt>
 File: images/maya_cut.jpg Graphic file (type jpg)
 
-<use images/maya_cut.jpg>
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [6]
+<use images/maya_cut.jpg> [6 <images/maya_cut.jpg>]
 <images/bodySkeleton.jpg, id=39, 304.88907pt x 188.95593pt>
 File: images/bodySkeleton.jpg Graphic file (type jpg)
 
@@ -179,31 +171,26 @@ Overfull \hbox (4.71248pt too wide) in paragraph at lines 378--379
  [][] 
  []
 
-[7 <images/maya_cut.jpg> <images/bodySkeleton.jpg>]
-<images/our_skeleton.jpg, id=44, 578.91281pt x 436.63126pt>
+<images/our_skeleton.jpg, id=40, 578.91281pt x 436.63126pt>
 File: images/our_skeleton.jpg Graphic file (type jpg)
 
-<use images/our_skeleton.jpg>
-<images/mesh_connection.jpg, id=45, 512.66531pt x 414.79968pt>
+<use images/our_skeleton.jpg> [7 <images/bodySkeleton.jpg> <images/our_skeleton
+.jpg>] <images/mesh_connection.jpg, id=45, 512.66531pt x 414.79968pt>
 File: images/mesh_connection.jpg Graphic file (type jpg)
 
-<use images/mesh_connection.jpg> [8 <images/our_skeleton.jpg> <images/mesh_conn
-ection.jpg>] [9]
-<images/s_knee_explosion.jpg, id=52, 759.83875pt x 280.04625pt>
+<use images/mesh_connection.jpg> [8 <images/mesh_connection.jpg>]
+<images/s_knee_explosion.jpg, id=49, 759.83875pt x 280.04625pt>
 File: images/s_knee_explosion.jpg Graphic file (type jpg)
 
-<use images/s_knee_explosion.jpg>
+<use images/s_knee_explosion.jpg> [9 <images/s_knee_explosion.jpg>]
 <images/s_knee_rot1.jpg, id=53, 774.895pt x 774.895pt>
 File: images/s_knee_rot1.jpg Graphic file (type jpg)
 
 <use images/s_knee_rot1.jpg> <images/s_knee.jpg, id=54, 803.0pt x 803.0pt>
 File: images/s_knee.jpg Graphic file (type jpg)
 
-<use images/s_knee.jpg> [10 <images/s_knee_explosion.jpg> <images/s_knee_rot1.j
-pg> <images/s_knee.jpg>] [11
-
-] (vicon_appendix.tex
-<images/vicon_mx_basic.jpg, id=61, 955.57pt x 506.89375pt>
+<use images/s_knee.jpg> [10 <images/s_knee_rot1.jpg> <images/s_knee.jpg>]
+(vicon_appendix.tex <images/vicon_mx_basic.jpg, id=58, 955.57pt x 506.89375pt>
 File: images/vicon_mx_basic.jpg Graphic file (type jpg)
 
 <use images/vicon_mx_basic.jpg>
@@ -211,25 +198,42 @@ Overfull \hbox (41.70107pt too wide) in paragraph at lines 38--39
  [][] 
  []
 
-[12
+[11
 
  <images/vicon_mx_basic.jpg>]
-<images/vicon.jpg, id=65, 752.8125pt x 453.19313pt>
+<images/vicon.jpg, id=62, 752.8125pt x 453.19313pt>
 File: images/vicon.jpg Graphic file (type jpg)
  <use images/vicon.jpg>
 Overfull \hbox (18.93886pt too wide) in paragraph at lines 93--94
  [][] 
  []
 
-) [13 <images/vicon.jpg>] (latex8.bbl
+) [12 <images/vicon.jpg>] (latex8.bbl
+Overfull \hbox (52.20744pt too wide) in paragraph at lines 4--6
+[]\OT1/ptm/m/it/9 OBJ spec-i-fi-ca-tion\OT1/ptm/m/n/9 .  http://local.wasp.uwa.
+edu.au/ pbourke/dataformats/obj/. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--13
+[]\OT1/ptm/m/n/9 M. J. Baker.  \OT1/ptm/m/it/9 Quater-nion al-ge-bra\OT1/ptm/m/
+n/9 .
+ []
+
+
+Overfull \hbox (151.24234pt too wide) in paragraph at lines 8--13
+\OT1/ptm/m/n/9 http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/qu
+aternions/arithmetic/index.htm. 
+ []
+
 Missing character: There is no – in font ptmr7t!
 Missing character: There is no – in font ptmr7t!
 
-Underfull \hbox (badness 10000) in paragraph at lines 53--55
+Underfull \hbox (badness 10000) in paragraph at lines 64--66
 []\OT1/ptm/m/n/9 Motion Lab Sys-tems,
  []
 
-) [14
+) [13
 
 
 ] (latex8.aux)
@@ -238,13 +242,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 1155 strings out of 95304
- 14511 string characters out of 1183069
- 72177 words of memory out of 1500000
- 4363 multiletter control sequences out of 110000
+ 1157 strings out of 95304
+ 14523 string characters out of 1183069
+ 72184 words of memory out of 1500000
+ 4365 multiletter control sequences out of 110000
  23961 words of font info for 46 fonts, out of 1200000 for 2000
  14 hyphenation exceptions out of 8191
- 25i,7n,19p,1116b,225s stack positions out of 5000i,500n,10000p,200000b,5000s
+ 25i,7n,19p,1094b,225s stack positions out of 5000i,500n,10000p,200000b,5000s
 {C:/Program Files/MiKTeX 2.7/fonts/enc/dvips/fontname/8r.enc}<C:/Program File
 s/MiKTeX 2.7/fonts/type1/bluesky/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.7/fon
 ts/type1/bluesky/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/bluesky
@@ -259,9 +263,9 @@ w/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmb8a
 .pfb><C:/Program Files/MiKTeX 2.7/fonts/type1/urw/times/utmbi8a.pfb><C:/Program
  Files/MiKTeX 2.7/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.7
 /fonts/type1/urw/times/utmri8a.pfb>
-Output written on latex8.pdf (14 pages, 1191291 bytes).
+Output written on latex8.pdf (13 pages, 1189457 bytes).
 PDF statistics:
- 124 PDF objects out of 1000 (max. 8388607)
+ 121 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
  56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

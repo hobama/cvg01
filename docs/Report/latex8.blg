@@ -1,6 +1,7 @@
 This is BibTeX, Version 0.99cThe top-level auxiliary file: latex8.aux
 The style file: latex8.bst
 Database file #1: latex8.bib
+Warning--to sort, need author, organization, or key in ex17
 Warning--empty journal in ex11
 Warning--empty year in ex11
 Warning--empty journal in ex10
@@ -16,4 +17,4 @@ Warning--empty year in ex9
 Warning--empty journal in ex15
 Warning--empty journal in ex8
 Warning--empty year in ex8
-(There were 15 warnings)
+(There were 16 warnings)

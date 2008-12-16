@@ -223,7 +223,7 @@ If \emph{t = 0, L(0)} is the same position as \emph{A}, so at \emph{t = 0} we ar
   \caption{Line in space}
   \label{line_in_space}
   \centering
-  \includegraphics[width=85mm]{images/lines3d.jpg}
+  \includegraphics[width=80mm]{images/lines3d.jpg}
 \end{figure}
 
 A very useful fact to note are the values of parameter \emph{t}, which lies between 0 and 1. These values proportionally scale the line/segment. For example, when \emph{t = 0.3}, the point \emph{L(t)} lies 30\% of the way from point A. When \emph{t = 0.5}, the point \emph{L(t)} lies exactly in the middle of the line/segment. This fact can be proven by considering equation \emph{L(t) = A + b * t}. Since \emph{$|$ B - A $|$ = $|$ b $|$}, then \emph{$|$ L(t) - A $|$ = $|$ b $|$ * $|$ t $|$}. So the value of \emph{$|$ t $|$} corresponds to the scale of the distance of \emph{$|$ B - A $|$}, since \emph{$|$ t $|$ = $|$ L(t) - A $|$ / $|$ B - A $|$}
@@ -360,7 +360,7 @@ so the better solution is using the whole uncut body.
   \caption{Mesh model cut in Maya}
   \label{img_maya_mesh}
   \centering
-  \includegraphics[width=75mm]{images/maya_cut.jpg}
+  \includegraphics[width=65mm]{images/maya_cut.jpg}
 \end{figure}
 
 
@@ -528,7 +528,7 @@ During the implementation and testing of our linear blend skinning algorithm, on
   \caption{Knee rotation by 1 axis}
   \label{knee_1axis}
   \centering
-  \includegraphics[width=75mm]{images/s_knee_rot1.jpg}
+  \includegraphics[width=70mm]{images/s_knee_rot1.jpg}
 \end{figure}
 
 After introducing a full human body animation and taking data from BVH motion data file, we were provided with rotations around all three axes. Although the application of quaternions enabled us to calculate the rotation vector and angle, representing the transformations around all three axes, the final results were not so smooth as in the testing phase. The results can be seen in figure \ref{knee_3axis}.
@@ -537,7 +537,7 @@ After introducing a full human body animation and taking data from BVH motion da
   \caption{Knee rotation by 3 axis}
   \label{knee_3axis}
   \centering
-  \includegraphics[width=75mm]{images/s_knee.jpg}
+  \includegraphics[width=70mm]{images/s_knee.jpg}
 \end{figure}
 
 The solution for this problem could be trying different weight distribution for vertices than those we were using.
