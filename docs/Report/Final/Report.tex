@@ -164,10 +164,10 @@ As mentioned above, the multiplication operation,  provides us with the ability 
 Since the representation of a quaternion is quite complex and hard to imagine, it can be interpreted in another way. The x, y, z components of a quaternion can be treated as a representation of rotation axis and a component - as a representation of rotation angle. The relation between actual values and their representations as quaternion components can be described as:
 
 \begin{itemize}
-\item a = $cos(angle / 2)$
-\item b =  $axis_x$ $\ast$ $sin(angle / 2)$
-\item c = $axis_y$ $\ast$ $sin(angle / 2)$
-\item d = $axis_z$ $\ast$ $sin(angle / 2)$
+\item a = $cos(\frac{angle}{2})$
+\item b =  $axis_x$ $\ast$ $sin(\frac{angle}{2})$
+\item c = $axis_y$ $\ast$ $sin(\frac{angle}{2})$
+\item d = $axis_z$ $\ast$ $sin(\frac{angle}{2})$
 \end{itemize}
 where $axis_x$, $axis_y$ and $axis_z$ is a normalized vector, representing the rotation axis.
 
@@ -402,7 +402,7 @@ If \emph{t = 0, L(0)} is the same position as \emph{A}, so at \emph{t = 0} we ar
   \includegraphics[width=80mm]{images/lines3d.jpg}
 \end{figure}
 
-A very useful fact to note are the values of parameter \emph{t}, which lies between 0 and 1. These values proportionally scale the line/segment. For example, when \emph{t = 0.3}, the point \emph{L(t)} lies 30\% of the way from point A. When \emph{t = 0.5}, the point \emph{L(t)} lies exactly in the middle of the line/segment. This fact can be proven by considering equation \emph{L(t) = A + b * t}. Since \emph{$|$ B - A $|$ = $|$ b $|$}, then \emph{$|$ L(t) - A $|$ = $|$ b $|$ * $|$ t $|$}. So the value of \emph{$|$ t $|$} corresponds to the scale of the distance of \emph{$|$ B - A $|$}, since \emph{$|$ t $|$ = $|$ L(t) - A $|$ / $|$ B - A $|$}
+A very useful fact to note are the values of parameter \emph{t}, which lies between 0 and 1. These values proportionally scale the line/segment. For example, when \emph{t = 0.3}, the point \emph{L(t)} lies 30\% of the way from point A. When \emph{t = 0.5}, the point \emph{L(t)} lies exactly in the middle of the line/segment. This fact can be proven by considering equation \emph{L(t) = A + b * t}. Since \emph{$|$B - A$|$ = $|$b$|$}, then \emph{$|$L(t) - A$|$ = $|$b$|$ * $|$t$|$}. So the value of \emph{$|$t$|$} corresponds to the scale of the distance of \emph{$|$B - A$|$}, since \emph{$|$t$|$ = $\frac{|L(t) - A|}{|B - A|}$ }
 
 
 %-------------------------------------------------------------------------
@@ -608,10 +608,10 @@ Each connection between the mesh and its parent has subvertices. This is necessa
 
 Any line function can be written as: \emph{L(t) = A + b*t}, where \emph{A} is the starting point of a line, \emph{b} is a vector, determining the direction of a line and \emph{t} is a parameter value. A more detailed explanation of the parametric representation of the line can be found in documents section \ref{line_in_space_section}.
 
-Since the above mentioned algorithm finds the positions of the first vertex, necessary to connect, (which is letter \emph{A} in the parametric representation of the line) and the second one (lets mark its position as letter \emph{B}), we can find the direction vector \emph{b = B - A}. Now taking t from 0 to 1 we get the position of the subvertex, which is between \emph{A} and \emph{B}. In fact if we took \emph{t = 0}, from the parametric representation of the line we get the position of vertex \emph{A}, and if we took \emph{t =1}, we get the position of vertex \emph{B}. So to determine the position of the first subvertex on the line, we need to set \emph{t = 1/N}, where \emph{N} is the total number of subvertices. To determine the position of the second subvertex on the line, set \emph{t = 2 * 1/N}. In general, to find the \emph{n}'th subvertex position on the line, we can set
+Since the above mentioned algorithm finds the positions of the first vertex, necessary to connect, (which is letter \emph{A} in the parametric representation of the line) and the second one (lets mark its position as letter \emph{B}), we can find the direction vector \emph{b = B - A}. Now taking t from 0 to 1 we get the position of the subvertex, which is between \emph{A} and \emph{B}. In fact if we took \emph{t = 0}, from the parametric representation of the line we get the position of vertex \emph{A}, and if we took \emph{t =1}, we get the position of vertex \emph{B}. So to determine the position of the first subvertex on the line, we need to set \emph{t = $\frac{1}{N}$}, where \emph{N} is the total number of subvertices. To determine the position of the second subvertex on the line, set \emph{t = 2 * $\frac{1}{N}$}. In general, to find the \emph{n}'th subvertex position on the line, we can set
 
 \begin{center}
-t = n $\ast$ 1/N
+t = n $\ast$ $\frac{1}{N}$
 \end{center}
 
 
@@ -632,13 +632,13 @@ To calculate the position of subvertices after rotation, we apply our approach t
 Lets consider that we have \emph{N} vertices on the connecting line. The joint is being rotated by angle \emph{A}. Each vertex weight \emph{w} is being determined by its position on the connecting line:
 
 \begin{center}
-\emph{w} = P $\ast$ 1/N
+\emph{w} = P $\ast$ $\frac{1}{N}$
 \end{center}
 where P is the position on the connecting line.
 
-So the first vertex on the line has the weight \emph{w = 1 $\ast$ 1/N}, while the last vertex on the line has the weight \emph{w =  N $\ast$ 1/N = 1}.
+So the first vertex on the line has the weight \emph{w = 1 $\ast$ $\frac{1}{N}$}, while the last vertex on the line has the weight \emph{w =  N $\ast$ $\frac{1}{N}$ = 1}.
 
-Now, considering the angle each vertex has to be rotated, the first one is rotated by \emph{A $\ast$ 1 $\ast$ 1/N} degrees, while the last one is being rotated by \emph{A $\ast$ N $\ast$  1/N = A} degrees. After rotating all the subvertices, they are being connected to polygons.
+Now, considering the angle each vertex has to be rotated, the first one is rotated by \emph{A $\ast$ 1 $\ast$ $\frac{1}{N}$} degrees, while the last one is being rotated by \emph{A $\ast$ N $\ast$  $\frac{1}{N}$ = A} degrees. After rotating all the subvertices, they are being connected to polygons.
 
 \SubSection{Relation between our approach to linear blend skinning technique and the original implementation}
 \label{relation}
@@ -652,9 +652,9 @@ particular vertex \textbf{v}, $\emph{M}_{i}$ is the transformation matrix associ
 the $\emph{i}$th influence, and $D_{i}^{-1}$ is the inverse of the initial pose matrix
 associated with the $\emph{i}$th influence.
 
-Since our implementation of linear blend skinning technique has only one influence, the necessity of summing up the influences disappears. The weight \emph{w} = P $\ast$ 1/N as described in previous section \ref{Our_approach_to_linear_blend_skinning}. The transformation matrix \emph{M} is calculated by applying the quaternions technique (section \ref{Quaternions}). The $D_{i}^{-1}\textbf{v}_{d}$ part of the original formula is the same in our linear blend skinning approach, representing the position of \textbf{v$_{d}$} in the local coordinate frame. Below is the overall formula, illustrating our implementation of linear blend skinning technique.
+Since our implementation of linear blend skinning technique has only one influence, the necessity of summing up the influences disappears. The weight \emph{w} = P $\ast$ $\frac{1}{N}$ as described in previous section \ref{Our_approach_to_linear_blend_skinning}. The transformation matrix \emph{M} is calculated by applying the quaternions technique (section \ref{Quaternions}). The $D_{i}^{-1}\textbf{v}_{d}$ part of the original formula is the same in our linear blend skinning approach, representing the position of \textbf{v$_{d}$} in the local coordinate frame. Below is the overall formula, illustrating our implementation of linear blend skinning technique.
 \begin{center}
-$ \overline{\textbf{v}} = \emph{ P / N}MD^{-1}\textbf{v}_{d} $
+$ \overline{\textbf{v}} = \frac{P}{N}MD^{-1}\textbf{v}_{d} $
 \end{center}
 
 %-------------------------------------------------------------------------
@@ -692,7 +692,7 @@ During the rotations around Z, Y and X axes in a row, the linear blend skinning 
   \caption{Knee explosion sequence}
   \label{knee_explosion}
   \centering
-  \includegraphics[width=75mm]{images/s_knee_explosion.jpg}
+  \includegraphics[width=85mm]{images/s_knee_explosion.jpg}
 \end{figure}
 
 %-------------------------------------------------------------------------
@@ -700,7 +700,7 @@ During the rotations around Z, Y and X axes in a row, the linear blend skinning 
 
 During the implementation and testing of our linear blend skinning algorithm, only one-axis rotations were considered, which provided really promising results. It can be seen in figure \ref{knee_1axis}.
 
-\begin{figure}[H]
+\begin{figure}
   \caption{Knee rotation by 1 axis}
   \label{knee_1axis}
   \centering
