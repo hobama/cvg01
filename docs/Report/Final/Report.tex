@@ -191,7 +191,7 @@ The vector can be calculated as:
 
 \begin{description}
     \setlength{\itemsep}{0pt}
-    \item sin$_a$ = $\sqrt(1 - a \ast a)$;
+    \item sin$_a$ = $\sqrt{(1 - a \ast a)}$;
 \end{description}
 
 \begin{equation}
@@ -213,6 +213,7 @@ The vector can be calculated as:
 During our project work, we faced many problems concerning the usage of Eulerian angles. For example the necessity of doing three separate rotations instead of just one. This lead to the problem of "knee explosion" (section \ref{section_knee_explosion}), which is closely related to the previously mentioned problem of "gimbal lock".
 
 In the preceding section a detailed overview of quaternions was provided. Here we compare the mathematical calculations of quaternions with the Eulerian angles and reveal the drawbacks of the latter technique.
+
 Computer graphics mostly use the calculations of Eulerian angles as the representation of various transformations in 3D scene. This section only copes with rotations.
 
 Any 3D affine transformation can be represented as a 4x4 matrix R:
@@ -343,7 +344,7 @@ To solve the "gimbal lock" problem, the calculations of quaternions were introdu
     \item q3 = cos($\frac{\gamma}{2}$) + k$\ast$sin($\frac{\gamma}{2}$)
 \end{description}
 
-The corresponding multiplication of these quaternions (section about quaternions) provides quaternion q, which represents the sequence of rotations around Z, Y and X axes:
+The corresponding multiplication of these quaternions (\ref{Quaternions}) provides quaternion q, which represents the sequence of rotations around Z, Y and X axes:
 
 \begin{description}
     \setlength{\itemsep}{0pt}
@@ -354,7 +355,7 @@ The corresponding multiplication of these quaternions (section about quaternions
         \end{equation}
 \end{description}
 
-Taking the values $\alpha$ = 90$^{\circ}$, $\beta$ = 90$^{\circ}$, $\gamma$ = 90$^{\circ}$ and substituting them in \ref{eq_comparison_long} formula, we get:
+Taking the values $\alpha$ = 90$^{\circ}$, $\beta$ = 90$^{\circ}$, $\gamma$ = 90$^{\circ}$ and substituting them in (\ref{eq_comparison_long}) formula, we get:
 
 q = 0 + i * $\frac{\sqrt{2}}{2}$ + j * 0 + k * $\frac{\sqrt{2}}{2}$
 
