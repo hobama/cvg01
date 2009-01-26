@@ -14,6 +14,7 @@ float fovG=40;
 int oldMouseX, oldMouseY;
 CordSystem *cordSystem;
 Model *model;
+bool animate;
 //JointBuilder *jointBuilder;
 char *characterFile;
 void display()
@@ -32,16 +33,17 @@ void display()
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
 	
 	glPushMatrix();
-	cordSystem->draw();
+	//cordSystem->draw();
 	
 	float color[] = {1.0f, 1.0f, 0.0f};
 	glMaterialfv(GL_FRONT, GL_AMBIENT, color);
-	//static double oldTime=glutGet(GLUT_ELAPSED_TIME);
-//	double time=glutGet(GLUT_ELAPSED_TIME);
-//	if ((time - oldTime) > 100.0) {
-//		model->nextFrame();
-//		oldTime=time;
-//	}
+	static double oldTime=glutGet(GLUT_ELAPSED_TIME);
+	double time=glutGet(GLUT_ELAPSED_TIME);
+	if ((time - oldTime) > 33.0) {
+		if (animate)
+			model->nextFrame();
+		oldTime=time;
+	}
 	model->draw();
 	glPopMatrix();
 	glutSwapBuffers();
@@ -100,7 +102,10 @@ void keyPressed(unsigned char key, int x, int y)
 			viewPos[2]-= upVector[2]*motionFactor;
 			break;
 		case 'm':
-			model->nextFrame();
+			if (animate)
+				animate = false;
+			else
+				animate = true;
 			break;
 		case 'n':
 			// change fov heere
@@ -115,6 +120,7 @@ void keyPressed(unsigned char key, int x, int y)
 			glEnable(GL_LIGHT0);
 			break;
 	}
+	//cout <<viewPos[0]<<" "<<viewPos[1]<<" "<<viewPos[2]<<"     "<<viewDir[0]<<" "<<viewDir[1]<<" "<<viewDir[2]<<endl;
 	glutPostRedisplay();
 }
 
@@ -189,8 +195,8 @@ void init(int argc, char *argv[]) {
 				   /* aspect ratio */ 1.0,
 				   /* Z near */ 0.01, /* Z far */ 180.0);
 	
-	viewPos[0]=-50;  viewPos[1]=0;  viewPos[2]=0; 
-	viewDir[0]=11;  viewDir[1]= -0.5;  viewDir[2]=0.5;  
+	viewPos[0]=-21.32;  viewPos[1]=150.168;  viewPos[2]=-116.02; 
+	viewDir[0]=3.27;  viewDir[1]= -5.406;  viewDir[2]=9.03;  
 	
 	cordSystem = new CordSystem();
 	glPointSize(4.0);
@@ -222,6 +228,7 @@ void init(int argc, char *argv[]) {
 	
 }
 int main (int argc, char *argv[]) {
+	animate = false;
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	//glutInitWindowSize(640,480);	

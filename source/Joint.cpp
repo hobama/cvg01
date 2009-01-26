@@ -241,7 +241,7 @@ void Joint::updateFrame(int frameNumber) {
 void Joint::draw(bool drawMesh) {
 	glPushMatrix();
 	
-	if (meshConnection != NULL)
+	if (meshConnection != NULL && drawMesh)
 		meshConnection->draw(); 
 	
 	glTranslatef(x, y, z);

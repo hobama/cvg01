@@ -14,7 +14,7 @@ Model::Model(char *jointFileName, char *bvhFileName, char *meshDirectory) {
 	bvhReader->readData();
 	this->sequence = bvhReader->getSequence();
 	this->numberOfFrames = bvhReader->getFrameNumber();
-	this->currentFrame = 505; //505
+	this->currentFrame = 0; //505
 	this->numberOfBvhObjects = bvhReader->getObjectsNumber();
 	this->numberOfJoints = 0;	
 	this->meshDirectory = meshDirectory;
